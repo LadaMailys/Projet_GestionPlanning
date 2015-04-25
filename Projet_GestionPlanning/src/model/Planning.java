@@ -6,7 +6,7 @@
 package model;
 
 import java.util.ArrayList;
-import modele.Semaine;
+import model.Semaine;
 
 /**
  *
@@ -20,13 +20,13 @@ public class Planning {
     
     public Planning (ArrayList<Semaine>lesSemaines, Planning promotion, int annee){
         this.lesSemaines = lesSemaines;
-        this.laPromotion = laPromotion;
+        this.laPromotion = promotion;
         this.annee = annee;
     }
     public ArrayList getLesSemaines(){
         return lesSemaines;
     }
-    public void setLesSemaine (ArrayList<Semaine>lesSemaines){
+    public void setLesSemaine (ArrayList<Semaine> lesSemaines){
         this.lesSemaines= lesSemaines;
     }
     public Planning getLaPromotion(){
