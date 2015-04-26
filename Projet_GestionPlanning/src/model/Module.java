@@ -20,6 +20,9 @@ public class Module {
     private int duree;
     private ArrayList<Sceance> lesSceancesFaites;
     
+    // Constructeurs
+    public Module(){
+    }
     public Module (String nom, Color couleur, String abb, int nbSceanceTotal,int duree){
         this.nom = nom;
         this.couleur = couleur;

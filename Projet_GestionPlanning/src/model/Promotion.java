@@ -17,6 +17,9 @@ public class Promotion {
     private int duree;
     private ArrayList<Module> lesModules;
     
+    // Constructeurs
+    public Promotion(){
+    }
     public Promotion(String nom, int duree){
         this.nom = nom;
         this.duree = duree;

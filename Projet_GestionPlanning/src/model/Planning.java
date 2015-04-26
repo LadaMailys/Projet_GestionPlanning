@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -13,28 +14,30 @@ import java.util.ArrayList;
  */
 public class Planning {
     
-    private ArrayList<Semaine>lesSemaines;
-    private Planning laPromotion;
+    private HashMap<Integer,ArrayList<Jour>> lesSemaines;
+    private Promotion laPromotion;
     private int annee;
     
+    // Constructeurs
     public Planning(){
-    }
-    
-    public Planning (Planning promotion, int annee){
-        this.lesSemaines = new ArrayList<>();
+    }    
+    public Planning (Promotion promotion, int annee){
+        this.lesSemaines = new HashMap<>();
         this.laPromotion = promotion;
         this.annee = annee;
     }
-    public ArrayList getLesSemaines(){
-        return lesSemaines;
+    
+    public ArrayList<Jour> getLaSemaine(int rang){
+        return lesSemaines.get(rang);
     }
-    public void setLesSemaine (ArrayList<Semaine> lesSemaines){
-        this.lesSemaines= lesSemaines;
+    public void ajouteSemaine(int rang, ArrayList<Jour> jours){
+        this.lesSemaines.put(rang, jours);
     }
-    public Planning getLaPromotion(){
+    
+    public Promotion getLaPromotion(){
         return laPromotion;
     }
-    public void laPromotion(Planning laPromotion){
+    public void laPromotion(Promotion laPromotion){
         this.laPromotion = laPromotion;
     }
     public int getAnnee (){

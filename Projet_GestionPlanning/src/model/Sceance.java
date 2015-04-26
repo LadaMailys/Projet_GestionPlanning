@@ -13,6 +13,9 @@ public class Sceance {
     private Jour jourSceance;
     private Module leModule;
 
+    // Constructeurs
+    public Sceance(){
+    }
     public Sceance(Jour jour, Module mod) {
         this.jourSceance = jour;
         this.leModule = mod;

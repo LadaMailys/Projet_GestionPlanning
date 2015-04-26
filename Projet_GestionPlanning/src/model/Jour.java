@@ -17,27 +17,50 @@ public class Jour {
     private int mois;
     private int annee;
     private boolean ouvre;
+    private Sceance sceance;
 
+    // Constructeurs
+    public Jour(){
+    }
+    public Jour (int dateJour, int mois, int annee){
+        this.dateJour = dateJour;
+        this.mois = mois;
+        this.annee = annee;
+        sceance = null;
+    }
     public Jour(String jour, int dateJour, int mois, int annee) {
         this.jour = jour;
         this.dateJour = dateJour;
         this.mois = mois;
         this.annee = annee;
-        this.ouvre = this.jour.toUpperCase().equals("SAMEDI") || this.jour.toUpperCase().equals("DIMANCHE");
+        this.ouvre = this.jour.toUpperCase().equals("SATURDAY") || this.jour.toUpperCase().equals("SUNDAY");
+        sceance = null;
     }
 
+    /**
+     * Retourne M ou S
+     * M = Matin
+     * S = Soir
+     * @return 
+     */
     public char getMoment() {
         return moment;
     }
-
-    public void setMoment(char moment) {
-        this.moment = moment;
+    /**
+     * Change le moment en M ou S
+     * M = Matin
+     * S = Soir
+     */
+    public void setMoment() {
+        if (this.moment == 'M')
+            moment = 'S';
+        else
+            moment = 'M';
     }
 
     public String getJour() {
         return jour;
     }
-
     public void setJour(String jour) {
         this.jour = jour;
     }
@@ -70,7 +93,14 @@ public class Jour {
         return ouvre;
     }
 
-    public void setOuvre(boolean ouvre) {
-        this.ouvre = ouvre;
+    public void setOuvre() {
+        this.ouvre = !ouvre;
+    }
+    
+    public Sceance getSceance(){
+        return sceance;
+    }
+    public void setSceance(Sceance s){
+        sceance = s;
     }
 }
