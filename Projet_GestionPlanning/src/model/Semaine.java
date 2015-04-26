@@ -5,7 +5,6 @@
  */
 package model;
 
-import model.Jour;
 import java.util.ArrayList;
 
 /**
