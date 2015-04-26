@@ -4,9 +4,6 @@
  */
 package model;
 
-import model.Module;
-import model.Jour;
-
 /**
  *
  * @author jiani
