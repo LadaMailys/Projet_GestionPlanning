@@ -16,9 +16,9 @@ public class Semaine {
     private int rang;
     private ArrayList<Jour>lesJours;
     
-    public Semaine (int rang, ArrayList<Jour>lesJours){
+    public Semaine (int rang){
         this.rang = rang;
-        this.lesJours = lesJours;
+        this.lesJours = new ArrayList<>();
     }
     public int getRang(){
         return rang;

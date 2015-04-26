@@ -20,8 +20,8 @@ public class Planning {
     public Planning(){
     }
     
-    public Planning (ArrayList<Semaine>lesSemaines, Planning promotion, int annee){
-        this.lesSemaines = lesSemaines;
+    public Planning (Planning promotion, int annee){
+        this.lesSemaines = new ArrayList<>();
         this.laPromotion = promotion;
         this.annee = annee;
     }
