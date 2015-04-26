@@ -6,7 +6,6 @@
 package model;
 
 import java.util.ArrayList;
-import model.Semaine;
 
 /**
  *
@@ -17,6 +16,9 @@ public class Planning {
     private ArrayList<Semaine>lesSemaines;
     private Planning laPromotion;
     private int annee;
+    
+    public Planning(){
+    }
     
     public Planning (ArrayList<Semaine>lesSemaines, Planning promotion, int annee){
         this.lesSemaines = lesSemaines;
