@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import model.*;
 import view.*;
@@ -26,12 +27,22 @@ public class FrmPlanning extends javax.swing.JFrame {
         initComponents();
         annee = Calendar.getInstance().get(Calendar.YEAR);
         p = new Planning();
-        pnlPlanning = new PanelPlanning(p, 1);
+        //pnlPlanning = new PanelPlanning(p, 1);
+        
+        /* REMPLISSAGE ANNÉES */
         for (int i = annee; i <= annee + 10; i++) {
             jcbxAnnee.addItem(i + " / " + (i + 1));
         }
         
+        /* REMPLISSAGE SEMAINE PAR ANNÉES */
         
+        
+        /* REMPLISSAGE JOURS */
+        for (int i = 0; i <= 13; i++){  
+            Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+        }
+//Calendar.getInstance().get(Calendar.YEAR);
+        //javax.swing.JOptionPane.showMessageDialog(null,Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
     }
 
     /**
@@ -245,10 +256,10 @@ public class FrmPlanning extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnGaucheActionPerformed
 
     private void jcbxSemainesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbxSemainesActionPerformed
-        if(jcbxSemaines.getSelectedIndex() == 0 ){
+        if (jcbxSemaines.getSelectedIndex() == 0) {
             jbtnGauche.setEnabled(false);
             jbtnDroite.setEnabled(true);
-        } else if(jcbxSemaines.getSelectedIndex() == jcbxSemaines.getItemCount() -1 ) {
+        } else if (jcbxSemaines.getSelectedIndex() == jcbxSemaines.getItemCount() - 1) {
             jbtnGauche.setEnabled(true);
             jbtnDroite.setEnabled(false);
         } else {
@@ -292,7 +303,6 @@ public class FrmPlanning extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
