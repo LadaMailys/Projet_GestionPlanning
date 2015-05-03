@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import model.*;
 
@@ -17,6 +18,8 @@ public class PanelPlanning extends javax.swing.JPanel {
     ModeleTableau modele;
     Planning planning;
     int rang;
+    ArrayList<Jour> lesJMatin;
+    ArrayList<Jour> lesJSoir;
 
     /**
      * Creates new form PanelPlanning
@@ -29,6 +32,8 @@ public class PanelPlanning extends javax.swing.JPanel {
         initComponents();
         this.planning = p;
         this.rang = rangSemaineActive;
+        lesJMatin = p.getLaSemaineMatin(rang);        
+        lesJSoir = p.getLaSemaineSoir(rang);
     }
 
     /**
@@ -112,11 +117,10 @@ public class PanelPlanning extends javax.swing.JPanel {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Jour j = planning.getLaSemaine(rang).get(columnIndex);
             if (rowIndex == 0)
-                return planning.getLaSemaine(rang).get(columnIndex).getSceance().getLeModule().getNom();
+                return lesJMatin.get(columnIndex).getSceance().getLeModule().getNom();
             else if (rowIndex == 1)
-                return planning.getLaSemaine(rang).get(columnIndex + 7).getSceance().getLeModule().getNom();
+                return lesJSoir.get(columnIndex).getSceance().getLeModule().getNom();
             else
                 return "";
         }

@@ -14,7 +14,8 @@ import java.util.HashMap;
  */
 public class Planning {
     
-    private HashMap<Integer,ArrayList<Jour>> lesSemaines;
+    private HashMap<Integer,ArrayList<Jour>> lesSemainesMatin;
+    private HashMap<Integer,ArrayList<Jour>> lesSemainesSoir;
     private Promotion laPromotion;
     private int annee;
     
@@ -22,16 +23,22 @@ public class Planning {
     public Planning(){
     }    
     public Planning (Promotion promotion, int annee){
-        this.lesSemaines = new HashMap<>();
+        this.lesSemainesMatin = new HashMap<>();
+        this.lesSemainesSoir = new HashMap<>();
         this.laPromotion = promotion;
         this.annee = annee;
     }
     
-    public ArrayList<Jour> getLaSemaine(int rang){
-        return lesSemaines.get(rang);
+    public ArrayList<Jour> getLaSemaineMatin(int rang){
+        return lesSemainesMatin.get(rang);
     }
     public void ajouteSemaine(int rang, ArrayList<Jour> jours){
-        this.lesSemaines.put(rang, jours);
+        this.lesSemainesMatin.put(rang, jours);
+        this.lesSemainesSoir.put(rang, jours);
+    }
+    
+    public ArrayList<Jour> getLaSemaineSoir(int rang){
+        return lesSemainesSoir.get(rang);
     }
     
     public Promotion getLaPromotion(){
