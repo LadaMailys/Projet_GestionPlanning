@@ -25,11 +25,12 @@ public class FrmPlanning extends javax.swing.JFrame {
     public FrmPlanning() {
         initComponents();
         annee = Calendar.getInstance().get(Calendar.YEAR);
-        p = new Planning();
-        pnlPlanning = new PanelPlanning(p, 1);
+        p = new Planning(null, annee);
+        //pnlPlanning = new PanelPlanning(p, 1);
         for (int i = annee; i <= annee + 10; i++) {
             jcbxAnnee.addItem(i + " / " + (i + 1));
         }
+
     }
 
     /**
@@ -182,10 +183,11 @@ public class FrmPlanning extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jcbxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnQuitter, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbtnQuitter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jcbxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,9 +195,8 @@ public class FrmPlanning extends javax.swing.JFrame {
                     .addComponent(jbtnAjouter)
                     .addComponent(jbtnSupprimer)
                     .addComponent(jbtnModifier)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(jbtnExporter))
+                    .addComponent(jLabel3)
+                    .addComponent(jbtnExporter)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jbtnOuvrir, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jbtnSauvegarder)))
@@ -204,7 +205,7 @@ public class FrmPlanning extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jbtnDroite)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jcbxSemaines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jbtnGauche)))
                 .addContainerGap())
@@ -215,12 +216,13 @@ public class FrmPlanning extends javax.swing.JFrame {
 
     private void jcbxAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbxAnneeActionPerformed
         jcbxSemaines.removeAllItems();
-        String an = String.valueOf(jcbxAnnee.getSelectedItem());
-        for (int i = 9; i <= 12; i++) {
-            for (int j = 1; j <= 30; j += 7) {
-                jcbxSemaines.addItem("Du " + j + "/" + i + "/" + an.substring(0, 4) + " au " + (j + 6) + "/" + i + "/" + an.substring(0, 4));
-            }
+        String an = jcbxAnnee.getSelectedItem() + "";
+        p.setAnnee(Integer.parseInt(an.substring(0, 4)));
+        p.reinitCalendrier();
+        for (int i = 1; i <= p.getNbSemainesAnnee(); i++) {
+            jcbxSemaines.addItem("Du "+p.getLaSemaine(i).get(0) +" au "+p.getLaSemaine(i).get(6));
         }
+
 //javax.swing.JOptionPane.showMessageDialog(null,jcbxAnnee.getSelectedItem());
     }//GEN-LAST:event_jcbxAnneeActionPerformed
 
@@ -243,10 +245,10 @@ public class FrmPlanning extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnGaucheActionPerformed
 
     private void jcbxSemainesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbxSemainesActionPerformed
-        if(jcbxSemaines.getSelectedIndex() == 0 ){
+        if (jcbxSemaines.getSelectedIndex() == 0) {
             jbtnGauche.setEnabled(false);
             jbtnDroite.setEnabled(true);
-        } else if(jcbxSemaines.getSelectedIndex() == jcbxSemaines.getItemCount() -1 ) {
+        } else if (jcbxSemaines.getSelectedIndex() == jcbxSemaines.getItemCount() - 1) {
             jbtnGauche.setEnabled(true);
             jbtnDroite.setEnabled(false);
         } else {
