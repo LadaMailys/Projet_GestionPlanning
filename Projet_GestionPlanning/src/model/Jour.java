@@ -103,4 +103,9 @@ public class Jour {
     public void setSceance(Sceance s){
         sceance = s;
     }
+    
+    @Override
+    public String toString(){
+        return this.dateJour +"/"+this.mois+"/"+this.annee;
+    }
 }
