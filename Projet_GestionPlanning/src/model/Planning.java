@@ -61,6 +61,14 @@ public class Planning {
     }
 
     /**
+     * Réinitialise le HashMap lesSemaines<int rang, ArrayList<Jour>> lesJours
+     */
+    public final void reinitCalendrier(){
+        this.lesSemaines.clear();
+        remplirCalendrier();
+    }
+    
+    /**
      * Méthode qui remplit automatiquement le HashMap lesSemaines<int rang, ArrayList<Jour>> lesJours
      * à partir de l'année du planning
      */
