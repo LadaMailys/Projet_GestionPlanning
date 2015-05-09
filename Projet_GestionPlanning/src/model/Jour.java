@@ -11,7 +11,6 @@ package model;
  */
 public class Jour {
 
-    private char moment;
     private String jour;
     private int dateJour;
     private int mois;
@@ -33,30 +32,10 @@ public class Jour {
         this.dateJour = dateJour;
         this.mois = mois;
         this.annee = annee;
-        this.ouvre = this.jour.toUpperCase().equals("SATURDAY") || this.jour.toUpperCase().equals("SUNDAY");
+        this.ouvre = !this.jour.toUpperCase().equals("SAMEDI") && !this.jour.toUpperCase().equals("DIMANCHE");
         sceance = null;
     }
 
-    /**
-     * Retourne M ou S
-     * M = Matin
-     * S = Soir
-     * @return 
-     */
-    public char getMoment() {
-        return moment;
-    }
-    /**
-     * Change le moment en M ou S
-     * M = Matin
-     * S = Soir
-     */
-    public void setMoment() {
-        if (this.moment == 'M')
-            moment = 'S';
-        else
-            moment = 'M';
-    }
 
     public String getJour() {
         return jour;
