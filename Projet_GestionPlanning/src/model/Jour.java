@@ -82,6 +82,9 @@ public class Jour {
     public void setSceance(Sceance s){
         sceance = s;
     }
+    public void ajouteSceance(Module mod){
+        sceance = new Sceance(this,mod);
+    }
     
     @Override
     public String toString(){
