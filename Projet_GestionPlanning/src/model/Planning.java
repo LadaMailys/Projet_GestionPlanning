@@ -74,6 +74,7 @@ public class Planning {
      */
     public final void remplirCalendrier() {
         try {
+            
             ArrayList<Jour> lesJours = null;
             Calendar calDeb = Calendar.getInstance();
             Calendar calFin = Calendar.getInstance();
