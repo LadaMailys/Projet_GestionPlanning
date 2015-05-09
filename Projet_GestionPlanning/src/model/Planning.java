@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class Planning {
         return lesSemainesSoir.get(rang);
     }
 
-    public void ajouteSemaine(int rang, ArrayList<Jour> jours) {
+    private void ajouteSemaine(int rang, ArrayList<Jour> jours) {
         this.lesSemainesMatin.put(rang, jours);
         this.lesSemainesSoir.put(rang, jours);
     }
@@ -93,13 +94,13 @@ public class Planning {
             Jour j;
             int compt = -1;
             for (int i = 1; i <= nbJours; i++) {
-                
-                // Création du Jour j avec les données du Calendrier cal
-                j = new Jour(rangJourToString(calDeb.get(Calendar.DAY_OF_WEEK)), 
-                        calDeb.get(Calendar.DAY_OF_MONTH), 
-                        calDeb.get(Calendar.MONTH) + 1, 
-                        calDeb.get(Calendar.YEAR));
 
+                // Création du Jour j avec les données du Calendrier cal
+                j = new Jour(rangJourToString(calDeb.get(Calendar.DAY_OF_WEEK)),
+                        calDeb.get(Calendar.DAY_OF_MONTH),
+                        calDeb.get(Calendar.MONTH) + 1,
+                        calDeb.get(Calendar.YEAR));
+                
                 // On remplit la liste à partir de lundi
                 if (j.getJour().equals("Lundi")) {
                     lesJours = new ArrayList<>();
@@ -131,8 +132,8 @@ public class Planning {
     }
 
     /**
-     * Retourne le jour de la semaine en toute lettre
-     * selon le rang donné
+     * Retourne le jour de la semaine en toute lettre selon le rang donné
+     *
      * @param rang
      * @return String
      */
