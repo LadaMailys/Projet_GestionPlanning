@@ -5,7 +5,9 @@
  */
 package controller;
 
+import java.awt.Color;
 import java.util.Calendar;
+import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 import model.*;
 
@@ -41,13 +43,11 @@ public class FrmPlanning extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jLabel1 = new javax.swing.JLabel();
         jcbxAnnee = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jbtnAjouter = new javax.swing.JButton();
-        jbtnSupprimer = new javax.swing.JButton();
-        jbtnModifier = new javax.swing.JButton();
         jLblRangSem = new javax.swing.JLabel();
         jLblPlageSem = new javax.swing.JLabel();
         jbtnSauvegarder = new javax.swing.JButton();
@@ -57,6 +57,13 @@ public class FrmPlanning extends javax.swing.JFrame {
         jbtnGauche = new javax.swing.JButton();
         jbtnExporter = new javax.swing.JButton();
         jbtnQuitter = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -73,20 +80,6 @@ public class FrmPlanning extends javax.swing.JFrame {
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setRowHeight(150);
         jScrollPane1.setViewportView(jTable1);
-
-        jbtnAjouter.setBackground(new java.awt.Color(255, 255, 255));
-        jbtnAjouter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ajouter.PNG"))); // NOI18N
-        jbtnAjouter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnAjouterActionPerformed(evt);
-            }
-        });
-
-        jbtnSupprimer.setBackground(new java.awt.Color(255, 255, 255));
-        jbtnSupprimer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Supprimer.PNG"))); // NOI18N
-
-        jbtnModifier.setBackground(new java.awt.Color(255, 255, 255));
-        jbtnModifier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Modifier.PNG"))); // NOI18N
 
         jLblRangSem.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLblRangSem.setText("Semaine 1");
@@ -130,29 +123,47 @@ public class FrmPlanning extends javax.swing.JFrame {
             }
         });
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ajouter.PNG"))); // NOI18N
+        jMenu1.setText("Ajouter");
+
+        jMenuItem1.setText("Formation");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Module");
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Scéance");
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Supprimer.PNG"))); // NOI18N
+        jMenu2.setText("Supprimer");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Modifier.PNG"))); // NOI18N
+        jMenu3.setText("Modifier");
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcbxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 267, Short.MAX_VALUE))
+                        .addComponent(jcbxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbtnAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95)
-                        .addComponent(jLblPlageSem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbtnExporter, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(326, 326, 326)
+                        .addComponent(jLblPlageSem)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 471, Short.MAX_VALUE)
+                .addComponent(jbtnExporter, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -171,7 +182,7 @@ public class FrmPlanning extends javax.swing.JFrame {
                 .addComponent(jbtnDroite, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
-                .addGap(215, 215, 215)
+                .addGap(357, 357, 357)
                 .addComponent(jLblRangSem)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -188,9 +199,6 @@ public class FrmPlanning extends javax.swing.JFrame {
                 .addComponent(jLblRangSem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtnAjouter)
-                    .addComponent(jbtnSupprimer)
-                    .addComponent(jbtnModifier)
                     .addComponent(jLblPlageSem)
                     .addComponent(jbtnExporter)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,10 +264,6 @@ public class FrmPlanning extends javax.swing.JFrame {
         jLblRangSem.setText("Semaine " + (jcbxSemaines.getSelectedIndex()+1));
     }//GEN-LAST:event_jcbxSemainesActionPerformed
 
-    private void jbtnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAjouterActionPerformed
-        // TODO add your handling code here: 
-    }//GEN-LAST:event_jbtnAjouterActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -300,17 +304,22 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLblPlageSem;
     private javax.swing.JLabel jLblRangSem;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JButton jbtnAjouter;
     private javax.swing.JButton jbtnDroite;
     private javax.swing.JButton jbtnExporter;
     private javax.swing.JButton jbtnGauche;
-    private javax.swing.JButton jbtnModifier;
     private javax.swing.JButton jbtnOuvrir;
     private javax.swing.JButton jbtnQuitter;
     private javax.swing.JButton jbtnSauvegarder;
-    private javax.swing.JButton jbtnSupprimer;
     private javax.swing.JComboBox jcbxAnnee;
     private javax.swing.JComboBox jcbxSemaines;
     // End of variables declaration//GEN-END:variables
