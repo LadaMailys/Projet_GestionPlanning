@@ -89,9 +89,19 @@ public class FrmPlanning extends javax.swing.JFrame {
 
         jbtnSauvegarder.setBackground(new java.awt.Color(255, 255, 255));
         jbtnSauvegarder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Sauvegarder.PNG"))); // NOI18N
+        jbtnSauvegarder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSauvegarderActionPerformed(evt);
+            }
+        });
 
         jbtnOuvrir.setBackground(new java.awt.Color(255, 255, 255));
         jbtnOuvrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ouvrir.PNG"))); // NOI18N
+        jbtnOuvrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnOuvrirActionPerformed(evt);
+            }
+        });
 
         jbtnDroite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Droite.PNG"))); // NOI18N
         jbtnDroite.addActionListener(new java.awt.event.ActionListener() {
@@ -263,6 +273,16 @@ public class FrmPlanning extends javax.swing.JFrame {
         jLblPlageSem.setText(jcbxSemaines.getSelectedItem()+"");
         jLblRangSem.setText("Semaine " + (jcbxSemaines.getSelectedIndex()+1));
     }//GEN-LAST:event_jcbxSemainesActionPerformed
+
+    private void jbtnSauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSauvegarderActionPerformed
+        // TODO add your handling code here:
+        Planning.serialiser(p);
+    }//GEN-LAST:event_jbtnSauvegarderActionPerformed
+
+    private void jbtnOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOuvrirActionPerformed
+        // TODO add your handling code here:
+        this.p = Planning.deserialiser();
+    }//GEN-LAST:event_jbtnOuvrirActionPerformed
 
     /**
      * @param args the command line arguments

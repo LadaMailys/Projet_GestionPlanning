@@ -221,6 +221,9 @@
           <Image iconType="3" name="/tools/Sauvegarder.PNG"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnSauvegarderActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtnOuvrir">
       <Properties>
@@ -231,6 +234,9 @@
           <Image iconType="3" name="/tools/Ouvrir.PNG"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnOuvrirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtnDroite">
       <Properties>
