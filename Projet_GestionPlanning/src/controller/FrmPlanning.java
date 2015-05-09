@@ -5,11 +5,10 @@
  */
 package controller;
 
-import java.awt.Color;
 import java.util.Calendar;
-import javax.swing.JButton;
 import javax.swing.table.AbstractTableModel;
 import model.*;
+import view.*;
 
 /**
  *
@@ -25,13 +24,15 @@ public class FrmPlanning extends javax.swing.JFrame {
      * Creates new form FrmPlanning
      */
     public FrmPlanning() {
-        p = new Planning(null, annee);
+        Promotion promo = new Promotion("Licence",200);
+        p = new Planning(promo, annee);
         modele = new ModeleTableau();
         initComponents();
         annee = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = annee; i <= annee + 10; i++) {
             jcbxAnnee.addItem(i + " / " + (i + 1));
         }
+        jLblPromo.setText(promo.getNom());
     }
 
     /**
@@ -57,6 +58,8 @@ public class FrmPlanning extends javax.swing.JFrame {
         jbtnGauche = new javax.swing.JButton();
         jbtnExporter = new javax.swing.JButton();
         jbtnQuitter = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLblPromo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -123,6 +126,11 @@ public class FrmPlanning extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Promotion :");
+
+        jLblPromo.setText("jLabel3");
+
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ajouter.PNG"))); // NOI18N
         jMenu1.setText("Ajouter");
 
@@ -130,6 +138,11 @@ public class FrmPlanning extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Module");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setText("Scéance");
@@ -182,7 +195,11 @@ public class FrmPlanning extends javax.swing.JFrame {
                 .addComponent(jbtnDroite, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
-                .addGap(357, 357, 357)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLblPromo)
+                .addGap(235, 235, 235)
                 .addComponent(jLblRangSem)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -196,7 +213,10 @@ public class FrmPlanning extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addComponent(jcbxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLblRangSem)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLblRangSem)
+                    .addComponent(jLabel2)
+                    .addComponent(jLblPromo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLblPlageSem)
@@ -264,6 +284,12 @@ public class FrmPlanning extends javax.swing.JFrame {
         jLblRangSem.setText("Semaine " + (jcbxSemaines.getSelectedIndex()+1));
     }//GEN-LAST:event_jcbxSemainesActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        FrmAjouteModule frm = new FrmAjouteModule();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -302,7 +328,9 @@ public class FrmPlanning extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLblPlageSem;
+    private javax.swing.JLabel jLblPromo;
     private javax.swing.JLabel jLblRangSem;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
