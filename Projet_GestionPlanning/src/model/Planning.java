@@ -6,6 +6,12 @@
 package model;
 
 import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -15,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Maïlys
  */
-public class Planning {
+public class Planning implements Serializable{
 
     private HashMap<Integer, ArrayList<Jour>> lesSemainesMatin;
     private HashMap<Integer, ArrayList<Jour>> lesSemainesSoir;
@@ -100,7 +106,7 @@ public class Planning {
                         calDeb.get(Calendar.DAY_OF_MONTH),
                         calDeb.get(Calendar.MONTH) + 1,
                         calDeb.get(Calendar.YEAR));
-                
+
                 // On remplit la liste à partir de lundi
                 if (j.getJour().equals("Lundi")) {
                     lesJours = new ArrayList<>();
@@ -156,5 +162,35 @@ public class Planning {
             default:
                 return "";
         }
+    }
+
+    public static void serialiser(Planning p) {
+        try {
+            FileOutputStream fout = new FileOutputStream("auth.bin");
+            ObjectOutputStream oout = new ObjectOutputStream(fout);
+            oout.writeObject(p);
+            System.out.println("Le planning a été serialisé");
+            oout.close();
+            fout.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    public static Planning deserialiser() {
+        Planning p = null;
+        try {
+            FileInputStream fin = new FileInputStream("auth.bin");
+            ObjectInputStream oin = new ObjectInputStream(fin);
+            p = (Planning) oin.readObject();
+            System.out.println("Le planning a été deserialise");
+            oin.close();
+            fin.close();
+        } catch (ClassNotFoundException nfe) {
+            nfe.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return p;
     }
 }
