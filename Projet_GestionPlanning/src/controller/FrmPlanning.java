@@ -6,8 +6,8 @@
 package controller;
 
 import java.util.Calendar;
+import javax.swing.table.AbstractTableModel;
 import model.*;
-import view.*;
 
 /**
  *
@@ -15,22 +15,21 @@ import view.*;
  */
 public class FrmPlanning extends javax.swing.JFrame {
 
-    PanelPlanning pnlPlanning;
     Planning p;
     int annee;
+    ModeleTableau modele;
 
     /**
      * Creates new form FrmPlanning
      */
     public FrmPlanning() {
+        p = new Planning(null, annee);
+        modele = new ModeleTableau();
         initComponents();
         annee = Calendar.getInstance().get(Calendar.YEAR);
-        p = new Planning(null, annee);
-        //pnlPlanning = new PanelPlanning(p, 1);
         for (int i = annee; i <= annee + 10; i++) {
             jcbxAnnee.addItem(i + " / " + (i + 1));
         }
-
     }
 
     /**
@@ -49,8 +48,8 @@ public class FrmPlanning extends javax.swing.JFrame {
         jbtnAjouter = new javax.swing.JButton();
         jbtnSupprimer = new javax.swing.JButton();
         jbtnModifier = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLblRangSem = new javax.swing.JLabel();
+        jLblPlageSem = new javax.swing.JLabel();
         jbtnSauvegarder = new javax.swing.JButton();
         jbtnOuvrir = new javax.swing.JButton();
         jbtnDroite = new javax.swing.JButton();
@@ -70,21 +69,18 @@ public class FrmPlanning extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Anglais", "Java IHM", "<html>Comptabilité de <br/>gestion</html>", "<html>Théorie des <br/>graphes</html>", "<html>Processus <br/>stochastiques</html>", null, null},
-                {"Francais", "<html>Base de<br/>données</p>", "Analyse financière", "<html>Théorie des<br/> organisations</html>", "Statistiques", null, null}
-            },
-            new String [] {
-                "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"
-            }
-        ));
+        jTable1.setModel(modele);
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setRowHeight(150);
         jScrollPane1.setViewportView(jTable1);
 
         jbtnAjouter.setBackground(new java.awt.Color(255, 255, 255));
         jbtnAjouter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ajouter.PNG"))); // NOI18N
+        jbtnAjouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnAjouterActionPerformed(evt);
+            }
+        });
 
         jbtnSupprimer.setBackground(new java.awt.Color(255, 255, 255));
         jbtnSupprimer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Supprimer.PNG"))); // NOI18N
@@ -92,11 +88,11 @@ public class FrmPlanning extends javax.swing.JFrame {
         jbtnModifier.setBackground(new java.awt.Color(255, 255, 255));
         jbtnModifier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Modifier.PNG"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("Semaine 1");
+        jLblRangSem.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLblRangSem.setText("Semaine 1");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("du 01/09/2015 au 30/07/2016");
+        jLblPlageSem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLblPlageSem.setText("du 01/09/2015 au 30/07/2016");
 
         jbtnSauvegarder.setBackground(new java.awt.Color(255, 255, 255));
         jbtnSauvegarder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Sauvegarder.PNG"))); // NOI18N
@@ -154,7 +150,7 @@ public class FrmPlanning extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtnModifier, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(95, 95, 95)
-                        .addComponent(jLabel3)
+                        .addComponent(jLblPlageSem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbtnExporter, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -176,7 +172,7 @@ public class FrmPlanning extends javax.swing.JFrame {
                 .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
                 .addGap(215, 215, 215)
-                .addComponent(jLabel2)
+                .addComponent(jLblRangSem)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -189,13 +185,13 @@ public class FrmPlanning extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addComponent(jcbxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(jLblRangSem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbtnAjouter)
                     .addComponent(jbtnSupprimer)
                     .addComponent(jbtnModifier)
-                    .addComponent(jLabel3)
+                    .addComponent(jLblPlageSem)
                     .addComponent(jbtnExporter)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jbtnOuvrir, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -220,8 +216,9 @@ public class FrmPlanning extends javax.swing.JFrame {
         p.setAnnee(Integer.parseInt(an.substring(0, 4)));
         p.reinitCalendrier();
         for (int i = 1; i <= p.getNbSemainesAnnee(); i++) {
-            jcbxSemaines.addItem("Du "+p.getLaSemaine(i).get(0) +" au "+p.getLaSemaine(i).get(6));
+            jcbxSemaines.addItem("Du " + p.getLaSemaineMatin(i).get(0) + " au " + p.getLaSemaineMatin(i).get(6));
         }
+        
 
 //javax.swing.JOptionPane.showMessageDialog(null,jcbxAnnee.getSelectedItem());
     }//GEN-LAST:event_jcbxAnneeActionPerformed
@@ -255,7 +252,13 @@ public class FrmPlanning extends javax.swing.JFrame {
             jbtnGauche.setEnabled(true);
             jbtnDroite.setEnabled(true);
         }
+        jLblPlageSem.setText(jcbxSemaines.getSelectedItem()+"");
+        jLblRangSem.setText("Semaine " + (jcbxSemaines.getSelectedIndex()+1));
     }//GEN-LAST:event_jcbxSemainesActionPerformed
+
+    private void jbtnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAjouterActionPerformed
+        // TODO add your handling code here: 
+    }//GEN-LAST:event_jbtnAjouterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,8 +298,8 @@ public class FrmPlanning extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLblPlageSem;
+    private javax.swing.JLabel jLblRangSem;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtnAjouter;
@@ -311,4 +314,69 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JComboBox jcbxAnnee;
     private javax.swing.JComboBox jcbxSemaines;
     // End of variables declaration//GEN-END:variables
+private class ModeleTableau extends AbstractTableModel {
+
+        @Override
+        public int getRowCount() {
+            return 2;
+        }
+
+        @Override
+        public String getColumnName(int columnIndex) {
+            switch (columnIndex) {
+                case 0:
+                    return "Lundi";
+                case 1:
+                    return "Mardin";
+                case 2:
+                    return "Mercredi";
+                case 3:
+                    return "Jeudi";
+                case 4:
+                    return "Vendredi";
+                case 5:
+                    return "Samedi";
+                case 6:
+                    return "Dimanche";
+                default:
+                    return "";
+            }
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 7;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Jour jAM = p.getLaSemaineMatin(jcbxSemaines.getSelectedIndex()+1).get(columnIndex);
+            Jour jPM = p.getLaSemaineSoir(jcbxSemaines.getSelectedIndex()+1).get(columnIndex);
+            
+            if (rowIndex == 0) {
+                if (jAM.isOuvre()){
+                    if (jAM.getSceance() != null){
+                        return jAM.getSceance().getLeModule().getNom();
+                    } else {
+                        return "Créer une scéance";
+                    }
+                } else {
+                    return "Ne peut accueillir de scéance";
+                }
+                
+            } else if (rowIndex == 1) {
+                if (jPM.isOuvre()){
+                    if (jPM.getSceance() != null){
+                        return jPM.getSceance().getLeModule().getNom();
+                    } else {
+                        return "Créer une scéance";
+                    }
+                } else {
+                    return "Ne peut accueillir de scéance";
+                }
+            } else {
+                return "";
+            }
+        }
+    }
 }
