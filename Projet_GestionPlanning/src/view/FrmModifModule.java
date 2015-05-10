@@ -3,19 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package view;
+
+import model.*;
 
 /**
  *
- * @author u21406901
+ * @author Cynthia
  */
-public class FormModificationModule extends javax.swing.JPanel {
+public class FrmModifModule extends javax.swing.JFrame {
+    
+    static Planning p;  
+    Module m;
 
     /**
-     * Creates new form FormModificationModule
+     * Creates new form FrmModifModule
+     * @param planning
      */
-    public FormModificationModule() {
+    public FrmModifModule(Planning planning) {
+        FrmModifModule.p = planning;
         initComponents();
+        jPnlAction.setVisible(false);
+        this.setSize(300, 150);
+        for (Module mod : p.getLaPromotion().getLesModules()){
+            jCbxModules.addItem(mod.getNom());
+        }
+        jCbxModules.setSelectedIndex(-1);
     }
 
     /**
@@ -28,117 +42,242 @@ public class FormModificationModule extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        nouvelleAbb = new java.awt.TextField();
-        nouveauNbSeances = new java.awt.TextField();
+        jCbxModules = new javax.swing.JComboBox();
+        jPnlAction = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        nouvelleCouleur = new javax.swing.JColorChooser();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        jColor = new javax.swing.JColorChooser();
+        jBtnModif = new javax.swing.JButton();
+        jBtnSuppr = new javax.swing.JButton();
+        jTxtNom = new javax.swing.JTextField();
+        jTxtAbbr = new javax.swing.JTextField();
+        jTxtNbSceance = new javax.swing.JTextField();
+        jTxtDuree = new javax.swing.JTextField();
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Modification d' un module.");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestion d'un module");
 
-        nouvelleAbb.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Choisir le module");
+
+        jCbxModules.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nouvelleAbbActionPerformed(evt);
+                jCbxModulesActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Sélectionner le module à modifier:");
+        jLabel2.setText("Nom");
 
-        jLabel3.setText("Abbréviation:");
+        jLabel3.setText("Abbréviation");
 
-        jLabel4.setText("Sélectionner la couleur:");
+        jLabel4.setText("Nombre de scéances du module");
 
-        jLabel5.setText("Nombre de séances:");
+        jLabel5.setText("Durée du module");
 
-        jButton1.setText("Enregistrer");
+        jLabel6.setText("Modifier la couleur");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jBtnModif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Modifier.PNG"))); // NOI18N
+        jBtnModif.setText("Modifier");
+        jBtnModif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnModifActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jBtnSuppr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Supprimer.PNG"))); // NOI18N
+        jBtnSuppr.setText("Supprimer");
+        jBtnSuppr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSupprActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPnlActionLayout = new javax.swing.GroupLayout(jPnlAction);
+        jPnlAction.setLayout(jPnlActionLayout);
+        jPnlActionLayout.setHorizontalGroup(
+            jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPnlActionLayout.createSequentialGroup()
+                .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPnlActionLayout.createSequentialGroup()
+                        .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPnlActionLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addGroup(jPnlActionLayout.createSequentialGroup()
+                                        .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPnlActionLayout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTxtNom))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPnlActionLayout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jTxtNbSceance, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel3))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTxtAbbr, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                                            .addComponent(jTxtDuree)))))
+                            .addGroup(jPnlActionLayout.createSequentialGroup()
+                                .addGap(120, 120, 120)
+                                .addComponent(jBtnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(84, 84, 84)
+                                .addComponent(jBtnSuppr, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jColor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPnlActionLayout.setVerticalGroup(
+            jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPnlActionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTxtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTxtAbbr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtNbSceance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTxtDuree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnSuppr, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPnlAction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nouvelleAbb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, 104, Short.MAX_VALUE)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton1)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(24, 24, 24)
-                                    .addComponent(nouveauNbSeances, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(nouvelleCouleur, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jLabel1)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(26, 26, 26)
+                        .addComponent(jCbxModules, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jCbxModules, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nouvelleAbb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nouvelleCouleur, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nouveauNbSeances, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addComponent(jPnlAction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nouvelleAbbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouvelleAbbActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nouvelleAbbActionPerformed
+    private void jCbxModulesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbxModulesActionPerformed
+        if (jCbxModules.getSelectedIndex() == -1){
+            jPnlAction.setVisible(false);
+            this.setSize(300,150);
+        }
+        
+        if(jCbxModules.getSelectedIndex() > -1){
+            jPnlAction.setVisible(true);
+            this.setSize(700, 700);
+            for(Module mod : p.getLaPromotion().getLesModules()){
+                if (mod.getNom() == jCbxModules.getSelectedItem()){
+                    this.m = mod;
+                }
+            }
+            
+            jTxtNom.setText(m.getNom());
+            jTxtAbbr.setText(m.getAbbreviation());
+            jTxtNbSceance.setText(m.getNbSceanceTotal()+"");
+            jTxtDuree.setText(m.getDuree()+"");
+            jColor.setColor(m.getCouleur());
+        } 
+    }//GEN-LAST:event_jCbxModulesActionPerformed
 
+    private void jBtnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModifActionPerformed
+        // La variable locale Module m contient le module a modifier/supprimer        
+        // Parcourir la liste des modules de p.getLaFormation.getLesModules()
+        // Vérifier si il y a des valeurs communes (jTxtNom.getText() == mod.getNom() )
+        // Si des valeurs sont en commun -> ajouter cette valeur dans une variable String msgErr
+        //                               -> a la fin du parcours de la liste, afficher msgErr
+        // Sinon -> Récupérer l'index du module à modifier de la liste getLesModules() (indexOf)
+        //       -> Modifier les valeurs du module (setNom, setCouleur,set...)
+        //       -> Remplacer le module de la liste par le nouveau module (set(index,objet))
+    }//GEN-LAST:event_jBtnModifActionPerformed
+
+    private void jBtnSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSupprActionPerformed
+        //La variable locale Module m contient le module a modifier/supprimer
+        // Retirer le module m de la liste p.getLaFormation.getLesModules()
+    }//GEN-LAST:event_jBtnSupprActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FrmModifModule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FrmModifModule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FrmModifModule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FrmModifModule.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new FrmModifModule(p).setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jBtnModif;
+    private javax.swing.JButton jBtnSuppr;
+    private javax.swing.JComboBox jCbxModules;
+    private javax.swing.JColorChooser jColor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private java.awt.TextField nouveauNbSeances;
-    private java.awt.TextField nouvelleAbb;
-    private javax.swing.JColorChooser nouvelleCouleur;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPnlAction;
+    private javax.swing.JTextField jTxtAbbr;
+    private javax.swing.JTextField jTxtDuree;
+    private javax.swing.JTextField jTxtNbSceance;
+    private javax.swing.JTextField jTxtNom;
     // End of variables declaration//GEN-END:variables
 }
