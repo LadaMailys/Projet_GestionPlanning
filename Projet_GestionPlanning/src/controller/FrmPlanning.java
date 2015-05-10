@@ -8,7 +8,8 @@ package controller;
 import java.util.Calendar;
 import javax.swing.table.AbstractTableModel;
 import model.*;
-import view.*;
+import view.FrmAjoutModule;
+import view.FrmModifModule;
 
 /**
  *
@@ -19,12 +20,14 @@ public class FrmPlanning extends javax.swing.JFrame {
     Planning p;
     int annee;
     ModeleTableau modele;
+    String titreForm;
 
     /**
      * Creates new form FrmPlanning
      */
     public FrmPlanning() {
-        Promotion promo = new Promotion("Licence",200);
+        titreForm = "Bienvenue dans le gestionnaire de planning";
+        Promotion promo = new Promotion("Licence 3 - Formation Initiale",200);
         p = new Planning(promo, annee);
         modele = new ModeleTableau();
         initComponents();
@@ -33,6 +36,8 @@ public class FrmPlanning extends javax.swing.JFrame {
             jcbxAnnee.addItem(i + " / " + (i + 1));
         }
         jLblPromo.setText(promo.getNom());
+        titreForm += " - " + p.getLaPromotion().getNom() + " " + p.getAnnee();
+        this.setTitle(titreForm);
     }
 
     /**
@@ -62,11 +67,13 @@ public class FrmPlanning extends javax.swing.JFrame {
         jLblPromo = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuAjoutFormation = new javax.swing.JMenuItem();
+        jMenuAjoutModule = new javax.swing.JMenuItem();
+        jMenuAjoutSceance = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        jMenuModifFormation = new javax.swing.JMenuItem();
+        jMenuModifModule = new javax.swing.JMenuItem();
+        jMenuModifSceance = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -144,28 +151,44 @@ public class FrmPlanning extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ajouter.PNG"))); // NOI18N
         jMenu1.setText("Ajouter");
 
-        jMenuItem1.setText("Formation");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("Module");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuAjoutFormation.setText("Formation");
+        jMenuAjoutFormation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuAjoutFormationActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(jMenuAjoutFormation);
 
-        jMenuItem3.setText("Scéance");
-        jMenu1.add(jMenuItem3);
+        jMenuAjoutModule.setText("Module");
+        jMenuAjoutModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAjoutModuleActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuAjoutModule);
+
+        jMenuAjoutSceance.setText("Scéance");
+        jMenu1.add(jMenuAjoutSceance);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Supprimer.PNG"))); // NOI18N
-        jMenu2.setText("Supprimer");
-        jMenuBar1.add(jMenu2);
-
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Modifier.PNG"))); // NOI18N
-        jMenu3.setText("Modifier");
+        jMenu3.setText("Modifier / Supprimer");
+
+        jMenuModifFormation.setText("Formation");
+        jMenu3.add(jMenuModifFormation);
+
+        jMenuModifModule.setText("Module");
+        jMenuModifModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuModifModuleActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuModifModule);
+
+        jMenuModifSceance.setText("Scéance");
+        jMenu3.add(jMenuModifSceance);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -304,6 +327,20 @@ public class FrmPlanning extends javax.swing.JFrame {
         this.p = Planning.deserialiser();
     }//GEN-LAST:event_jbtnOuvrirActionPerformed
 
+    private void jMenuAjoutFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAjoutFormationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuAjoutFormationActionPerformed
+
+    private void jMenuModifModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuModifModuleActionPerformed
+        // TODO add your handling code here:
+        FrmModifModule frmModifMod = new FrmModifModule();
+        frmModifMod.setVisible(true);
+    }//GEN-LAST:event_jMenuModifModuleActionPerformed
+
+    private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt){
+        FrmAjoutModule frmAjMod = new FrmAjoutModule();
+        frmAjMod.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -347,12 +384,14 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JLabel jLblPromo;
     private javax.swing.JLabel jLblRangSem;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuItem jMenuAjoutFormation;
+    private javax.swing.JMenuItem jMenuAjoutModule;
+    private javax.swing.JMenuItem jMenuAjoutSceance;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuModifFormation;
+    private javax.swing.JMenuItem jMenuModifModule;
+    private javax.swing.JMenuItem jMenuModifSceance;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
