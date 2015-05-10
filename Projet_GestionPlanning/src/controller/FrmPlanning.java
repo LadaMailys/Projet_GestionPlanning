@@ -333,12 +333,12 @@ public class FrmPlanning extends javax.swing.JFrame {
 
     private void jMenuModifModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuModifModuleActionPerformed
         // TODO add your handling code here:
-        FrmModifModule frmModifMod = new FrmModifModule();
+        FrmModifModule frmModifMod = new FrmModifModule(p);
         frmModifMod.setVisible(true);
     }//GEN-LAST:event_jMenuModifModuleActionPerformed
 
     private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt){
-        FrmAjoutModule frmAjMod = new FrmAjoutModule();
+        FrmAjoutModule frmAjMod = new FrmAjoutModule(p);
         frmAjMod.setVisible(true);
     }
     /**
