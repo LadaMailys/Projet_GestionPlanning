@@ -211,20 +211,20 @@ public class FrmModifModule extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_jCbxModulesActionPerformed
 
-    private void jBtnModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnModifActionPerformed
-        // La variable locale Module m contient le module a modifier/supprimer        
-        // Parcourir la liste des modules de p.getLaFormation.getLesModules()
-        // Vérifier si il y a des valeurs communes (jTxtNom.getText() == mod.getNom() )
-        // Si des valeurs sont en commun -> ajouter cette valeur dans une variable String msgErr
-        //                               -> a la fin du parcours de la liste, afficher msgErr
-        // Sinon -> Récupérer l'index du module à modifier de la liste getLesModules() (indexOf)
-        //       -> Modifier les valeurs du module (setNom, setCouleur,set...)
-        //       -> Remplacer le module de la liste par le nouveau module (set(index,objet))
+    private void jBtnModifActionPerformed(java.awt.event.ActionEvent evt) {
+        p.getLaPromotion().retireModule(m);
+        m.setNom(jTxtNom.getText());
+        m.setAbbreviation(jTxtAbbr.getText());
+        m.setDuree(Integer.parseInt(jTxtDuree.getText()));
+        m.setNbSceanceTotal(Integer.parseInt(jTxtNbSceance.getText()));
+        p.getLaPromotion().ajouteModule(m);
+        JOptionPane.showMessageDialog(null, "Module " + m.getNom() + " modifié!");
     }//GEN-LAST:event_jBtnModifActionPerformed
 
-    private void jBtnSupprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSupprActionPerformed
-        //La variable locale Module m contient le module a modifier/supprimer
-        // Retirer le module m de la liste p.getLaFormation.getLesModules()
+    private void jBtnSupprActionPerformed(java.awt.event.ActionEvent evt) {
+        p.getLaPromotion().retireModule(m);
+        this.dispose();
+        JOptionPane.showMessageDialog(null, "Module " + m.getNom() + " supprimé!");
     }//GEN-LAST:event_jBtnSupprActionPerformed
 
     /**
