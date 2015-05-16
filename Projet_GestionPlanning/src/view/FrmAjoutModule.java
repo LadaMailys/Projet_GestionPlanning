@@ -4,7 +4,9 @@
  */
 package view;
 
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Module;
 import model.Planning;
 
