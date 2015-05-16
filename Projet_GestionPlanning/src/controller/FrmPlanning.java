@@ -8,8 +8,7 @@ package controller;
 import java.util.Calendar;
 import javax.swing.table.AbstractTableModel;
 import model.*;
-import view.FrmAjoutModule;
-import view.FrmModifModule;
+import view.*;
 
 /**
  *
@@ -21,13 +20,15 @@ public class FrmPlanning extends javax.swing.JFrame {
     int annee;
     ModeleTableau modele;
     String titreForm;
+    static Promotion promo;
 
     /**
      * Creates new form FrmPlanning
+     * @param promotion
      */
-    public FrmPlanning() {
+    public FrmPlanning(Promotion promotion) {
+        this.promo = promotion;
         titreForm = "Bienvenue dans le gestionnaire de planning";
-        Promotion promo = new Promotion("Licence 3 - Formation Initiale",200);
         p = new Planning(promo, annee);
         modele = new ModeleTableau();
         initComponents();
@@ -328,7 +329,8 @@ public class FrmPlanning extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnOuvrirActionPerformed
 
     private void jMenuAjoutFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAjoutFormationActionPerformed
-        // TODO add your handling code here:
+        FrmAjoutFormation frmAjForm = new FrmAjoutFormation();
+        frmAjForm.setVisible(true);
     }//GEN-LAST:event_jMenuAjoutFormationActionPerformed
 
     private void jMenuModifModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuModifModuleActionPerformed
@@ -372,7 +374,7 @@ public class FrmPlanning extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrmPlanning().setVisible(true);
+                new FrmPlanning(promo).setVisible(true);
             }
         });
     }
