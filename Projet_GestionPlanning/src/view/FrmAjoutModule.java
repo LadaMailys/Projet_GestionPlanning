@@ -4,7 +4,9 @@
  */
 package view;
 
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Module;
 import model.Planning;
 
@@ -154,25 +156,30 @@ public class FrmAjoutModule extends javax.swing.JFrame {
             // TODO add your handling code here:     
     }//GEN-LAST:event_jTxtNomActionPerformed
 
-    private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
-        // Création des variables String nomModule, abbrModule, nbSceanceModule, dureeModule et Color couleurModule;
+    private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {
+          String msgErr = "";
+
+        ArrayList<Module> modules = p.getLaPromotion().getLesModules();
+
+        for (Module mod : modules) {
+            if (jTxtNom.getText().equals(mod.getNom())) {
+                msgErr += "Ce nom de module existe déjà.";
+            }
+            if (jTxtAbbr.getText().equals(mod.getAbbreviation())) {
+                msgErr += "Cette abbréviation est déjà utilisée.";
+            }
+            if (jColor.getColor().equals(mod.getCouleur())) {
+                msgErr += "Cette couleur est déjà utilisée pour un module. Veuillez en choisir une autre.";
+            }
+        }
         
-        // Les variables recevront comme valeur jTxtNom.getText (etc...)
-        // La variable couleurModule aura comme valeur jColor.getColor
-        
-        // La liste des modules est dans p.getLaPromotion().getLesModules()
-        // Il faut donc parcourir cette liste avec 
-        // for (Module mod : p.getLapromotion().getLesModules(){ -- A CODER --
-        
-        // On vérifie si le module qu'on est en train de parcourir a pour nom le nom qui est entré dans le jTxtNom
-        // Et ça pour chacun des jTxt/jColor
-        
-        // Si un champ est commun (si le jTxt entré est pareil qu'un mod.getNom)
-        // On ajoute un message d'erreur dans une variable String msgErr
-        // A la fin du for(){}
-        // Si le msgErr == "" -> On fait un new Module(nomModule,abbrModule...)
-        //                    -> On ajoute ce module dans la liste des module de la promotion
-        // Si le msgErr != "" -> On affiche msgErr dans une boite de dialogue        
+        if (!msgErr.equals("")) {
+            JOptionPane.showMessageDialog(null, msgErr);
+        } else {
+            module = new Module(jTxtNom.getText(),jColor.getColor(),jTxtAbbr.getText(),Integer.parseInt(jTxtNbSceance.getText()),Integer.parseInt(jTxtDuree.getText()));
+            p.getLaPromotion().ajouteModule(module);
+            JOptionPane.showMessageDialog(null, "Module " + jTxtNom.getText() + " " + "créé");
+        }
     }//GEN-LAST:event_jBtnValiderActionPerformed
 
     /**
