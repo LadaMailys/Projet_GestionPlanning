@@ -11,7 +11,7 @@ package tools;
  */
 public class Utilitaire {
 
-    public boolean isInteger(Object obj){
+    public static boolean isInteger(Object obj){
         try{
             Integer.parseInt(obj.toString());
             return true;
