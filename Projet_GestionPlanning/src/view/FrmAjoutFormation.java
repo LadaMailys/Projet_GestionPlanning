@@ -7,6 +7,7 @@ package view;
 
 import controller.FrmPlanning;
 import model.Promotion;
+import tools.Utilitaire;
 
 /**
  *
@@ -38,7 +39,7 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
         jTxtDuree = new javax.swing.JTextField();
         jBtnValider = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Créer une formation");
 
         jLblBienvenue.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -110,10 +111,13 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
     private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
        String msgErr = "";
         if (jTxtNom.getText().equals("")) {
-            msgErr = "Veuillez saisir un nom.\n" ;
+            msgErr += "Veuillez saisir un nom.\n" ;
         }
         if (jTxtDuree.getText().equals("")) {
-            msgErr = "Veuillez saisir la durée type d'une scéance.\n";
+            msgErr += "Veuillez saisir la durée type d'une scéance.\n";
+        }
+        if (Utilitaire.isInteger(jTxtDuree.getText())){
+            msgErr += "Saisir une durée valide.\n";
         }
         if (!msgErr.equals("")){
             javax.swing.JOptionPane.showMessageDialog(null,msgErr);
