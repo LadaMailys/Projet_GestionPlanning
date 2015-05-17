@@ -6,6 +6,7 @@
 
 package view;
 
+import javax.swing.JOptionPane;
 import model.*;
 
 /**
@@ -219,13 +220,13 @@ public class FrmModifModule extends javax.swing.JFrame {
         m.setNbSceanceTotal(Integer.parseInt(jTxtNbSceance.getText()));
         p.getLaPromotion().ajouteModule(m);
         JOptionPane.showMessageDialog(null, "Module " + m.getNom() + " modifié!");
-    }//GEN-LAST:event_jBtnModifActionPerformed
+    }                                         
 
     private void jBtnSupprActionPerformed(java.awt.event.ActionEvent evt) {
         p.getLaPromotion().retireModule(m);
         this.dispose();
         JOptionPane.showMessageDialog(null, "Module " + m.getNom() + " supprimé!");
-    }//GEN-LAST:event_jBtnSupprActionPerformed
+    }                                         
 
     /**
      * @param args the command line arguments
