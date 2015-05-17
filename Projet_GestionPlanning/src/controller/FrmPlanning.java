@@ -50,8 +50,9 @@ public class FrmPlanning extends javax.swing.JFrame {
         titreForm += " - " + p.getLaPromotion().getNom() + " " + p.getAnnee();
         this.setTitle(titreForm);
         jTabPlanning.setDefaultRenderer(boolean.class, new OuvreCellRenderer());
-        jTabPlanning.getColumnModel().getColumn(5).setCellRenderer(new OuvreCellRenderer());
-        jTabPlanning.getColumnModel().getColumn(6).setCellRenderer(new OuvreCellRenderer());
+        for (int i = 0; i < 7; i++) {
+            jTabPlanning.getColumnModel().getColumn(i).setCellRenderer(new OuvreCellRenderer());
+        }
     }
 
     /**
@@ -460,12 +461,12 @@ public class FrmPlanning extends javax.swing.JFrame {
 
             if (rowIndex == 0) {
                 if (jAM.isOuvre()) {
-                    if (jAM.getSceance() != null) {
-                        module = "<html>" + jAM.getSceance().getLeModule().getNom() + " ("
-                                + jAM.getSceance().getLeModule().getAbbreviation() + ") <br/>"
-                                + jAM.getSceance().getLeModule().getDuree() + " h <br/> Scéance "
-                                + jAM.getSceance().getLeModule().getLesSceancesFaites().size() + "/"
-                                + jAM.getSceance().getLeModule().getNbSceanceTotal() + "</html>";
+                    if (jAM.getSceanceMatin() != null) {
+                        module = "<html>" + jAM.getSceanceMatin().getLeModule().getNom() + " ("
+                                + jAM.getSceanceMatin().getLeModule().getAbbreviation() + ") <br/>"
+                                + jAM.getSceanceMatin().getLeModule().getDuree() + " h <br/> Scéance "
+                                + jAM.getSceanceMatin().getLeModule().getLesSceancesFaites().size() + "/"
+                                + jAM.getSceanceMatin().getLeModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }
@@ -475,12 +476,12 @@ public class FrmPlanning extends javax.swing.JFrame {
 
             } else if (rowIndex == 1) {
                 if (jPM.isOuvre()) {
-                    if (jPM.getSceance() != null) {
-                        module = "<html>" + jPM.getSceance().getLeModule().getNom() + " ("
-                                + jPM.getSceance().getLeModule().getAbbreviation() + ") <br/>"
-                                + jPM.getSceance().getLeModule().getDuree() + " h <br/> Scéance "
-                                + jPM.getSceance().getLeModule().getLesSceancesFaites().size() + "/"
-                                + jPM.getSceance().getLeModule().getNbSceanceTotal() + "</html>";
+                    if (jPM.getSceanceSoir() != null) {
+                        module = "<html>" + jPM.getSceanceSoir().getLeModule().getNom() + " ("
+                                + jPM.getSceanceSoir().getLeModule().getAbbreviation() + ") <br/>"
+                                + jPM.getSceanceSoir().getLeModule().getDuree() + " h <br/> Scéance "
+                                + jPM.getSceanceSoir().getLeModule().getLesSceancesFaites().size() + "/"
+                                + jPM.getSceanceSoir().getLeModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }
@@ -503,8 +504,6 @@ public class FrmPlanning extends javax.swing.JFrame {
             if (ouv.equals("")) {
                 setBackground(GRAY);
                 setEnabled(false);
-            } else {
-                setBackground(WHITE);
             }
 
             return this;
