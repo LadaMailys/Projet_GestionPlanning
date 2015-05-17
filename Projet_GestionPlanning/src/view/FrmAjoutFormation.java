@@ -116,7 +116,7 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
         if (jTxtDuree.getText().equals("")) {
             msgErr += "Veuillez saisir la durée type d'une scéance.\n";
         }
-        if (Utilitaire.isInteger(jTxtDuree.getText())){
+        if (!Utilitaire.isInteger(jTxtDuree.getText())){
             msgErr += "Saisir une durée valide.\n";
         }
         if (!msgErr.equals("")){
