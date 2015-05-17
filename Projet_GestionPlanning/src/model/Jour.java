@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Maïlys
  */
-public class Jour {
+public class Jour implements Serializable{
 
     private String jour;
     private int dateJour;

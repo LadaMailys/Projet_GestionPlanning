@@ -6,13 +6,14 @@
 
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Cynthia
  */
-public class Promotion {
+public class Promotion implements Serializable{
     private String nom;
     private int duree;
     private ArrayList<Module> lesModules;

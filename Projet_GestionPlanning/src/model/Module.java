@@ -5,13 +5,14 @@
 package model;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author jiani
  */
-public class Module {
+public class Module implements Serializable{
     
     private String nom;
     private Color couleur;

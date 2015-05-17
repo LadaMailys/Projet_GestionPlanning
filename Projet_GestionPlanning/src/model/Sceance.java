@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jiani
  */
-public class Sceance {
+public class Sceance implements Serializable{
 
     private Jour jourSceance;
     private Module leModule;
