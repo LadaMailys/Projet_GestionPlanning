@@ -16,23 +16,29 @@ import view.*;
  */
 public class FrmPlanning extends javax.swing.JFrame {
 
-    Planning p;
     int annee;
     ModeleTableau modele;
     String titreForm;
     static Promotion promo;
+    static Planning p;
 
     /**
      * Creates new form FrmPlanning
+     *
      * @param promotion
+     * @param planning
      */
-    public FrmPlanning(Promotion promotion) {
-        this.promo = promotion;
+    public FrmPlanning(Promotion promotion, Planning planning) {
+        promo = promotion;
+        annee = Calendar.getInstance().get(Calendar.YEAR);
         titreForm = "Bienvenue dans le gestionnaire de planning";
-        p = new Planning(promo, annee);
+        if (planning == null) {
+            p = new Planning(promo, annee);
+        } else {
+            p = planning;
+        }
         modele = new ModeleTableau();
         initComponents();
-        annee = Calendar.getInstance().get(Calendar.YEAR);
         for (int i = annee; i <= annee + 10; i++) {
             jcbxAnnee.addItem(i + " / " + (i + 1));
         }
@@ -280,7 +286,6 @@ public class FrmPlanning extends javax.swing.JFrame {
         for (int i = 1; i <= p.getNbSemainesAnnee(); i++) {
             jcbxSemaines.addItem("Du " + p.getLaSemaineMatin(i).get(0) + " au " + p.getLaSemaineMatin(i).get(6));
         }
-        
 
 //javax.swing.JOptionPane.showMessageDialog(null,jcbxAnnee.getSelectedItem());
     }//GEN-LAST:event_jcbxAnneeActionPerformed
@@ -314,8 +319,8 @@ public class FrmPlanning extends javax.swing.JFrame {
             jbtnGauche.setEnabled(true);
             jbtnDroite.setEnabled(true);
         }
-        jLblPlageSem.setText(jcbxSemaines.getSelectedItem()+"");
-        jLblRangSem.setText("Semaine " + (jcbxSemaines.getSelectedIndex()+1));
+        jLblPlageSem.setText(jcbxSemaines.getSelectedItem() + "");
+        jLblRangSem.setText("Semaine " + (jcbxSemaines.getSelectedIndex() + 1));
     }//GEN-LAST:event_jcbxSemainesActionPerformed
 
     private void jbtnSauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSauvegarderActionPerformed
@@ -324,25 +329,24 @@ public class FrmPlanning extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnSauvegarderActionPerformed
 
     private void jbtnOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOuvrirActionPerformed
-        // TODO add your handling code here:
         this.p = Planning.deserialiser();
     }//GEN-LAST:event_jbtnOuvrirActionPerformed
 
     private void jMenuAjoutFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAjoutFormationActionPerformed
-        FrmAjoutFormation frmAjForm = new FrmAjoutFormation();
-        frmAjForm.setVisible(true);
+        FrmAjoutFormation frmAjoutForm = new FrmAjoutFormation(p);
+        frmAjoutForm.setVisible(true);
     }//GEN-LAST:event_jMenuAjoutFormationActionPerformed
 
     private void jMenuModifModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuModifModuleActionPerformed
-        // TODO add your handling code here:
         FrmModifModule frmModifMod = new FrmModifModule(p);
         frmModifMod.setVisible(true);
     }//GEN-LAST:event_jMenuModifModuleActionPerformed
 
-    private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt){
+    private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt) {
         FrmAjoutModule frmAjMod = new FrmAjoutModule(p);
         frmAjMod.setVisible(true);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -374,7 +378,7 @@ public class FrmPlanning extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrmPlanning(promo).setVisible(true);
+                new FrmPlanning(promo, p).setVisible(true);
             }
         });
     }
@@ -442,12 +446,12 @@ private class ModeleTableau extends AbstractTableModel {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Jour jAM = p.getLaSemaineMatin(jcbxSemaines.getSelectedIndex()+1).get(columnIndex);
-            Jour jPM = p.getLaSemaineSoir(jcbxSemaines.getSelectedIndex()+1).get(columnIndex);
-            
+            Jour jAM = p.getLaSemaineMatin(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
+            Jour jPM = p.getLaSemaineSoir(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
+
             if (rowIndex == 0) {
-                if (jAM.isOuvre()){
-                    if (jAM.getSceance() != null){
+                if (jAM.isOuvre()) {
+                    if (jAM.getSceance() != null) {
                         return jAM.getSceance().getLeModule().getNom();
                     } else {
                         return "Créer une scéance";
@@ -455,10 +459,10 @@ private class ModeleTableau extends AbstractTableModel {
                 } else {
                     return "Ne peut accueillir de scéance";
                 }
-                
+
             } else if (rowIndex == 1) {
-                if (jPM.isOuvre()){
-                    if (jPM.getSceance() != null){
+                if (jPM.isOuvre()) {
+                    if (jPM.getSceance() != null) {
                         return jPM.getSceance().getLeModule().getNom();
                     } else {
                         return "Créer une scéance";
