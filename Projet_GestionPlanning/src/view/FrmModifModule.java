@@ -218,6 +218,7 @@ public class FrmModifModule extends javax.swing.JFrame {
         m.setAbbreviation(jTxtAbbr.getText());
         m.setDuree(Integer.parseInt(jTxtDuree.getText()));
         m.setNbSceanceTotal(Integer.parseInt(jTxtNbSceance.getText()));
+        m.setCouleur(jColor.getColor());
         p.getLaPromotion().ajouteModule(m);
         JOptionPane.showMessageDialog(null, "Module " + m.getNom() + " modifié!");
     }                                         
