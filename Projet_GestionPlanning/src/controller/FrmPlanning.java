@@ -5,8 +5,12 @@
  */
 package controller;
 
+import static java.awt.Color.*;
+import java.awt.Component;
 import java.util.Calendar;
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import model.*;
 import view.*;
 
@@ -45,6 +49,9 @@ public class FrmPlanning extends javax.swing.JFrame {
         jLblPromo.setText(promo.getNom());
         titreForm += " - " + p.getLaPromotion().getNom() + " " + p.getAnnee();
         this.setTitle(titreForm);
+        jTabPlanning.setDefaultRenderer(boolean.class, new OuvreCellRenderer());
+        jTabPlanning.getColumnModel().getColumn(5).setCellRenderer(new OuvreCellRenderer());
+        jTabPlanning.getColumnModel().getColumn(6).setCellRenderer(new OuvreCellRenderer());
     }
 
     /**
@@ -60,7 +67,7 @@ public class FrmPlanning extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jcbxAnnee = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTabPlanning = new javax.swing.JTable();
         jLblRangSem = new javax.swing.JLabel();
         jLblPlageSem = new javax.swing.JLabel();
         jbtnSauvegarder = new javax.swing.JButton();
@@ -93,10 +100,10 @@ public class FrmPlanning extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(modele);
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        jTable1.setRowHeight(150);
-        jScrollPane1.setViewportView(jTable1);
+        jTabPlanning.setModel(modele);
+        jTabPlanning.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTabPlanning.setRowHeight(150);
+        jScrollPane1.setViewportView(jTabPlanning);
 
         jLblRangSem.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLblRangSem.setText("Semaine 1");
@@ -400,7 +407,7 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuModifSceance;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTabPlanning;
     private javax.swing.JButton jbtnDroite;
     private javax.swing.JButton jbtnExporter;
     private javax.swing.JButton jbtnGauche;
@@ -410,7 +417,8 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JComboBox jcbxAnnee;
     private javax.swing.JComboBox jcbxSemaines;
     // End of variables declaration//GEN-END:variables
-private class ModeleTableau extends AbstractTableModel {
+
+    private class ModeleTableau extends AbstractTableModel {
 
         @Override
         public int getRowCount() {
@@ -423,7 +431,7 @@ private class ModeleTableau extends AbstractTableModel {
                 case 0:
                     return "Lundi";
                 case 1:
-                    return "Mardin";
+                    return "Mardi";
                 case 2:
                     return "Mercredi";
                 case 3:
@@ -435,7 +443,7 @@ private class ModeleTableau extends AbstractTableModel {
                 case 6:
                     return "Dimanche";
                 default:
-                    return "";
+                    throw new IllegalArgumentException();
             }
         }
 
@@ -446,33 +454,60 @@ private class ModeleTableau extends AbstractTableModel {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
+            String module = "";
             Jour jAM = p.getLaSemaineMatin(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
             Jour jPM = p.getLaSemaineSoir(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
 
             if (rowIndex == 0) {
                 if (jAM.isOuvre()) {
                     if (jAM.getSceance() != null) {
-                        return jAM.getSceance().getLeModule().getNom();
+                        module = "<html>" + jAM.getSceance().getLeModule().getNom() + " ("
+                                + jAM.getSceance().getLeModule().getAbbreviation() + ") <br/>"
+                                + jAM.getSceance().getLeModule().getDuree() + " h <br/> Scéance "
+                                + jAM.getSceance().getLeModule().getLesSceancesFaites().size() + "/"
+                                + jAM.getSceance().getLeModule().getNbSceanceTotal() + "</html>";
                     } else {
-                        return "Créer une scéance";
+                        module = "Créer une scéance";
                     }
                 } else {
-                    return "Ne peut accueillir de scéance";
+                    module = "";
                 }
 
             } else if (rowIndex == 1) {
                 if (jPM.isOuvre()) {
                     if (jPM.getSceance() != null) {
-                        return jPM.getSceance().getLeModule().getNom();
+                        module = "<html>" + jPM.getSceance().getLeModule().getNom() + " ("
+                                + jPM.getSceance().getLeModule().getAbbreviation() + ") <br/>"
+                                + jPM.getSceance().getLeModule().getDuree() + " h <br/> Scéance "
+                                + jPM.getSceance().getLeModule().getLesSceancesFaites().size() + "/"
+                                + jPM.getSceance().getLeModule().getNbSceanceTotal() + "</html>";
                     } else {
-                        return "Créer une scéance";
+                        module = "Créer une scéance";
                     }
                 } else {
-                    return "Ne peut accueillir de scéance";
+                    module = "";
                 }
-            } else {
-                return "";
             }
+            return module;
+        }
+    }
+
+    public class OuvreCellRenderer extends DefaultTableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            String ouv = (String) value;
+
+            if (ouv.equals("")) {
+                setBackground(GRAY);
+                setEnabled(false);
+            } else {
+                setBackground(WHITE);
+            }
+
+            return this;
         }
     }
 }
