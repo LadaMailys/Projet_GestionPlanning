@@ -6,6 +6,7 @@
 package view;
 
 import controller.FrmPlanning;
+import model.Planning;
 import model.Promotion;
 import tools.Utilitaire;
 
@@ -15,11 +16,20 @@ import tools.Utilitaire;
  */
 public class FrmAjoutFormation extends javax.swing.JFrame {
 
+    Planning p;
+
     /**
      * Creates new form FrmAjoutFormation
      */
     public FrmAjoutFormation() {
         initComponents();
+        p = null;
+        jBtnOuvrir.setEnabled(false);
+    }
+    public FrmAjoutFormation(Planning p){
+        this.p = p;
+        initComponents();
+        jPnlFormExistante.setVisible(false);
     }
 
     /**
@@ -32,10 +42,16 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
     private void initComponents() {
 
         jLblBienvenue = new javax.swing.JLabel();
+        jPnlFormExistante = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jCbxFormation = new javax.swing.JComboBox();
+        jBtnDeserialiser = new javax.swing.JButton();
+        jBtnOuvrir = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jTxtNom = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jTxtDuree = new javax.swing.JTextField();
         jBtnValider = new javax.swing.JButton();
 
@@ -45,6 +61,57 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
         jLblBienvenue.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLblBienvenue.setText("Bienvenue dans le gestionnaire de planning");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Ouvrir une formation existante");
+
+        jBtnDeserialiser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ouvrir.PNG"))); // NOI18N
+        jBtnDeserialiser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnDeserialiserActionPerformed(evt);
+            }
+        });
+
+        jBtnOuvrir.setText("Ouvrir");
+        jBtnOuvrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnOuvrirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPnlFormExistanteLayout = new javax.swing.GroupLayout(jPnlFormExistante);
+        jPnlFormExistante.setLayout(jPnlFormExistanteLayout);
+        jPnlFormExistanteLayout.setHorizontalGroup(
+            jPnlFormExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
+                .addGroup(jPnlFormExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jBtnDeserialiser, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCbxFormation, 0, 206, Short.MAX_VALUE))
+                    .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel4)))
+                .addGap(14, 14, 14))
+            .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addComponent(jBtnOuvrir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPnlFormExistanteLayout.setVerticalGroup(
+            jPnlFormExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addGroup(jPnlFormExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCbxFormation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnDeserialiser))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jBtnOuvrir)
+                .addGap(24, 24, 24))
+        );
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Créer une formation");
 
@@ -52,82 +119,123 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
 
         jLabel3.setText("Durée");
 
-        jBtnValider.setText("Valider");
+        jBtnValider.setText("Créer");
         jBtnValider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnValiderActionPerformed(evt);
             }
         });
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTxtNom)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTxtDuree, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(35, 35, 35))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(jBtnValider, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTxtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTxtDuree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(jBtnValider))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLblBienvenue)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTxtNom, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                            .addComponent(jTxtDuree)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(jBtnValider))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLblBienvenue)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addComponent(jPnlFormExistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jLblBienvenue)
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTxtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTxtDuree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jBtnValider)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPnlFormExistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
-       String msgErr = "";
+        String msgErr = "";
         if (jTxtNom.getText().equals("")) {
-            msgErr += "Veuillez saisir un nom.\n" ;
+            msgErr += "Veuillez saisir un nom.\n";
         }
         if (jTxtDuree.getText().equals("")) {
             msgErr += "Veuillez saisir la durée type d'une scéance.\n";
         }
-        if (!Utilitaire.isInteger(jTxtDuree.getText())){
+        if (!Utilitaire.isInteger(jTxtDuree.getText())) {
             msgErr += "Saisir une durée valide.\n";
         }
-        if (!msgErr.equals("")){
-            javax.swing.JOptionPane.showMessageDialog(null,msgErr);
+        if (!msgErr.equals("")) {
+            javax.swing.JOptionPane.showMessageDialog(null, msgErr);
         } else {
-            Promotion promo = new Promotion(jTxtNom.getText(),Integer.parseInt(jTxtDuree.getText()));
-            FrmPlanning frmPlng = new FrmPlanning(promo);
+            Promotion promo = new Promotion(jTxtNom.getText(), Integer.parseInt(jTxtDuree.getText()));
+            FrmPlanning frmPlng = new FrmPlanning(promo, p);
             frmPlng.setVisible(true);
             this.dispose();
-        }            
+        }
     }//GEN-LAST:event_jBtnValiderActionPerformed
+
+    private void jBtnDeserialiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeserialiserActionPerformed
+        p = Planning.deserialiser();
+        jCbxFormation.removeAllItems();
+
+        if (p != null) {
+            jCbxFormation.addItem(p.getLaPromotion().getNom());
+            jCbxFormation.setEnabled(false);
+            jBtnOuvrir.setEnabled(true);
+        }
+
+    }//GEN-LAST:event_jBtnDeserialiserActionPerformed
+
+    private void jBtnOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOuvrirActionPerformed
+        FrmPlanning frmPlng = new FrmPlanning(p.getLaPromotion(), p);
+        frmPlng.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnOuvrirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,11 +273,17 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnDeserialiser;
+    private javax.swing.JButton jBtnOuvrir;
     private javax.swing.JButton jBtnValider;
+    private javax.swing.JComboBox jCbxFormation;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLblBienvenue;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPnlFormExistante;
     private javax.swing.JTextField jTxtDuree;
     private javax.swing.JTextField jTxtNom;
     // End of variables declaration//GEN-END:variables
