@@ -11,37 +11,42 @@ import java.io.Serializable;
  *
  * @author Maïlys
  */
-public class Jour implements Serializable{
+public class Jour implements Serializable {
 
     private String jour;
     private int dateJour;
     private int mois;
     private int annee;
     private boolean ouvre;
-    private Sceance sceance;
+    private Sceance sceanceMatin;
+    private Sceance sceanceSoir;
 
     // Constructeurs
-    public Jour(){
+    public Jour() {
     }
-    public Jour (int dateJour, int mois, int annee){
+
+    public Jour(int dateJour, int mois, int annee) {
         this.dateJour = dateJour;
         this.mois = mois;
         this.annee = annee;
-        sceance = null;
+        sceanceMatin = null;
+        sceanceSoir = null;
     }
+
     public Jour(String jour, int dateJour, int mois, int annee) {
         this.jour = jour;
         this.dateJour = dateJour;
         this.mois = mois;
         this.annee = annee;
         this.ouvre = !this.jour.toUpperCase().equals("SAMEDI") && !this.jour.toUpperCase().equals("DIMANCHE");
-        sceance = null;
+        sceanceMatin = null;
+        sceanceSoir = null;
     }
-
 
     public String getJour() {
         return jour;
     }
+
     public void setJour(String jour) {
         this.jour = jour;
     }
@@ -77,19 +82,30 @@ public class Jour implements Serializable{
     public void setOuvre() {
         this.ouvre = !ouvre;
     }
-    
-    public Sceance getSceance(){
-        return sceance;
+
+    public Sceance getSceanceMatin() {
+        return sceanceMatin;
+    }    
+    public Sceance getSceanceSoir() {
+        return sceanceSoir;
     }
-    public void setSceance(Sceance s){
-        sceance = s;
+
+    public void setSceanceMatin(Sceance s) {
+        sceanceMatin = s;
     }
-    public void ajouteSceance(Module mod){
-        sceance = new Sceance(this,mod);
+    public void setSceanceSoir(Sceance s) {
+        sceanceSoir = s;
     }
-    
+    public void ajouteSceanceMatin(Module mod) {
+        sceanceMatin = new Sceance(this, mod);
+    }
+
+    public void ajouteSceanceSoir(Module mod) {
+        sceanceSoir = new Sceance(this, mod);
+    }
+
     @Override
-    public String toString(){
-        return this.dateJour +"/"+this.mois+"/"+this.annee;
+    public String toString() {
+        return this.dateJour + "/" + this.mois + "/" + this.annee;
     }
 }
