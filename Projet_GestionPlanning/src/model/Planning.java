@@ -5,7 +5,6 @@
  */
 package model;
 
-import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,74 +20,91 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Maïlys
  */
-public class Planning implements Serializable{
+public class Planning implements Serializable {
 
-    private HashMap<Integer, ArrayList<Jour>> lesSemainesMatin;
-    private HashMap<Integer, ArrayList<Jour>> lesSemainesSoir;
+    private HashMap<Integer, ArrayList<Jour>> lesSemaines;
     private Promotion laPromotion;
     private int annee;
 
-    // Constructeurs
+    /**
+     * Constructeur
+     */
     public Planning() {
         remplirCalendrier();
     }
 
+    /**
+     * Constructeur
+     * @param promotion
+     * @param annee 
+     */
     public Planning(Promotion promotion, int annee) {
-        this.lesSemainesMatin = new HashMap<>();
-        this.lesSemainesSoir = new HashMap<>();
+        this.lesSemaines = new HashMap<>();
         this.laPromotion = promotion;
         this.annee = annee;
         remplirCalendrier();
     }
 
+    /**
+     * 
+     * @return le nombre de semaines de l'année entrée
+     */
     public int getNbSemainesAnnee() {
-        return lesSemainesMatin.size();
+        return lesSemaines.size();
     }
 
-    public ArrayList<Jour> getLaSemaineMatin(int rang) {
-        return lesSemainesMatin.get(rang);
+     /**
+      * Accesseur en lecture de l'attribut lesSemaines
+      * @param rang
+      * @return la semaine (liste de 7 jours) au rang passé en paramètre
+      */
+    public ArrayList<Jour> getLaSemaine(int rang) {
+        return lesSemaines.get(rang);
     }
 
-    public ArrayList<Jour> getLaSemaineSoir(int rang) {
-        return lesSemainesSoir.get(rang);
-    }
-
-    private void ajouteSemaine(int rang, ArrayList<Jour> jours) {
-        this.lesSemainesMatin.put(rang, jours);
-        this.lesSemainesSoir.put(rang, jours);
-    }
-
+    /**
+     * Accesseur en lecture de l'attribut laPromotion
+     *
+     * @return
+     */
     public Promotion getLaPromotion() {
         return laPromotion;
     }
 
-    public void laPromotion(Promotion laPromotion) {
+    /**
+     * Accesseur en écriture de l'attribut promotion
+     *
+     * @param laPromotion
+     */
+    public void setLaPromotion(Promotion laPromotion) {
         this.laPromotion = laPromotion;
     }
 
+    /**
+     * Accesseur en lecture de l'attribut année
+     *
+     * @return
+     */
     public int getAnnee() {
         return annee;
     }
 
+    /**
+     * Accesseur en écriture de l'attribut année
+     *
+     * @param annee
+     */
     public void setAnnee(int annee) {
         this.annee = annee;
     }
 
     /**
-     * Réinitialise le HashMap lesSemaines<int rang, ArrayList<Jour>> lesJours
-     */
-    public final void reinitCalendrier() {
-        this.lesSemainesMatin.clear();
-        this.lesSemainesSoir.clear();
-        remplirCalendrier();
-    }
-
-    /**
      * Méthode qui remplit automatiquement le HashMap lesSemaines<int rang,
-     * ArrayList<Jour>> lesJours à partir de l'année du planning
+     * ArrayList<Jour>> lesJours à partir de l'année donnée du planning
      */
     public final void remplirCalendrier() {
         try {
+            this.lesSemaines.clear();
             ArrayList<Jour> lesJours = null;
             Calendar calDeb = Calendar.getInstance();
             Calendar calFin = Calendar.getInstance();
@@ -125,7 +141,7 @@ public class Planning implements Serializable{
                     if (lesJours.size() == 7) {
                         // Si la liste est remplie de lundi à dimanche, on l'ajoute au HashMap 
                         // avec un rang comme clé et la liste des jours en valeur
-                        ajouteSemaine(rangSemaine, lesJours);
+                        this.lesSemaines.put(rangSemaine, lesJours);
                         rangSemaine++;
                     }
                 }
@@ -164,6 +180,11 @@ public class Planning implements Serializable{
         }
     }
 
+    /**
+     * Créé, à partir d'un objet, un fichier binaire de sauvegarde
+     *
+     * @param p
+     */
     public static void serialiser(Planning p) {
         try {
             FileOutputStream fout = new FileOutputStream("auth.bin");
@@ -177,6 +198,11 @@ public class Planning implements Serializable{
         }
     }
 
+    /**
+     * Obtient, à partir d'un fichier binaire, un objet de la classe Planning
+     *
+     * @return Planning
+     */
     public static Planning deserialiser() {
         Planning p = null;
         try {
