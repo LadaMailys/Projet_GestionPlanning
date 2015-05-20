@@ -290,9 +290,9 @@ public class FrmPlanning extends javax.swing.JFrame {
         jcbxSemaines.removeAllItems();
         String an = jcbxAnnee.getSelectedItem() + "";
         p.setAnnee(Integer.parseInt(an.substring(0, 4)));
-        p.reinitCalendrier();
+        p.remplirCalendrier();
         for (int i = 1; i <= p.getNbSemainesAnnee(); i++) {
-            jcbxSemaines.addItem("Du " + p.getLaSemaineMatin(i).get(0) + " au " + p.getLaSemaineMatin(i).get(6));
+            jcbxSemaines.addItem("Du " + p.getLaSemaine(i).get(0) + " au " + p.getLaSemaine(i).get(6));
         }
 
 //javax.swing.JOptionPane.showMessageDialog(null,jcbxAnnee.getSelectedItem());
@@ -456,17 +456,16 @@ public class FrmPlanning extends javax.swing.JFrame {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             String module = "";
-            Jour jAM = p.getLaSemaineMatin(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
-            Jour jPM = p.getLaSemaineSoir(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
+            Jour j = p.getLaSemaine(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
 
             if (rowIndex == 0) {
-                if (jAM.isOuvre()) {
-                    if (jAM.getSceanceMatin() != null) {
-                        module = "<html>" + jAM.getSceanceMatin().getLeModule().getNom() + " ("
-                                + jAM.getSceanceMatin().getLeModule().getAbbreviation() + ") <br/>"
-                                + jAM.getSceanceMatin().getLeModule().getDuree() + " h <br/> Scéance "
-                                + jAM.getSceanceMatin().getLeModule().getLesSceancesFaites().size() + "/"
-                                + jAM.getSceanceMatin().getLeModule().getNbSceanceTotal() + "</html>";
+                if (j.isOuvre()) {
+                    if (j.getSceanceMatin() != null) {
+                        module = "<html>" + j.getSceanceMatin().getLeModule().getNom() + " ("
+                                + j.getSceanceMatin().getLeModule().getAbbreviation() + ") <br/>"
+                                + j.getSceanceMatin().getLeModule().getDuree() + " h <br/> Scéance "
+                                + j.getSceanceMatin().getLeModule().getLesSceancesFaites().size() + "/"
+                                + j.getSceanceMatin().getLeModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }
@@ -475,13 +474,13 @@ public class FrmPlanning extends javax.swing.JFrame {
                 }
 
             } else if (rowIndex == 1) {
-                if (jPM.isOuvre()) {
-                    if (jPM.getSceanceSoir() != null) {
-                        module = "<html>" + jPM.getSceanceSoir().getLeModule().getNom() + " ("
-                                + jPM.getSceanceSoir().getLeModule().getAbbreviation() + ") <br/>"
-                                + jPM.getSceanceSoir().getLeModule().getDuree() + " h <br/> Scéance "
-                                + jPM.getSceanceSoir().getLeModule().getLesSceancesFaites().size() + "/"
-                                + jPM.getSceanceSoir().getLeModule().getNbSceanceTotal() + "</html>";
+                if (j.isOuvre()) {
+                    if (j.getSceanceSoir() != null) {
+                        module = "<html>" + j.getSceanceSoir().getLeModule().getNom() + " ("
+                                + j.getSceanceSoir().getLeModule().getAbbreviation() + ") <br/>"
+                                + j.getSceanceSoir().getLeModule().getDuree() + " h <br/> Scéance "
+                                + j.getSceanceSoir().getLeModule().getLesSceancesFaites().size() + "/"
+                                + j.getSceanceSoir().getLeModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }
