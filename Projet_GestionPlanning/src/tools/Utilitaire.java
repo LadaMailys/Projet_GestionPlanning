@@ -11,6 +11,11 @@ package tools;
  */
 public class Utilitaire {
 
+    /**
+     * Définit si l'objet passé en paramètre est de convertissable en Integer
+     * @param obj
+     * @return 
+     */
     public static boolean isInteger(Object obj){
         try{
             Integer.parseInt(obj.toString());
