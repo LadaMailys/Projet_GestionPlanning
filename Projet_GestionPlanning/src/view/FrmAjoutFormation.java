@@ -26,7 +26,8 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
         p = null;
         jBtnOuvrir.setEnabled(false);
     }
-    public FrmAjoutFormation(Planning p){
+
+    public FrmAjoutFormation(Planning p) {
         this.p = p;
         initComponents();
         jPnlFormExistante.setVisible(false);
@@ -213,8 +214,10 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(null, msgErr);
         } else {
             Promotion promo = new Promotion(jTxtNom.getText(), Integer.parseInt(jTxtDuree.getText()));
-            FrmPlanning frmPlng = new FrmPlanning(promo, p);
-            frmPlng.setVisible(true);
+            if (p == null) {
+                FrmPlanning frmPlng = new FrmPlanning(promo, p);
+                frmPlng.setVisible(true);
+            }
             this.dispose();
         }
     }//GEN-LAST:event_jBtnValiderActionPerformed
@@ -225,7 +228,6 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
 
         if (p != null) {
             jCbxFormation.addItem(p.getLaPromotion().getNom());
-            jCbxFormation.setEnabled(false);
             jBtnOuvrir.setEnabled(true);
         }
 
