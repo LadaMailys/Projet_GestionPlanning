@@ -33,21 +33,16 @@ public class Planning implements Serializable {
         remplirCalendrier();
     }
 
-    /**
-     * Constructeur
-     * @param promotion
-     * @param annee 
-     */
     public Planning(Promotion promotion, int annee) {
         this.lesSemaines = new HashMap<>();
         this.laPromotion = promotion;
         this.annee = annee;
         remplirCalendrier();
     }
-
+    
     /**
-     * 
-     * @return le nombre de semaines de l'année entrée
+     * Retourne le nombr de semaines dans l'année
+     * @return 
      */
     public int getNbSemainesAnnee() {
         return lesSemaines.size();
