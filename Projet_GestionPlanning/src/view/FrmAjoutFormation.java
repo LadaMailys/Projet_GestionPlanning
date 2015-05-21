@@ -6,6 +6,7 @@
 package view;
 
 import controller.FrmPlanning;
+import java.awt.Toolkit;
 import model.Planning;
 import model.Promotion;
 import tools.Utilitaire;
@@ -22,6 +23,7 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
      * Creates new form FrmAjoutFormation
      */
     public FrmAjoutFormation() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         initComponents();
         p = null;
         jBtnOuvrir.setEnabled(false);

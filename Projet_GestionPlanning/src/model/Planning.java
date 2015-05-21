@@ -174,6 +174,20 @@ public class Planning implements Serializable {
                 return "";
         }
     }
+    
+    public Jour getJour(int jour, int mois){
+        Jour leJour = null;
+        for (int i = 1; i<=getNbSemainesAnnee();i++){
+            for (Jour j : lesSemaines.get(i)){
+                if (j.getDateJour() == jour && j.getMois() == mois && j.getAnnee() == annee || j.getAnnee() == annee+1){
+                    leJour = j;
+                } else {
+                    i = getNbSemainesAnnee();
+                }
+            }
+        }
+        return leJour;
+    }
 
     /**
      * Créé, à partir d'un objet, un fichier binaire de sauvegarde
