@@ -41,7 +41,7 @@ public class Planning implements Serializable {
     }
     
     /**
-     * Retourne le nombrs de semaines dans l'année
+     * Retourne le nombre de semaines dans l'année
      * @return 
      */
     public int getNbSemainesAnnee() {
