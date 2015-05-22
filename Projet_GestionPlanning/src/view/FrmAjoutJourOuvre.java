@@ -25,6 +25,7 @@ public class FrmAjoutJourOuvre extends javax.swing.JFrame {
     DateFormatter df;
 
     int iJour = 0, iMois = 0, iAnnee = 0;
+    Jour j = null;
 
     /**
      * Creates new form FrmAjoutJourOuvre
@@ -36,6 +37,15 @@ public class FrmAjoutJourOuvre extends javax.swing.JFrame {
         planning = p;
         format = new SimpleDateFormat("dd/MM/yyyy");
         df = new DateFormatter(format);
+    }
+    
+    private void RecommenceSaisie(){
+        jFTxtDate.setText("");
+        iJour = 0; 
+        iMois = 0; 
+        iAnnee = p.getAnnee();
+        Jour j = null;
+        jLblAnnee.setText(iAnnee + "");
     }
 
     /**
@@ -115,8 +125,15 @@ public class FrmAjoutJourOuvre extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
 
+    private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
+        if (j != null){
+            if(j.isOuvre){
+                j.setOuvre;
+            }
+            JOptionPane.showMessageDialog(null, j.toString() + " non ouvré!");
+            RecommenceSaisie();
+        }
     }//GEN-LAST:event_jBtnValiderActionPerformed
 
     private void jFTxtDateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFTxtDateKeyPressed
@@ -131,7 +148,7 @@ public class FrmAjoutJourOuvre extends javax.swing.JFrame {
                 } else {
                     throw new NotNumberException();
                 }
-                if (iJour > 31 || iJour < 1 || iMois < 1 || iMois > 12) {
+                if (iJour > 31 || iJour < 1 || iMois < 1 || iMois > 12 || planning.getJour(iJour, iMois) == null) {
                     throw new FormatDateException();
                 } else {
                     if (iMois <= 8) {
@@ -140,6 +157,7 @@ public class FrmAjoutJourOuvre extends javax.swing.JFrame {
                         iAnnee = planning.getAnnee();
                     }
                     jLblAnnee.setText(iAnnee + "");
+                    j = planning.getJour(iJour,iMois);
                 }
             } catch (NotNumberException nne) {
             } catch (FormatDateException fde) {
