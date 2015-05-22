@@ -20,6 +20,9 @@ import tools.Utilitaire;
  */
 public class FrmAjoutJourOuvre extends javax.swing.JFrame {
 
+// MODIFICATION A PREVOIR -> Déplacer ce formulaire (dans le FrmPlanning) dans le menu MODIF/SUPPRESSION
+//                        -> Le renommer en FrmModifJourOuvre
+
     static Planning planning;
     DateFormat format;
     DateFormatter df;
@@ -127,11 +130,16 @@ public class FrmAjoutJourOuvre extends javax.swing.JFrame {
 
 
     private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
+        String ouv = "";
         if (j != null){
             if(j.isOuvre){
-                j.setOuvre;
+                ouv = " qu'ouvré";
+            } else {
+                ouv = " que non ouvré";
             }
-            JOptionPane.showMessageDialog(null, j.toString() + " non ouvré!");
+            // OUI / NON
+            JOptionPane.showMessageDialog(null, "Définir " + j.toString() + " en tant" + ouv + "?");
+            // if (ResultDialog == ResultDialog.YES){ j.setOuvre(); RecommenceSaisie(); }
             RecommenceSaisie();
         }
     }//GEN-LAST:event_jBtnValiderActionPerformed
@@ -158,6 +166,11 @@ public class FrmAjoutJourOuvre extends javax.swing.JFrame {
                     }
                     jLblAnnee.setText(iAnnee + "");
                     j = planning.getJour(iJour,iMois);
+                    if (j.isOuvre()){
+                        //jLblIndicOuvre.setText("Ouvré");
+                    } else {
+                        //jLblIndicOuvre.setText("Non ouvré");
+                    }
                 }
             } catch (NotNumberException nne) {
             } catch (FormatDateException fde) {
