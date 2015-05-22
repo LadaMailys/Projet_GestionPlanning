@@ -17,8 +17,9 @@ public class Module {
     private Color couleur;
     private String abbreviation;
     private int nbSceanceTotal;
-    private int duree;
-    private ArrayList<Sceance> lesSceancesFaites;
+    private int duree; // durée = nbSceanceTotal * formation.getDuree();
+    private ArrayList<Sceance> lesSceancesFaites; // à supprimer
+    // ajouter une liste de module (static je pense) et a la fin du constructeur, ajouter "this" à la liste
     
     // Constructeurs
     public Module(){
