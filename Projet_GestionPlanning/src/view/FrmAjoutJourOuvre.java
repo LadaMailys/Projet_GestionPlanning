@@ -139,8 +139,16 @@ public class FrmAjoutJourOuvre extends javax.swing.JFrame {
             }
             // OUI / NON
             JOptionPane.showMessageDialog(null, "Définir " + j.toString() + " en tant" + ouv + "?");
-            // if (ResultDialog == ResultDialog.YES){ j.setOuvre(); RecommenceSaisie(); }
-            RecommenceSaisie();
+            /* 
+            if (ResultDialog == ResultDialog.YES){
+                if (j.getSceanceMatin() != null || j.getSceanceSoir() != null){
+                    throw new JourAvecSceance(); 
+                } else {
+                    j.setOuvre(); 
+                    RecommenceSaisie();
+                }
+            }
+            */
         }
     }//GEN-LAST:event_jBtnValiderActionPerformed
 
@@ -167,9 +175,9 @@ public class FrmAjoutJourOuvre extends javax.swing.JFrame {
                     jLblAnnee.setText(iAnnee + "");
                     j = planning.getJour(iJour,iMois);
                     if (j.isOuvre()){
-                        //jLblIndicOuvre.setText("Ouvré");
+                        //jLblIndicOuvre.setText("Ce jour est ouvré");
                     } else {
-                        //jLblIndicOuvre.setText("Non ouvré");
+                        //jLblIndicOuvre.setText("Ce jour est non ouvré");
                     }
                 }
             } catch (NotNumberException nne) {
