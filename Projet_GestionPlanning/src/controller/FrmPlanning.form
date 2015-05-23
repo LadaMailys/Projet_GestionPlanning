@@ -39,14 +39,6 @@
                 <Property name="text" type="java.lang.String" value="Sc&#xe9;ance"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuAjoutJourFerie">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Jour f&#xe9;ri&#xe9;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuAjoutJourFerieActionPerformed"/>
-              </Events>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
@@ -74,6 +66,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sc&#xe9;ance"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuModifJourOuvre">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Jour ouvr&#xe9;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuModifJourOuvreActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

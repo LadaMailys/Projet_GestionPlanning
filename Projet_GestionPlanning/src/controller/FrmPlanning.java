@@ -87,11 +87,11 @@ public class FrmPlanning extends javax.swing.JFrame {
         jMenuAjoutFormation = new javax.swing.JMenuItem();
         jMenuAjoutModule = new javax.swing.JMenuItem();
         jMenuAjoutSceance = new javax.swing.JMenuItem();
-        jMenuAjoutJourFerie = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuModifFormation = new javax.swing.JMenuItem();
         jMenuModifModule = new javax.swing.JMenuItem();
         jMenuModifSceance = new javax.swing.JMenuItem();
+        jMenuModifJourOuvre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -188,14 +188,6 @@ public class FrmPlanning extends javax.swing.JFrame {
         jMenuAjoutSceance.setText("Scéance");
         jMenu1.add(jMenuAjoutSceance);
 
-        jMenuAjoutJourFerie.setText("Jour férié");
-        jMenuAjoutJourFerie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuAjoutJourFerieActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuAjoutJourFerie);
-
         jMenuBar1.add(jMenu1);
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Modifier.PNG"))); // NOI18N
@@ -214,6 +206,14 @@ public class FrmPlanning extends javax.swing.JFrame {
 
         jMenuModifSceance.setText("Scéance");
         jMenu3.add(jMenuModifSceance);
+
+        jMenuModifJourOuvre.setText("Jour ouvré");
+        jMenuModifJourOuvre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuModifJourOuvreActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuModifJourOuvre);
 
         jMenuBar1.add(jMenu3);
 
@@ -363,11 +363,11 @@ public class FrmPlanning extends javax.swing.JFrame {
         frmModifMod.setVisible(true);
     }//GEN-LAST:event_jMenuModifModuleActionPerformed
 
-    private void jMenuAjoutJourFerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAjoutJourFerieActionPerformed
-        FrmAjoutJourOuvre frmAjoutFerie = new FrmAjoutJourOuvre(p);
-        frmAjoutFerie.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
-        frmAjoutFerie.setVisible(true);
-    }//GEN-LAST:event_jMenuAjoutJourFerieActionPerformed
+    private void jMenuModifJourOuvreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuModifJourOuvreActionPerformed
+        FrmModifJourOuvre frmModifJO = new FrmModifJourOuvre(p);
+        frmModifJO.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
+        frmModifJO.setVisible(true);
+    }//GEN-LAST:event_jMenuModifJourOuvreActionPerformed
 
     private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt) {
         FrmAjoutModule frmAjMod = new FrmAjoutModule(p);
@@ -420,11 +420,11 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuAjoutFormation;
-    private javax.swing.JMenuItem jMenuAjoutJourFerie;
     private javax.swing.JMenuItem jMenuAjoutModule;
     private javax.swing.JMenuItem jMenuAjoutSceance;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuModifFormation;
+    private javax.swing.JMenuItem jMenuModifJourOuvre;
     private javax.swing.JMenuItem jMenuModifModule;
     private javax.swing.JMenuItem jMenuModifSceance;
     private javax.swing.JPopupMenu jPopupMenu1;
