@@ -9,7 +9,10 @@ import java.awt.Color;
 import static java.awt.Color.*;
 import java.awt.Component;
 import java.awt.Toolkit;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -119,6 +122,7 @@ public class FrmPlanning extends javax.swing.JFrame {
 
         jbtnSauvegarder.setBackground(new java.awt.Color(255, 255, 255));
         jbtnSauvegarder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Sauvegarder.PNG"))); // NOI18N
+        jbtnSauvegarder.setToolTipText("Sauvegarder les données");
         jbtnSauvegarder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnSauvegarderActionPerformed(evt);
@@ -127,6 +131,7 @@ public class FrmPlanning extends javax.swing.JFrame {
 
         jbtnOuvrir.setBackground(new java.awt.Color(255, 255, 255));
         jbtnOuvrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ouvrir.PNG"))); // NOI18N
+        jbtnOuvrir.setToolTipText("Ouvrir des données sauvegardée");
         jbtnOuvrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnOuvrirActionPerformed(evt);
@@ -154,9 +159,16 @@ public class FrmPlanning extends javax.swing.JFrame {
         });
 
         jbtnExporter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Exporter.PNG"))); // NOI18N
+        jbtnExporter.setToolTipText("Exporter en HTML");
+        jbtnExporter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnExporterActionPerformed(evt);
+            }
+        });
 
         jbtnQuitter.setBackground(new java.awt.Color(255, 255, 255));
         jbtnQuitter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Quitter.PNG"))); // NOI18N
+        jbtnQuitter.setToolTipText("Quitter");
         jbtnQuitter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnQuitterActionPerformed(evt);
@@ -370,6 +382,20 @@ public class FrmPlanning extends javax.swing.JFrame {
         frmModifJO.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmModifJO.setVisible(true);
     }//GEN-LAST:event_jMenuModifJourOuvreActionPerformed
+
+    private void jbtnExporterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExporterActionPerformed
+        try {
+            // Creation fichier
+            FileWriter fstream = new FileWriter("planning.html");
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(p.codeHTML());
+            // Fermeture
+            out.close();
+            JOptionPane.showMessageDialog(null, "Planning exporté! ");
+        } catch (Exception e) {//Catch exception if any
+            System.err.println("Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jbtnExporterActionPerformed
 
     private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt) {
         FrmAjoutModule frmAjMod = new FrmAjoutModule(p);

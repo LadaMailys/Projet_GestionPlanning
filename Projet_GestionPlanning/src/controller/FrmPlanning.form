@@ -255,6 +255,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/tools/Sauvegarder.PNG"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Sauvegarder les donn&#xe9;es"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnSauvegarderActionPerformed"/>
@@ -268,6 +269,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/tools/Ouvrir.PNG"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Ouvrir des donn&#xe9;es sauvegard&#xe9;e"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnOuvrirActionPerformed"/>
@@ -308,7 +310,11 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/tools/Exporter.PNG"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Exporter en HTML"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnExporterActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtnQuitter">
       <Properties>
@@ -318,6 +324,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/tools/Quitter.PNG"/>
         </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Quitter"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnQuitterActionPerformed"/>
