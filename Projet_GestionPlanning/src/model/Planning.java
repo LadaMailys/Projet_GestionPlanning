@@ -39,20 +39,22 @@ public class Planning implements Serializable {
         this.annee = annee;
         remplirCalendrier();
     }
-    
+
     /**
      * Retourne le nombre de semaines dans l'année
-     * @return 
+     *
+     * @return
      */
     public int getNbSemainesAnnee() {
         return lesSemaines.size();
     }
 
-     /**
-      * Accesseur en lecture de l'attribut lesSemaines
-      * @param rang
-      * @return la semaine (liste de 7 jours) au rang passé en paramètre
-      */
+    /**
+     * Accesseur en lecture de l'attribut lesSemaines
+     *
+     * @param rang
+     * @return la semaine (liste de 7 jours) au rang passé en paramètre
+     */
     public ArrayList<Jour> getLaSemaine(int rang) {
         return lesSemaines.get(rang);
     }
@@ -174,12 +176,12 @@ public class Planning implements Serializable {
                 return "";
         }
     }
-    
-    public Jour getJour(int jour, int mois, int annee){
+
+    public Jour getJour(int jour, int mois, int annee) {
         Jour leJour = null;
-        for (int i = 1; i<=getNbSemainesAnnee();i++){
-            for (Jour j : lesSemaines.get(i)){
-                if (j.getDateJour() == jour && j.getMois() == mois && j.getAnnee() == annee){
+        for (int i = 1; i <= getNbSemainesAnnee(); i++) {
+            for (Jour j : lesSemaines.get(i)) {
+                if (j.getDateJour() == jour && j.getMois() == mois && j.getAnnee() == annee) {
                     leJour = j;
                 }
             }
@@ -225,5 +227,75 @@ public class Planning implements Serializable {
             ioe.printStackTrace();
         }
         return p;
+    }
+
+    /**
+     * Retourne les lignes de codes html du planning
+     */
+    public String codeHTML() {
+        
+        // ATTENTION, ceci est une maquette !
+        // Les vraies valeurs seront contenues dans l'instance Planning !!
+        String contenu = "<html> ";
+        String head, body;
+        head = "<head> "
+                + "<meta charset=\"utf-8\">"
+                + "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">"
+                + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+                + "<meta name=\"description\" content=\"\">"
+                + "<meta name=\"author\" content=\"\">"
+                + "<title>Planning - " + laPromotion.getNom() + " " + annee + " </title>"
+                + "<link href=\"html/bootstrap.min.css\" rel=\"stylesheet\">"
+                + "<link href=\"html/cover.css\" rel=\"stylesheet\">"
+                + "<script src=\"https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js\"></script>\n"
+                + "<script src=\"https://oss.maxcdn.com/respond/1.4.2/respond.min.js\"></script>\n"
+                + "</head>";
+
+        body = "<body>"
+                + "<div class=\"site-wrapper\">"
+                + "  <div class=\"site-wrapper-inner\">"
+                + "    <div class=\"cover-container\">"
+                + "      <div class=\"masthead clearfix\">"
+                + "        <div class=\"inner\">"
+                + "          <h3 class=\"masthead-brand\">Projet JAVA</h3>"
+                + "        </div>"
+                + "      </div>"
+                + "      <div class=\"inner cover\">"
+                + "        <h1 class=\"cover-heading\">Planning " + laPromotion.getNom() + " " + annee + "/" + (annee + 1) + " " + laPromotion.getDuree() + "h </h1>"
+                + "            <p class=\"lead\">Cette page recense les séances programmées de la promotion, de septembre à août.</p>"
+                + "      </div>"
+                + "      <table class=\"table table-striped\">"
+                + "        <tr>"
+                + "          <th>N°</th>"
+                + "          <th>Date</th>"
+                + "          <th>Module</th>"
+                + "          <th>Restant</th>"
+                + "        </tr>"
+                + "        <tr style='background-color: blue;' >"
+                + "          <td>1</th>"
+                + "          <td>01/09/2015 matin</th>"
+                + "          <td>T1 - Test</th>"
+                + "          <td>1/50</th>"
+                + "        </tr>"
+                + "        <tr style='background-color: red;' >"
+                + "          <th>2</th>"
+                + "          <th>02/09/2015 matin</th>"
+                + "          <th>T2 - Test</th>"
+                + "          <th>5/25</th>"
+                + "        </tr>"
+                + "      </table>"
+                + "      <div class=\"mastfoot\">"
+                + "        <div class=\"inner\">"
+                + "        </div>"
+                + "      </div>"
+                + "    </div>"
+                + "  </div>"
+                + "</div>"
+                + "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js\"></script>"
+                + "<script src=\"../../dist/js/bootstrap.min.js\"></script>"
+                + "<script src=\"../../assets/js/ie10-viewport-bug-workaround.js\"></script>"
+                + "</body>";
+        contenu += head + body + "</html>";
+        return contenu;
     }
 }
