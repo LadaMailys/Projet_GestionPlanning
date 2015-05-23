@@ -96,6 +96,10 @@ public class FrmPlanning extends javax.swing.JFrame {
         jMenuModifModule = new javax.swing.JMenuItem();
         jMenuModifSceance = new javax.swing.JMenuItem();
         jMenuModifJourOuvre = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuVoirFormation = new javax.swing.JMenuItem();
+        jMenuVoirModule = new javax.swing.JMenuItem();
+        jMenuVoirSceance = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -230,6 +234,34 @@ public class FrmPlanning extends javax.swing.JFrame {
         jMenu3.add(jMenuModifJourOuvre);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu2.setText("Consulter");
+
+        jMenuVoirFormation.setText("Formation");
+        jMenuVoirFormation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuVoirFormationActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuVoirFormation);
+
+        jMenuVoirModule.setText("Module");
+        jMenuVoirModule.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuVoirModuleActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuVoirModule);
+
+        jMenuVoirSceance.setText("Scéance");
+        jMenuVoirSceance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuVoirSceanceActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuVoirSceance);
+
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -397,6 +429,25 @@ public class FrmPlanning extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtnExporterActionPerformed
 
+    private void jMenuVoirFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirFormationActionPerformed
+        FrmVoirFormation frmVoirForm = new FrmVoirFormation(p);
+        frmVoirForm.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
+        frmVoirForm.setVisible(true);
+       
+    }//GEN-LAST:event_jMenuVoirFormationActionPerformed
+
+    private void jMenuVoirModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirModuleActionPerformed
+        FrmVoirModule frmVoirMod = new FrmVoirModule(p);
+        frmVoirMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
+        frmVoirMod.setVisible(true); 
+    }//GEN-LAST:event_jMenuVoirModuleActionPerformed
+
+    private void jMenuVoirSceanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirSceanceActionPerformed
+        FrmVoirSceance frmVoirSce = new FrmVoirSceance(p);
+        frmVoirSce.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
+        frmVoirSce.setVisible(true);
+    }//GEN-LAST:event_jMenuVoirSceanceActionPerformed
+
     private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt) {
         FrmAjoutModule frmAjMod = new FrmAjoutModule(p);
         frmAjMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
@@ -446,6 +497,7 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JLabel jLblPromo;
     private javax.swing.JLabel jLblRangSem;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuAjoutFormation;
     private javax.swing.JMenuItem jMenuAjoutModule;
@@ -455,6 +507,9 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuModifJourOuvre;
     private javax.swing.JMenuItem jMenuModifModule;
     private javax.swing.JMenuItem jMenuModifSceance;
+    private javax.swing.JMenuItem jMenuVoirFormation;
+    private javax.swing.JMenuItem jMenuVoirModule;
+    private javax.swing.JMenuItem jMenuVoirSceance;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTabPlanning;
