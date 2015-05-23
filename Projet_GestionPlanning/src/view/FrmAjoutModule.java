@@ -180,7 +180,8 @@ public class FrmAjoutModule extends javax.swing.JFrame {
             p.getLaPromotion().ajouteModule(module);
             JOptionPane.showMessageDialog(null, "Module " + jTxtNom.getText() + " " + "créé");
         }
-    }//GEN-LAST:event_jBtnValiderActionPerformed
+        
+    }                                           
 
     /**
      * @param args the command line arguments

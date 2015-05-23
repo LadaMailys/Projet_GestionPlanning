@@ -5,8 +5,15 @@
  */
 package view;
 
+import java.awt.Color;
+import static java.awt.Color.WHITE;
+import java.awt.Component;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import model.Jour;
 import model.Module;
 import model.Planning;
 
@@ -25,18 +32,14 @@ public class FrmVoirModule extends javax.swing.JFrame {
     public FrmVoirModule() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         initComponents();
-        p = null;
-        jBtnOuvrir.setEnabled(false);
+       
+        
     }
 
     public FrmVoirModule(Planning p) {
         this.p= p;
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        for (Module mod : p.getLaPromotion().getLesModules()){
-            jCbxModule.addItem(mod.getNom());
-        }
-        jCbxModule.setSelectedIndex(-1);
     }
 
     /**
@@ -52,9 +55,8 @@ public class FrmVoirModule extends javax.swing.JFrame {
         jList1 = new javax.swing.JList();
         jPnlModExistante = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jCbxModule = new javax.swing.JComboBox();
-        jBtnOuvrir = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -66,57 +68,63 @@ public class FrmVoirModule extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Ouvrir un module existant");
+        jLabel1.setText("Sélectionner un module existant");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ouvrir.PNG"))); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
-        jBtnOuvrir.setText("Ouvrir");
-        jBtnOuvrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnOuvrirActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jTable1.setShowHorizontalLines(false);
+        jTable1.setShowVerticalLines(false);
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPnlModExistanteLayout = new javax.swing.GroupLayout(jPnlModExistante);
         jPnlModExistante.setLayout(jPnlModExistanteLayout);
         jPnlModExistanteLayout.setHorizontalGroup(
             jPnlModExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPnlModExistanteLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCbxModule, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnlModExistanteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPnlModExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnlModExistanteLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(85, 85, 85))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPnlModExistanteLayout.createSequentialGroup()
-                        .addComponent(jBtnOuvrir)
-                        .addGap(137, 137, 137))))
+                    .addGroup(jPnlModExistanteLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPnlModExistanteLayout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(jLabel1)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPnlModExistanteLayout.setVerticalGroup(
             jPnlModExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPnlModExistanteLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
-                .addGap(37, 37, 37)
-                .addGroup(jPnlModExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCbxModule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jBtnOuvrir)
-                .addGap(28, 28, 28))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jLabel1.getAccessibleContext().setAccessibleName("Selectionner un module existant");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPnlModExistante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -124,19 +132,12 @@ public class FrmVoirModule extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPnlModExistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPnlModExistante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBtnOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOuvrirActionPerformed
-        // TODO add your handling code here:
-        p.getLaPromotion().retireModule(m); 
-       // p.getLaPromotion().ajouteModule(m);
-        
-    }//GEN-LAST:event_jBtnOuvrirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,12 +175,14 @@ public class FrmVoirModule extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnOuvrir;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jCbxModule;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPnlModExistante;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
+
+
+   
