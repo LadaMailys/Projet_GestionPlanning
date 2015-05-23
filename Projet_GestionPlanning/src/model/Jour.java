@@ -76,7 +76,7 @@ public class Jour implements Serializable {
     }
 
     public boolean isOuvre() {
-        return ouvre;
+        return !ouvre;
     }
 
     public void setOuvre() {

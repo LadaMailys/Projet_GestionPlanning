@@ -19,6 +19,8 @@ import static org.junit.Assert.*;
  * @author U21406901
  */
 public class ModuleTest {
+   /** 
+    private Module module;
     
     public ModuleTest() {
     }
@@ -45,12 +47,12 @@ public class ModuleTest {
     @Test
     public void testGetNom() {
         System.out.println("getNom");
-        Module instance = new Module();
-        String expResult = "";
+        Module instance = new Module("anglais, rouge, GB,5,20");
+        String expResult = "anglais";
         String result = instance.getNom();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -59,11 +61,12 @@ public class ModuleTest {
     @Test
     public void testSetNom() {
         System.out.println("setNom");
-        String nom = "";
-        Module instance = new Module();
+        String nom = "anglais";
+        Module instance = new Module("statistiques, bleu, stats, 6, 18");
         instance.setNom(nom);
+        assertEquals ("statistiques", instance.getNom());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -72,12 +75,12 @@ public class ModuleTest {
     @Test
     public void testGetCouleur() {
         System.out.println("getCouleur");
-        Module instance = new Module();
-        Color expResult = null;
+        Module instance = new Module("anglais, rouge, GB,5,20");
+        Color expResult = rouge;
         Color result = instance.getCouleur();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -89,8 +92,6 @@ public class ModuleTest {
         Color couleur = null;
         Module instance = new Module();
         instance.setCouleur(couleur);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -99,12 +100,12 @@ public class ModuleTest {
     @Test
     public void testGetAbbreviation() {
         System.out.println("getAbbreviation");
-        Module instance = new Module();
-        String expResult = "";
+        Module instance = new Module("anglais, rouge, GB,5,20");
+        String expResult = "GB";
         String result = instance.getAbbreviation();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -114,10 +115,11 @@ public class ModuleTest {
     public void testSetAbbreviation() {
         System.out.println("setAbbreviation");
         String abbreviation = "";
-        Module instance = new Module();
+        Module instance = new Module("statistiques, bleu, stats, 6, 18");
         instance.setAbbreviation(abbreviation);
+        assertEquals("stats", instance.getAbbreviation());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -126,12 +128,12 @@ public class ModuleTest {
     @Test
     public void testGetNbSceanceTotal() {
         System.out.println("getNbSceanceTotal");
-        Module instance = new Module();
-        int expResult = 0;
+        Module instance = new Module("anglais, rouge, GB,5,20");
+        int expResult = 5;
         int result = instance.getNbSceanceTotal();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -140,11 +142,12 @@ public class ModuleTest {
     @Test
     public void testSetNbSceanceTotal() {
         System.out.println("setNbSceanceTotal");
-        int nbSceanceTotal = 0;
-        Module instance = new Module();
+        int nbSceanceTotal = 5;
+        Module instance = new Module("statistiques, bleu, stats, 6, 18");
         instance.setNbSceanceTotal(nbSceanceTotal);
+        assertEquals(6, instance.getNbSceanceTotal());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -153,12 +156,12 @@ public class ModuleTest {
     @Test
     public void testGetDuree() {
         System.out.println("getDuree");
-        Module instance = new Module();
-        int expResult = 0;
+        Module instance = new Module("anglais, rouge, GB,5,20");
+        int expResult = 20;
         int result = instance.getDuree();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -167,11 +170,12 @@ public class ModuleTest {
     @Test
     public void testSetDuree() {
         System.out.println("setDuree");
-        int duree = 0;
-        Module instance = new Module();
+        int duree = 18;
+        Module instance = new Module("statistiques, bleu, stats, 6, 18");
         instance.setDuree(duree);
+        assertEquals(18, instance.getDuree());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -185,7 +189,7 @@ public class ModuleTest {
         ArrayList<Sceance> result = instance.getLesSceancesFaites();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -195,10 +199,10 @@ public class ModuleTest {
     public void testAjouteSceanceFaite() {
         System.out.println("ajouteSceanceFaite");
         Sceance laSceance = null;
-        Module instance = new Module();
+        Module instance = new Module("statistiques, bleu, stats, 6, 18");
         instance.ajouteSceanceFaite(laSceance);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -211,7 +215,7 @@ public class ModuleTest {
         Module instance = new Module();
         instance.retireSceanceFaite(laSceance);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
     
 }
