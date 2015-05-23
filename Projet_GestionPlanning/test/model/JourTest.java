@@ -45,7 +45,7 @@ public class JourTest {
     @Test
     public void testGetJour() {
         System.out.println("getJour");
-        Jour instance = new Jour(7,9,2015);
+        Jour instance = new Jour("lundi", 7,9,2015);
         String expResult = "lundi";
         String result = instance.getJour();
         assertEquals(expResult, result);
@@ -59,10 +59,10 @@ public class JourTest {
     @Test
     public void testSetJour() {
         System.out.println("setJour");
-        String jour = "";
-        Jour instance = new Jour(12,9,2015);
+        String jour = "samedi";
+        Jour instance = new Jour("samedi", 12,9,2015);
         instance.setJour(jour);
-        assertEquals("samedi", instance.setJour(jour));
+        assertEquals("samedi", instance.getJour());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -73,7 +73,7 @@ public class JourTest {
     @Test
     public void testGetDateJour() {
         System.out.println("getDateJour");
-        Jour instance = new Jour(7,9,2015);
+        Jour instance = new Jour("lundi",7,9,2015);
         int expResult = 7;
         int result = instance.getDateJour();
         assertEquals(expResult, result);
@@ -87,12 +87,12 @@ public class JourTest {
     @Test
     public void testSetDateJour() {
         System.out.println("setDateJour");
-        int dateJour = 7;
-        Jour instance = new Jour(12,9,2015);
+        int dateJour = 12;
+        Jour instance = new Jour("samedi",12,9,2015);
         instance.setDateJour(dateJour);
-        assertEquals( 12, instance.setDateJour(dateJour));
+        assertEquals( 12, instance.getDateJour());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -101,7 +101,7 @@ public class JourTest {
     @Test
     public void testGetMois() {
         System.out.println("getMois");
-        Jour instance = new Jour(7,9,2015);
+        Jour instance = new Jour("lundi", 7,9,2015);
         int expResult = 9;
         int result = instance.getMois();
         assertEquals(expResult, result);
@@ -115,10 +115,10 @@ public class JourTest {
     @Test
     public void testSetMois() {
         System.out.println("setMois");
-        int mois = 9;
-        Jour instance = new Jour(7,10,2015);
+        int mois = 10;
+        Jour instance = new Jour("lundi", 7,10,2015);
         instance.setMois(mois);
-        assertEquals(10, instance.setMois(mois));
+        assertEquals(10, instance.getMois());
         // TODO review the generated test code and remove the default call to fail.
         // fail("The test case is a prototype.");
     }
@@ -129,7 +129,7 @@ public class JourTest {
     @Test
     public void testGetAnnee() {
         System.out.println("getAnnee");
-        Jour instance = new Jour(7,9,2015);
+        Jour instance = new Jour("lundi", 7,9,2015);
         int expResult = 2015;
         int result = instance.getAnnee();
         assertEquals(expResult, result);
@@ -143,11 +143,11 @@ public class JourTest {
     @Test
     public void testSetAnnee() {
         System.out.println("setAnnee");
-        int annee = 2015;
-        Jour instance = new Jour(7,9,2016);
+        int annee = 2016;
+        Jour instance = new Jour("vendredi", 7,9,2016);
         int expResult = 2016;
         instance.setAnnee(annee);
-        assertEquals(2016, instance.setAnnee(annee));
+        assertEquals(2016, instance.getAnnee());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -158,7 +158,7 @@ public class JourTest {
     @Test
     public void testIsOuvre() {
         System.out.println("isOuvre");
-        Jour instance = new Jour(7,9,2015);
+        Jour instance = new Jour("lundi", 7,9,2015);
         boolean expResult = true;
         boolean result = instance.isOuvre();
         assertEquals(expResult, result);
@@ -172,9 +172,9 @@ public class JourTest {
     @Test
     public void testSetOuvre() {
         System.out.println("setOuvre");
-        Jour instance = new Jour(12,9,2015);
+        Jour instance = new Jour("samedi", 12,9,2015);
         instance.setOuvre();
-        assertEquals(false, instance.setOuvre());
+        assertEquals(false, instance.isOuvre());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
@@ -265,14 +265,14 @@ public class JourTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Jour instance = new Jour(7,9,2015);
+        Jour instance = new Jour("lundi", 7,9,2015);
         String expResult = "7/9/2015";
         String result = instance.toString();
         assertEquals(expResult, result);
-        Jour jour = new Jour (7,9,2015);
+        Jour jour = new Jour ("samedi", 12,9,2015);
         jour.toString();
         jour.toString();
-        assertEquals(12/9/2015, jour.toString());
+        assertEquals("samedi 12/9/2015", jour.toString());
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
     }
