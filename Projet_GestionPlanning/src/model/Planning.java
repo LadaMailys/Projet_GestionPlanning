@@ -175,14 +175,12 @@ public class Planning implements Serializable {
         }
     }
     
-    public Jour getJour(int jour, int mois){
+    public Jour getJour(int jour, int mois, int annee){
         Jour leJour = null;
         for (int i = 1; i<=getNbSemainesAnnee();i++){
             for (Jour j : lesSemaines.get(i)){
-                if (j.getDateJour() == jour && j.getMois() == mois && j.getAnnee() == annee || j.getAnnee() == annee+1){
+                if (j.getDateJour() == jour && j.getMois() == mois && j.getAnnee() == annee){
                     leJour = j;
-                } else {
-                    i = getNbSemainesAnnee();
                 }
             }
         }
