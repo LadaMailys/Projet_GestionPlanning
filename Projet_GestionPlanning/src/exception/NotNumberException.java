@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class NotNumberException extends Exception {
 
     public NotNumberException() {
-        JOptionPane.showMessageDialog(null, "Veuillez n'entrer que des chiffres.");
+        JOptionPane.showMessageDialog(null, "Veuillez n'entrer que des chiffres.","Exception",JOptionPane.ERROR_MESSAGE);
     }
 
 }

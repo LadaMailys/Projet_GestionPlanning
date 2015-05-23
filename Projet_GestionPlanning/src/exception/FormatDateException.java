@@ -14,6 +14,6 @@ import javax.swing.JOptionPane;
  */
 public class FormatDateException extends Exception{
         public FormatDateException() {
-        JOptionPane.showMessageDialog(null, "Veuillez entrer une date valide.");
+        JOptionPane.showMessageDialog(null, "Veuillez entrer une date valide.","Exception",JOptionPane.ERROR_MESSAGE);
     }    
 }
