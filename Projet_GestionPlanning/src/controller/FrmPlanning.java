@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.awt.Color;
 import static java.awt.Color.*;
 import java.awt.Component;
 import java.awt.Toolkit;
@@ -106,6 +107,7 @@ public class FrmPlanning extends javax.swing.JFrame {
 
         jTabPlanning.setModel(modele);
         jTabPlanning.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTabPlanning.setCellSelectionEnabled(true);
         jTabPlanning.setRowHeight(150);
         jScrollPane1.setViewportView(jTabPlanning);
 
@@ -522,8 +524,11 @@ public class FrmPlanning extends javax.swing.JFrame {
             String ouv = (String) value;
 
             if (ouv.equals("")) {
-                setBackground(GRAY);
+                setBackground(Color.LIGHT_GRAY);
                 setEnabled(false);
+            } else {
+                setBackground(WHITE);
+                setEnabled(true);
             }
 
             return this;
