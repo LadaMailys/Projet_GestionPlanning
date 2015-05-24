@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.awt.Color;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,23 +19,15 @@ import static org.junit.Assert.*;
  */
 public class SceanceTest {
     
-    public SceanceTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+    Sceance instance;
+    Jour jour;
+    Module module;
     
     @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    public void initialise(){
+        jour = new Jour(7,9,2015);
+        module = new Module("Test 1", Color.blue, "T1", 15, 3);
+        instance = new Sceance(jour,module);
     }
 
     /**
@@ -43,12 +36,7 @@ public class SceanceTest {
     @Test
     public void testGetJourSceance() {
         System.out.println("getJourSceance");
-        Sceance instance = new Sceance();
-        Jour expResult = null;
-        Jour result = instance.getJourSceance();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(jour, instance.getJourSceance());
     }
 
     /**
@@ -57,12 +45,7 @@ public class SceanceTest {
     @Test
     public void testGetLeModule() {
         System.out.println("getLeModule");
-        Sceance instance = new Sceance();
-        Module expResult = null;
-        Module result = instance.getLeModule();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(module, instance.getLeModule());
     }
 
     /**
@@ -71,11 +54,9 @@ public class SceanceTest {
     @Test
     public void testSetJourSceance() {
         System.out.println("setJourSceance");
-        Jour jour = null;
-        Sceance instance = new Sceance();
+        jour = new Jour(14,9,2015);
         instance.setJourSceance(jour);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(jour, instance.getJourSceance());
     }
 
     /**
@@ -84,11 +65,9 @@ public class SceanceTest {
     @Test
     public void testSetLeModule() {
         System.out.println("setLeModule");
-        Module mod = null;
-        Sceance instance = new Sceance();
-        instance.setLeModule(mod);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        module = new Module("TEST X", Color.red, "TX", 20, 2);
+        instance.setLeModule(module);
+        assertEquals(module, instance.getLeModule());
     }
     
 }
