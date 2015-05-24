@@ -86,7 +86,8 @@ public class Jour implements Serializable {
 
     public Sceance getSceanceMatin() {
         return sceanceMatin;
-    }    
+    }
+
     public Sceance getSceanceSoir() {
         return sceanceSoir;
     }
@@ -94,15 +95,17 @@ public class Jour implements Serializable {
     public void setSceanceMatin(Sceance s) {
         sceanceMatin = s;
     }
+
     public void setSceanceSoir(Sceance s) {
         sceanceSoir = s;
     }
-    public void ajouteSceanceMatin(Module mod) {
-        sceanceMatin = new Sceance(this, mod);
+
+    public void ajouteSceanceMatin(Module mod, Promotion promo) {
+        sceanceMatin = new Sceance(this, mod, promo);
     }
 
-    public void ajouteSceanceSoir(Module mod) {
-        sceanceSoir = new Sceance(this, mod);
+    public void ajouteSceanceSoir(Module mod, Promotion promo) {
+        sceanceSoir = new Sceance(this, mod, promo);
     }
 
     @Override
