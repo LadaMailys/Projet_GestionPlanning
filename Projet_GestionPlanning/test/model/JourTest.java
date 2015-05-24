@@ -5,10 +5,7 @@
  */
 package model;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import java.awt.Color;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,27 +14,8 @@ import static org.junit.Assert.*;
  * @author U21406901
  */
 public class JourTest {
-    
+
     private Jour jour;
-    
-    /**public JourTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of getJour method, of class Jour.
@@ -45,12 +23,8 @@ public class JourTest {
     @Test
     public void testGetJour() {
         System.out.println("getJour");
-        Jour instance = new Jour("lundi", 7,9,2015);
-        String expResult = "lundi";
-        String result = instance.getJour();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("lundi", 7, 9, 2015);
+        assertEquals("lundi", jour.getJour());
     }
 
     /**
@@ -59,12 +33,14 @@ public class JourTest {
     @Test
     public void testSetJour() {
         System.out.println("setJour");
-        String jour = "samedi";
-        Jour instance = new Jour("samedi", 12,9,2015);
-        instance.setJour(jour);
-        assertEquals("samedi", instance.getJour());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("lundi", 12, 9, 2015);
+        jour.setJour("mardi");
+        assertEquals("mardi", jour.getJour());
+        assertEquals(true, jour.isOuvre());
+
+        jour.setJour("samedi");
+        assertEquals("samedi", jour.getJour());
+        assertEquals(false, jour.isOuvre());
     }
 
     /**
@@ -73,12 +49,8 @@ public class JourTest {
     @Test
     public void testGetDateJour() {
         System.out.println("getDateJour");
-        Jour instance = new Jour("lundi",7,9,2015);
-        int expResult = 7;
-        int result = instance.getDateJour();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("lundi", 7, 9, 2015);
+        assertEquals(7, jour.getDateJour());
     }
 
     /**
@@ -87,12 +59,9 @@ public class JourTest {
     @Test
     public void testSetDateJour() {
         System.out.println("setDateJour");
-        int dateJour = 12;
-        Jour instance = new Jour("samedi",12,9,2015);
-        instance.setDateJour(dateJour);
-        assertEquals( 12, instance.getDateJour());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("lundi", 7, 9, 2015);
+        jour.setDateJour(12);
+        assertEquals(12, jour.getDateJour());
     }
 
     /**
@@ -101,12 +70,8 @@ public class JourTest {
     @Test
     public void testGetMois() {
         System.out.println("getMois");
-        Jour instance = new Jour("lundi", 7,9,2015);
-        int expResult = 9;
-        int result = instance.getMois();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("lundi", 7, 9, 2015);
+        assertEquals(9, jour.getMois());
     }
 
     /**
@@ -115,12 +80,9 @@ public class JourTest {
     @Test
     public void testSetMois() {
         System.out.println("setMois");
-        int mois = 10;
-        Jour instance = new Jour("lundi", 7,10,2015);
-        instance.setMois(mois);
-        assertEquals(10, instance.getMois());
-        // TODO review the generated test code and remove the default call to fail.
-        // fail("The test case is a prototype.");
+        jour = new Jour("lundi", 7, 10, 2015);
+        jour.setMois(12);
+        assertEquals(12, jour.getMois());
     }
 
     /**
@@ -129,12 +91,8 @@ public class JourTest {
     @Test
     public void testGetAnnee() {
         System.out.println("getAnnee");
-        Jour instance = new Jour("lundi", 7,9,2015);
-        int expResult = 2015;
-        int result = instance.getAnnee();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("lundi", 7, 9, 2015);
+        assertEquals(2015, jour.getAnnee());
     }
 
     /**
@@ -143,13 +101,9 @@ public class JourTest {
     @Test
     public void testSetAnnee() {
         System.out.println("setAnnee");
-        int annee = 2016;
-        Jour instance = new Jour("vendredi", 7,9,2016);
-        int expResult = 2016;
-        instance.setAnnee(annee);
-        assertEquals(2016, instance.getAnnee());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("vendredi", 7, 9, 2016);
+        jour.setAnnee(2020);
+        assertEquals(2020, jour.getAnnee());
     }
 
     /**
@@ -158,12 +112,10 @@ public class JourTest {
     @Test
     public void testIsOuvre() {
         System.out.println("isOuvre");
-        Jour instance = new Jour("lundi", 7,9,2015);
-        boolean expResult = true;
-        boolean result = instance.isOuvre();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("lundi", 7, 9, 2015);
+        assertEquals(true, jour.isOuvre());
+        Jour jour2 = new Jour("samedi", 3, 10, 2015);
+        assertEquals(false, jour2.isOuvre());
     }
 
     /**
@@ -172,11 +124,10 @@ public class JourTest {
     @Test
     public void testSetOuvre() {
         System.out.println("setOuvre");
-        Jour instance = new Jour("samedi", 12,9,2015);
-        instance.setOuvre();
-        assertEquals(false, instance.isOuvre());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("samedi", 12, 9, 2015);
+        assertEquals(false, jour.isOuvre());
+        jour.setOuvre();
+        assertEquals(true, jour.isOuvre());
     }
 
     /**
@@ -185,12 +136,14 @@ public class JourTest {
     @Test
     public void testGetSceanceMatin() {
         System.out.println("getSceanceMatin");
-        Jour instance = new Jour();
-        Sceance expResult = null;
-        Sceance result = instance.getSceanceMatin();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour();
+        assertEquals(null, jour.getSceanceMatin());
+
+        Module mod = new Module("TEST 1", Color.blue, "T1", 15, 3);
+        Sceance sc = new Sceance(jour, mod);
+
+        jour.setSceanceMatin(sc);
+        assertEquals(sc, jour.getSceanceMatin());
     }
 
     /**
@@ -199,12 +152,14 @@ public class JourTest {
     @Test
     public void testGetSceanceSoir() {
         System.out.println("getSceanceSoir");
-        Jour instance = new Jour();
-        Sceance expResult = null;
-        Sceance result = instance.getSceanceSoir();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour();
+        assertEquals(null, jour.getSceanceSoir());
+
+        Module mod = new Module("TEST X", Color.blue, "TX", 13, 2);
+        Sceance sc = new Sceance(jour, mod);
+
+        jour.setSceanceSoir(sc);
+        assertEquals(sc, jour.getSceanceSoir());
     }
 
     /**
@@ -213,11 +168,17 @@ public class JourTest {
     @Test
     public void testSetSceanceMatin() {
         System.out.println("setSceanceMatin");
-        Sceance s = null;
-        Jour instance = new Jour();
-        instance.setSceanceMatin(s);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour();
+
+        Module mod = new Module("TEST 1", Color.blue, "T1", 15, 3);
+        Sceance sc = new Sceance(jour, mod);
+        jour.setSceanceMatin(sc);
+        assertEquals(sc, jour.getSceanceMatin());
+
+        Module mod2 = new Module("TEST 2", Color.red, "T2", 13, 3);
+        Sceance sc2 = new Sceance(jour, mod2);
+        jour.setSceanceMatin(sc2);
+        assertEquals(sc2, jour.getSceanceMatin());
     }
 
     /**
@@ -226,11 +187,14 @@ public class JourTest {
     @Test
     public void testSetSceanceSoir() {
         System.out.println("setSceanceSoir");
-        Sceance s = null;
-        Jour instance = new Jour();
-        instance.setSceanceSoir(s);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour();
+        assertEquals(null, jour.getSceanceSoir());
+
+        Module mod = new Module("TEST X", Color.blue, "TX", 13, 2);
+        Sceance sc = new Sceance(jour, mod);
+
+        jour.setSceanceSoir(sc);
+        assertEquals(sc, jour.getSceanceSoir());
     }
 
     /**
@@ -239,11 +203,10 @@ public class JourTest {
     @Test
     public void testAjouteSceanceMatin() {
         System.out.println("ajouteSceanceMatin");
-        Module mod = null;
-        Jour instance = new Jour();
-        instance.ajouteSceanceMatin(mod);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour();
+        Module mod = new Module("TEST X", Color.yellow, "TX", 13, 2);
+        jour.ajouteSceanceMatin(mod);
+        assertNotNull(jour.getSceanceMatin());
     }
 
     /**
@@ -252,11 +215,10 @@ public class JourTest {
     @Test
     public void testAjouteSceanceSoir() {
         System.out.println("ajouteSceanceSoir");
-        Module mod = null;
-        Jour instance = new Jour();
-        instance.ajouteSceanceSoir(mod);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour();
+        Module mod = new Module("TEST Y", Color.MAGENTA, "TY", 13, 2);
+        jour.ajouteSceanceSoir(mod);
+        assertNotNull(jour.getSceanceSoir());
     }
 
     /**
@@ -265,16 +227,8 @@ public class JourTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Jour instance = new Jour("lundi", 7,9,2015);
-        String expResult = "7/9/2015";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        Jour jour = new Jour ("samedi", 12,9,2015);
-        jour.toString();
-        jour.toString();
-        assertEquals("samedi 12/9/2015", jour.toString());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        jour = new Jour("lundi", 7, 9, 2015);
+        assertEquals("7/9/2015", jour.toString());
     }
-    
+
 }
