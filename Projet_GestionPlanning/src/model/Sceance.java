@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,29 +14,43 @@ import java.io.Serializable;
 public class Sceance implements Serializable{
 
     private Jour jourSceance;
-    private Module leModule;
+    private Module module;
+    private Promotion promotion;
+    private ArrayList<Sceance> lesSceances;
 
     // Constructeurs
     public Sceance(){
+        lesSceances.add(this);
     }
-    public Sceance(Jour jour, Module mod) {
+    
+    public Sceance(Jour jour, Module mod,Promotion promo) {
         this.jourSceance = jour;
-        this.leModule = mod;
+        this.module = mod;
+        this.promotion = promo;
+        lesSceances.add(this);
     }
 
     public Jour getJourSceance() {
         return jourSceance;
     }
 
-    public Module getLeModule() {
-        return leModule;
+    public Module getModule() {
+        return module;
+    }
+    
+    public Promotion getPromotion(){
+        return promotion;
     }
 
     public void setJourSceance(Jour jour) {
         this.jourSceance = jour;
     }
 
-    public void setLeModule(Module mod) {
-        this.leModule = mod;
+    public void setModule(Module mod) {
+        this.module = mod;
+    }
+    
+    public void setPromotion(Promotion promo){
+        promotion = promo;
     }
 }
