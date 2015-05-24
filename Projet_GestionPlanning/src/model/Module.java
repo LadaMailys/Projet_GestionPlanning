@@ -19,7 +19,6 @@ public class Module implements Serializable{
     private String abbreviation;
     private int nbSceanceTotal;
     private int duree;
-    private ArrayList<Sceance> lesSceancesFaites;
     
     // Constructeurs
     public Module(){
@@ -29,8 +28,7 @@ public class Module implements Serializable{
         this.couleur = couleur;
         this.abbreviation = abb;
         this.nbSceanceTotal = nbSceanceTotal;
-        this.duree = duree;
-        this.lesSceancesFaites = new ArrayList<>();             
+        this.duree = duree;          
     }
     
     public String getNom(){
@@ -66,18 +64,6 @@ public class Module implements Serializable{
     }
     public void setDuree(int duree){
         this.duree = duree;
-    }
-    
-    public ArrayList<Sceance> getLesSceancesFaites (){
-        return lesSceancesFaites;
-    }
-    public void ajouteSceanceFaite (Sceance laSceance){
-        this.lesSceancesFaites.add(laSceance);
-    }
-    public void retireSceanceFaite (Sceance laSceance){
-        if (this.lesSceancesFaites.contains(laSceance)){
-            this.lesSceancesFaites.remove(laSceance);
-        }
     }
 }
 
