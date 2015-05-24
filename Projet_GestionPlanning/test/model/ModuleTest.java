@@ -6,10 +6,9 @@
 package model;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.Before;
 
 /**
  *
@@ -19,7 +18,7 @@ public class ModuleTest {
     
     Module instance;
     
-    @BeforeClass
+    @Before
     public void initialise(){
         instance = new Module("anglais", Color.RED, "EN",5,20);
     }
