@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Promotion implements Serializable{
     private String nom;
-    private int duree;
+    private int dureeSceance;
     private ArrayList<Module> lesModules;
     
     // Constructeurs
@@ -23,7 +23,7 @@ public class Promotion implements Serializable{
     }
     public Promotion(String nom, int duree){
         this.nom = nom;
-        this.duree = duree;
+        this.dureeSceance = duree;
         this.lesModules = new ArrayList<>();
     }
     
@@ -34,11 +34,11 @@ public class Promotion implements Serializable{
         this.nom = nom;
     }
     
-    public int getDuree(){
-        return duree;
+    public int getDureeSceance(){
+        return dureeSceance;
     }
-    public void setDuree(int duree){
-        this.duree = duree;
+    public void setDureeSceance(int dureeSceance){
+        this.dureeSceance = dureeSceance;
     }
     
     public ArrayList<Module> getLesModules(){
