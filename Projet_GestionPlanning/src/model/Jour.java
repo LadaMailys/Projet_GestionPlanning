@@ -49,6 +49,7 @@ public class Jour implements Serializable {
 
     public void setJour(String jour) {
         this.jour = jour;
+        this.ouvre = !jour.toUpperCase().equals("SAMEDI") && !jour.toUpperCase().equals("DIMANCHE");
     }
 
     public int getDateJour() {
