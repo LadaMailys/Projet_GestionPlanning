@@ -5,11 +5,9 @@
  */
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -18,24 +16,12 @@ import static org.junit.Assert.*;
  * @author U21406901
  */
 public class PromotionTest {
-    
-    public PromotionTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+
+    Promotion instance;
+
     @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+    public void initialise() {
+        instance = new Promotion("TEST", 3);
     }
 
     /**
@@ -44,12 +30,7 @@ public class PromotionTest {
     @Test
     public void testGetNom() {
         System.out.println("getNom");
-        Promotion instance = new Promotion();
-        String expResult = "";
-        String result = instance.getNom();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("TEST", instance.getNom());
     }
 
     /**
@@ -58,11 +39,8 @@ public class PromotionTest {
     @Test
     public void testSetNom() {
         System.out.println("setNom");
-        String nom = "";
-        Promotion instance = new Promotion();
-        instance.setNom(nom);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setNom("TOTO");
+        assertEquals("TOTO", instance.getNom());
     }
 
     /**
@@ -71,12 +49,7 @@ public class PromotionTest {
     @Test
     public void testGetDuree() {
         System.out.println("getDuree");
-        Promotion instance = new Promotion();
-        int expResult = 0;
-        int result = instance.getDuree();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(3, instance.getDuree());
     }
 
     /**
@@ -85,11 +58,8 @@ public class PromotionTest {
     @Test
     public void testSetDuree() {
         System.out.println("setDuree");
-        int duree = 0;
-        Promotion instance = new Promotion();
-        instance.setDuree(duree);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setDuree(5);
+        assertEquals(5, instance.getDuree());
     }
 
     /**
@@ -98,12 +68,8 @@ public class PromotionTest {
     @Test
     public void testGetLesModules() {
         System.out.println("getLesModules");
-        Promotion instance = new Promotion();
-        ArrayList<Module> expResult = null;
-        ArrayList<Module> result = instance.getLesModules();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(instance.getLesModules());
+        assertTrue(instance.getLesModules().isEmpty());
     }
 
     /**
@@ -112,11 +78,13 @@ public class PromotionTest {
     @Test
     public void testAjouteModule() {
         System.out.println("ajouteModule");
-        Module mod = null;
-        Promotion instance = new Promotion();
-        instance.ajouteModule(mod);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(instance.getLesModules().isEmpty());
+
+        instance.ajouteModule(new Module("TEST_1", Color.blue, "T1", 15, 2));
+        assertTrue(instance.getLesModules().size() == 1);
+
+        instance.ajouteModule(new Module("TEST_2", Color.yellow, "T2", 12, 2));
+        assertTrue(instance.getLesModules().size() == 2);
     }
 
     /**
@@ -125,11 +93,11 @@ public class PromotionTest {
     @Test
     public void testRetireModule() {
         System.out.println("retireModule");
-        Module mod = null;
-        Promotion instance = new Promotion();
+        Module mod = new Module("TEST_3", Color.red, "T3", 9, 3);
+        instance.ajouteModule(mod);
+        assertTrue(instance.getLesModules().size() == 1);
         instance.retireModule(mod);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(instance.getLesModules().isEmpty());
     }
-    
+
 }
