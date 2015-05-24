@@ -565,11 +565,10 @@ public class FrmPlanning extends javax.swing.JFrame {
             if (rowIndex == 0) {
                 if (j.isOuvre()) {
                     if (j.getSceanceMatin() != null) {
-                        module = "<html>" + j.getSceanceMatin().getLeModule().getNom() + " ("
-                                + j.getSceanceMatin().getLeModule().getAbbreviation() + ") <br/>"
-                                + j.getSceanceMatin().getLeModule().getDuree() + " h <br/> Scéance "
-                                + j.getSceanceMatin().getLeModule().getLesSceancesFaites().size() + "/"
-                                + j.getSceanceMatin().getLeModule().getNbSceanceTotal() + "</html>";
+                        module = "<html>" + j.getSceanceMatin().getModule().getNom() + " ("
+                                + j.getSceanceMatin().getModule().getAbbreviation() + ") <br/>"
+                                + j.getSceanceMatin().getModule().getDuree() + " h <br/> Scéance "
+                                + j.getSceanceMatin().getModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }
@@ -580,11 +579,10 @@ public class FrmPlanning extends javax.swing.JFrame {
             } else if (rowIndex == 1) {
                 if (j.isOuvre()) {
                     if (j.getSceanceSoir() != null) {
-                        module = "<html>" + j.getSceanceSoir().getLeModule().getNom() + " ("
-                                + j.getSceanceSoir().getLeModule().getAbbreviation() + ") <br/>"
-                                + j.getSceanceSoir().getLeModule().getDuree() + " h <br/> Scéance "
-                                + j.getSceanceSoir().getLeModule().getLesSceancesFaites().size() + "/"
-                                + j.getSceanceSoir().getLeModule().getNbSceanceTotal() + "</html>";
+                        module = "<html>" + j.getSceanceSoir().getModule().getNom() + " ("
+                                + j.getSceanceSoir().getModule().getAbbreviation() + ") <br/>"
+                                + j.getSceanceSoir().getModule().getDuree() + " h <br/> Scéance "
+                                + j.getSceanceSoir().getModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }
