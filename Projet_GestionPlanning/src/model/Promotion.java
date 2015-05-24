@@ -17,6 +17,7 @@ public class Promotion implements Serializable{
     private String nom;
     private int dureeSceance;
     private ArrayList<Module> lesModules;
+    private ArrayList<Sceance> lesSceancesFaites;
     
     // Constructeurs
     public Promotion(){
@@ -25,6 +26,7 @@ public class Promotion implements Serializable{
         this.nom = nom;
         this.dureeSceance = duree;
         this.lesModules = new ArrayList<>();
+        this.lesSceancesFaites = new ArrayList<>();
     }
     
     public String getNom(){
@@ -50,6 +52,18 @@ public class Promotion implements Serializable{
     public void retireModule(Module mod){
         if (lesModules.contains(mod)){
             lesModules.remove(mod);
+        }
+    }
+    
+    public ArrayList<Sceance> getLesSceancesFaites(){
+        return lesSceancesFaites;
+    }
+    public void ajouteSceanceFaite(Sceance sc){
+        lesSceancesFaites.add(sc);
+    }
+    public void retireSceanceFaite(Sceance sc){
+        if (lesSceancesFaites.contains(sc)){
+            lesSceancesFaites.remove(sc);
         }
     }
     

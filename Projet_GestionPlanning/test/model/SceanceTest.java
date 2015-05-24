@@ -22,7 +22,7 @@ public class SceanceTest {
     
     @Before
     public void initialise(){
-        jour = new Jour(7,9,2015);
+        jour = new Jour("lundi",7,9,2015);
         module = new Module("Test 1", Color.blue, "T1", 15, 3);
         instance = new Sceance(jour,module,new Promotion());
     }
@@ -51,7 +51,7 @@ public class SceanceTest {
     @Test
     public void testSetJourSceance() {
         System.out.println("setJourSceance");
-        jour = new Jour(14,9,2015);
+        jour = new Jour("lundi",14,9,2015);
         instance.setJourSceance(jour);
         assertEquals(jour, instance.getJourSceance());
     }

@@ -23,14 +23,7 @@ public class Jour implements Serializable {
 
     // Constructeurs
     public Jour() {
-    }
-
-    public Jour(int dateJour, int mois, int annee) {
-        this.dateJour = dateJour;
-        this.mois = mois;
-        this.annee = annee;
-        sceanceMatin = null;
-        sceanceSoir = null;
+    
     }
 
     public Jour(String jour, int dateJour, int mois, int annee) {
