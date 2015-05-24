@@ -261,7 +261,7 @@ public class Planning implements Serializable {
                 + "        </div>"
                 + "      </div>"
                 + "      <div class=\"inner cover\">"
-                + "        <h1 class=\"cover-heading\">Planning " + laPromotion.getNom() + " " + annee + "/" + (annee + 1) + " " + laPromotion.getDuree() + "h </h1>"
+                + "        <h1 class=\"cover-heading\">Planning " + laPromotion.getNom() + " " + annee + "/" + (annee + 1) + " " + laPromotion.getDureeSceance() + "h </h1>"
                 + "            <p class=\"lead\">Cette page recense les séances programmées de la promotion, de septembre à août.</p>"
                 + "      </div>"
                 + "      <table class=\"table table-striped\">"
