@@ -49,7 +49,7 @@ public class PromotionTest {
     @Test
     public void testGetDuree() {
         System.out.println("getDuree");
-        assertEquals(3, instance.getDuree());
+        assertEquals(3, instance.getDureeSceance());
     }
 
     /**
@@ -58,8 +58,8 @@ public class PromotionTest {
     @Test
     public void testSetDuree() {
         System.out.println("setDuree");
-        instance.setDuree(5);
-        assertEquals(5, instance.getDuree());
+        instance.setDureeSceance(5);
+        assertEquals(5, instance.getDureeSceance());
     }
 
     /**

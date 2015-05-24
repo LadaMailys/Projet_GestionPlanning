@@ -6,10 +6,7 @@
 package model;
 
 import java.awt.Color;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -27,7 +24,7 @@ public class SceanceTest {
     public void initialise(){
         jour = new Jour(7,9,2015);
         module = new Module("Test 1", Color.blue, "T1", 15, 3);
-        instance = new Sceance(jour,module);
+        instance = new Sceance(jour,module,new Promotion());
     }
 
     /**
@@ -45,7 +42,7 @@ public class SceanceTest {
     @Test
     public void testGetLeModule() {
         System.out.println("getLeModule");
-        assertEquals(module, instance.getLeModule());
+        assertEquals(module, instance.getModule());
     }
 
     /**
@@ -66,8 +63,8 @@ public class SceanceTest {
     public void testSetLeModule() {
         System.out.println("setLeModule");
         module = new Module("TEST X", Color.red, "TX", 20, 2);
-        instance.setLeModule(module);
-        assertEquals(module, instance.getLeModule());
+        instance.setModule(module);
+        assertEquals(module, instance.getModule());
     }
     
 }
