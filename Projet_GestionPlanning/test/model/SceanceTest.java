@@ -23,7 +23,7 @@ public class SceanceTest {
     @Before
     public void initialise(){
         jour = new Jour("lundi",7,9,2015);
-        module = new Module("Test 1", Color.blue, "T1", 15, 3);
+        module = new Module("Test 1", Color.blue, "T1", 15);
         instance = new Sceance(jour,module,new Promotion());
     }
 
@@ -62,7 +62,7 @@ public class SceanceTest {
     @Test
     public void testSetLeModule() {
         System.out.println("setLeModule");
-        module = new Module("TEST X", Color.red, "TX", 20, 2);
+        module = new Module("TEST X", Color.red, "TX", 20);
         instance.setModule(module);
         assertEquals(module, instance.getModule());
     }
