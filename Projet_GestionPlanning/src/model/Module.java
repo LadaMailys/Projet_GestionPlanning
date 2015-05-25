@@ -6,64 +6,63 @@ package model;
 
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *
  * @author jiani
  */
-public class Module implements Serializable{
-    
+public class Module implements Serializable {
+
     private String nom;
     private Color couleur;
     private String abbreviation;
     private int nbSceanceTotal;
-    private int duree;
-    
+
     // Constructeurs
-    public Module(){
+    public Module() {
     }
-    public Module (String nom, Color couleur, String abb, int nbSceanceTotal,int duree){
+
+    public Module(String nom, Color couleur, String abb, int nbSceanceTotal) {
         this.nom = nom;
         this.couleur = couleur;
         this.abbreviation = abb;
         this.nbSceanceTotal = nbSceanceTotal;
-        this.duree = duree;          
     }
-    
-    public String getNom(){
+
+    public String getNom() {
         return nom;
     }
-    public void setNom (String nom){
+
+    public void setNom(String nom) {
         this.nom = nom;
     }
-    
-    public Color getCouleur (){
+
+    public Color getCouleur() {
         return couleur;
     }
-    public void setCouleur (Color couleur){
+
+    public void setCouleur(Color couleur) {
         this.couleur = couleur;
     }
-    
-    public String getAbbreviation(){
+
+    public String getAbbreviation() {
         return abbreviation;
     }
-    public void setAbbreviation (String abbreviation){
+
+    public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
     }
-    
-    public int getNbSceanceTotal(){
+
+    public int getNbSceanceTotal() {
         return nbSceanceTotal;
     }
-    public void setNbSceanceTotal (int nbSceanceTotal){
+
+    public void setNbSceanceTotal(int nbSceanceTotal) {
         this.nbSceanceTotal = nbSceanceTotal;
     }
-    
-    public int getDuree (){
-        return duree;
-    }
-    public void setDuree(int duree){
-        this.duree = duree;
+
+    public boolean equals(Module obj) {
+        Module o = (Module) obj;
+        return nom.equals(o.nom) && couleur.equals(o.couleur) && abbreviation.equals(o.abbreviation) && nbSceanceTotal == o.nbSceanceTotal;
     }
 }
-
