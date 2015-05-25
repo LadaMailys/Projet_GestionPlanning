@@ -12,6 +12,8 @@ import java.awt.Toolkit;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.Calendar;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -23,38 +25,33 @@ import view.*;
  *
  * @author Cynthia
  */
-public class FrmPlanning extends javax.swing.JFrame {
+public class FrmPlanning extends javax.swing.JFrame implements Observer {
 
     int annee;
     ModeleTableau modele;
-    String titreForm;
-    static Promotion promo;
-    static Planning p;
+    static Promotion promotion;
+    static Sauvegarde s;
 
     /**
-     * Creates new form FrmPlanning
+     * Creates new form FrmCalendrier
      *
      * @param promotion
      * @param planning
      */
-    public FrmPlanning(Promotion promotion, Planning planning) {
+    public FrmPlanning(Promotion promotion, Sauvegarde s) {
+        this.s = s;
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
-        promo = promotion;
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        FrmPlanning.promotion = promotion;
         annee = Calendar.getInstance().get(Calendar.YEAR);
-        titreForm = "Bienvenue dans le gestionnaire de planning";
-        if (planning == null) {
-            p = new Planning(promo, annee);
-        } else {
-            p = planning;
-        }
+        promotion.getCalendrier().setAnnee(annee);
+
         modele = new ModeleTableau();
         initComponents();
         for (int i = annee; i <= annee + 10; i++) {
             jcbxAnnee.addItem(i + " / " + (i + 1));
         }
-        jLblPromo.setText(promo.getNom());
-        titreForm += " - " + p.getLaPromotion().getNom() + " " + p.getAnnee();
-        this.setTitle(titreForm);
+        jLblPromo.setText(promotion.getNom());
         jTabPlanning.setDefaultRenderer(boolean.class, new OuvreCellRenderer());
         for (int i = 0; i < 7; i++) {
             jTabPlanning.getColumnModel().getColumn(i).setCellRenderer(new OuvreCellRenderer());
@@ -78,7 +75,6 @@ public class FrmPlanning extends javax.swing.JFrame {
         jLblRangSem = new javax.swing.JLabel();
         jLblPlageSem = new javax.swing.JLabel();
         jbtnSauvegarder = new javax.swing.JButton();
-        jbtnOuvrir = new javax.swing.JButton();
         jbtnDroite = new javax.swing.JButton();
         jcbxSemaines = new javax.swing.JComboBox();
         jbtnGauche = new javax.swing.JButton();
@@ -86,11 +82,11 @@ public class FrmPlanning extends javax.swing.JFrame {
         jbtnQuitter = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLblPromo = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuAjoutFormation = new javax.swing.JMenuItem();
         jMenuAjoutModule = new javax.swing.JMenuItem();
-        jMenuAjoutSceance = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuModifFormation = new javax.swing.JMenuItem();
         jMenuModifModule = new javax.swing.JMenuItem();
@@ -102,6 +98,7 @@ public class FrmPlanning extends javax.swing.JFrame {
         jMenuVoirSceance = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bienvenue dans la gestion de planning");
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("Sélectionnez l'année :");
@@ -130,15 +127,6 @@ public class FrmPlanning extends javax.swing.JFrame {
         jbtnSauvegarder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnSauvegarderActionPerformed(evt);
-            }
-        });
-
-        jbtnOuvrir.setBackground(new java.awt.Color(255, 255, 255));
-        jbtnOuvrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ouvrir.PNG"))); // NOI18N
-        jbtnOuvrir.setToolTipText("Ouvrir des données sauvegardée");
-        jbtnOuvrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnOuvrirActionPerformed(evt);
             }
         });
 
@@ -184,6 +172,9 @@ public class FrmPlanning extends javax.swing.JFrame {
 
         jLblPromo.setText("jLabel3");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Creer.PNG"))); // NOI18N
+        jButton1.setText("Créer scéance");
+
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ajouter.PNG"))); // NOI18N
         jMenu1.setText("Ajouter");
 
@@ -202,9 +193,6 @@ public class FrmPlanning extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuAjoutModule);
-
-        jMenuAjoutSceance.setText("Scéance");
-        jMenu1.add(jMenuAjoutSceance);
 
         jMenuBar1.add(jMenu1);
 
@@ -235,6 +223,7 @@ public class FrmPlanning extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Consulter.PNG"))); // NOI18N
         jMenu2.setText("Consulter");
 
         jMenuVoirFormation.setText("Formation");
@@ -270,27 +259,6 @@ public class FrmPlanning extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jcbxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(326, 326, 326)
-                        .addComponent(jLblPlageSem)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 471, Short.MAX_VALUE)
-                .addComponent(jbtnExporter, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbtnSauvegarder, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbtnOuvrir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jbtnQuitter, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtnGauche, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,12 +269,34 @@ public class FrmPlanning extends javax.swing.JFrame {
                 .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLblPromo)
-                .addGap(235, 235, 235)
-                .addComponent(jLblRangSem)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jcbxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(243, 243, 243)
+                                .addComponent(jLblPlageSem)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 423, Short.MAX_VALUE)
+                        .addComponent(jbtnExporter, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jbtnQuitter, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jbtnSauvegarder, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLblPromo)
+                        .addGap(235, 235, 235)
+                        .addComponent(jLblRangSem)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,11 +314,11 @@ public class FrmPlanning extends javax.swing.JFrame {
                     .addComponent(jLblPromo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLblPlageSem)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLblPlageSem)
+                        .addComponent(jButton1))
                     .addComponent(jbtnExporter)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jbtnOuvrir, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jbtnSauvegarder)))
+                    .addComponent(jbtnSauvegarder))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -346,13 +336,11 @@ public class FrmPlanning extends javax.swing.JFrame {
     private void jcbxAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbxAnneeActionPerformed
         jcbxSemaines.removeAllItems();
         String an = jcbxAnnee.getSelectedItem() + "";
-        p.setAnnee(Integer.parseInt(an.substring(0, 4)));
-        p.remplirCalendrier();
-        for (int i = 1; i <= p.getNbSemainesAnnee(); i++) {
-            jcbxSemaines.addItem("Du " + p.getLaSemaine(i).get(0) + " au " + p.getLaSemaine(i).get(6));
+        promotion.getCalendrier().setAnnee(Integer.parseInt(an.substring(0, 4)));
+        promotion.getCalendrier().remplirCalendrier();
+        for (int i = 1; i <= promotion.getCalendrier().getNbSemainesAnnee(); i++) {
+            jcbxSemaines.addItem("Du " + promotion.getCalendrier().getLaSemaine(i).get(0) + " au " + promotion.getCalendrier().getLaSemaine(i).get(6));
         }
-
-//javax.swing.JOptionPane.showMessageDialog(null,jcbxAnnee.getSelectedItem());
     }//GEN-LAST:event_jcbxAnneeActionPerformed
 
     private void jbtnQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnQuitterActionPerformed
@@ -389,28 +377,23 @@ public class FrmPlanning extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbxSemainesActionPerformed
 
     private void jbtnSauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSauvegarderActionPerformed
-        // TODO add your handling code here:
-        Planning.serialiser(p);
+        Sauvegarde.serialiser(s);
     }//GEN-LAST:event_jbtnSauvegarderActionPerformed
 
-    private void jbtnOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOuvrirActionPerformed
-        this.p = Planning.deserialiser();
-    }//GEN-LAST:event_jbtnOuvrirActionPerformed
-
     private void jMenuAjoutFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAjoutFormationActionPerformed
-        FrmAjoutFormation frmAjoutForm = new FrmAjoutFormation(p);
+        FrmAjoutFormation frmAjoutForm = new FrmAjoutFormation(s);
         frmAjoutForm.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmAjoutForm.setVisible(true);
     }//GEN-LAST:event_jMenuAjoutFormationActionPerformed
 
     private void jMenuModifModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuModifModuleActionPerformed
-        FrmModifModule frmModifMod = new FrmModifModule(p);
+        FrmModifModule frmModifMod = new FrmModifModule(promotion, s);
         frmModifMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmModifMod.setVisible(true);
     }//GEN-LAST:event_jMenuModifModuleActionPerformed
 
     private void jMenuModifJourOuvreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuModifJourOuvreActionPerformed
-        FrmModifJourOuvre frmModifJO = new FrmModifJourOuvre(p);
+        FrmModifJourOuvre frmModifJO = new FrmModifJourOuvre(promotion, s);
         frmModifJO.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmModifJO.setVisible(true);
     }//GEN-LAST:event_jMenuModifJourOuvreActionPerformed
@@ -420,7 +403,7 @@ public class FrmPlanning extends javax.swing.JFrame {
             // Creation fichier
             FileWriter fstream = new FileWriter("planning.html");
             BufferedWriter out = new BufferedWriter(fstream);
-            out.write(p.codeHTML());
+            out.write(promotion.codeHTML());
             // Fermeture
             out.close();
             JOptionPane.showMessageDialog(null, "Planning exporté! ");
@@ -430,28 +413,28 @@ public class FrmPlanning extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnExporterActionPerformed
 
     private void jMenuVoirFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirFormationActionPerformed
-        FrmVoirFormation frmVoirForm = new FrmVoirFormation(p);
+        FrmVoirFormation frmVoirForm = new FrmVoirFormation(promotion, s);
         frmVoirForm.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmVoirForm.setVisible(true);
-       
+
     }//GEN-LAST:event_jMenuVoirFormationActionPerformed
 
     private void jMenuVoirModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirModuleActionPerformed
-        FrmVoirModule frmVoirMod = new FrmVoirModule(p);
+        FrmVoirModule frmVoirMod = new FrmVoirModule(promotion, s);
         frmVoirMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
-        frmVoirMod.setVisible(true); 
+        frmVoirMod.setVisible(true);
     }//GEN-LAST:event_jMenuVoirModuleActionPerformed
 
     private void jMenuVoirSceanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirSceanceActionPerformed
-        FrmVoirSceance frmVoirSce = new FrmVoirSceance(p);
+        FrmVoirSceance frmVoirSce = new FrmVoirSceance(promotion, s);
         frmVoirSce.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmVoirSce.setVisible(true);
     }//GEN-LAST:event_jMenuVoirSceanceActionPerformed
 
     private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt) {
-        FrmAjoutModule frmAjMod = new FrmAjoutModule(p);
-        frmAjMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
-        frmAjMod.setVisible(true);
+        FrmAssocieModuleFormation frmAsMF = new FrmAssocieModuleFormation(promotion, s);
+        frmAsMF.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
+        frmAsMF.setVisible(true);
     }
 
     /**
@@ -485,12 +468,13 @@ public class FrmPlanning extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrmPlanning(promo, p).setVisible(true);
+                new FrmPlanning(promotion, s).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLblPlageSem;
@@ -501,7 +485,6 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuItem jMenuAjoutFormation;
     private javax.swing.JMenuItem jMenuAjoutModule;
-    private javax.swing.JMenuItem jMenuAjoutSceance;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuModifFormation;
     private javax.swing.JMenuItem jMenuModifJourOuvre;
@@ -516,12 +499,18 @@ public class FrmPlanning extends javax.swing.JFrame {
     private javax.swing.JButton jbtnDroite;
     private javax.swing.JButton jbtnExporter;
     private javax.swing.JButton jbtnGauche;
-    private javax.swing.JButton jbtnOuvrir;
     private javax.swing.JButton jbtnQuitter;
     private javax.swing.JButton jbtnSauvegarder;
     private javax.swing.JComboBox jcbxAnnee;
     private javax.swing.JComboBox jcbxSemaines;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Sauvegarde) {
+            s = (Sauvegarde) o;
+        }
+    }
 
     private class ModeleTableau extends AbstractTableModel {
 
@@ -560,15 +549,15 @@ public class FrmPlanning extends javax.swing.JFrame {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             String module = "";
-            Jour j = p.getLaSemaine(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
+            Jour j = promotion.getCalendrier().getLaSemaine(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
 
             if (rowIndex == 0) {
                 if (j.isOuvre()) {
                     if (j.getSceanceMatin() != null) {
                         module = "<html>" + j.getSceanceMatin().getModule().getNom() + " ("
                                 + j.getSceanceMatin().getModule().getAbbreviation() + ") <br/>"
-                                + j.getSceanceMatin().getModule().getDuree() + " h <br/> Scéance "
-                                + j.getSceanceMatin().getModule().getNbSceanceTotal() + "</html>";
+                                + promotion.getDureeSceance() + "h <br/> Scéance "
+                                + promotion.getLesSceancesFaites().size() + "/" + j.getSceanceMatin().getModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }
@@ -581,8 +570,7 @@ public class FrmPlanning extends javax.swing.JFrame {
                     if (j.getSceanceSoir() != null) {
                         module = "<html>" + j.getSceanceSoir().getModule().getNom() + " ("
                                 + j.getSceanceSoir().getModule().getAbbreviation() + ") <br/>"
-                                + j.getSceanceSoir().getModule().getDuree() + " h <br/> Scéance "
-                                + j.getSceanceSoir().getModule().getNbSceanceTotal() + "</html>";
+                                + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }
