@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package view;
 
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JOptionPane;
 import model.*;
 
@@ -13,24 +14,35 @@ import model.*;
  *
  * @author Cynthia
  */
-public class FrmModifModule extends javax.swing.JFrame {
-    
-    static Planning p;  
+public class FrmModifModule extends javax.swing.JFrame implements Observer {
+
+    static Promotion p;
     Module m;
+    static Sauvegarde s;
 
     /**
      * Creates new form FrmModifModule
+     *
      * @param planning
      */
-    public FrmModifModule(Planning planning) {
-        FrmModifModule.p = planning;
+    public FrmModifModule(Promotion promo, Sauvegarde s) {
+        FrmModifModule.p = promo;
+        FrmModifModule.s = s;
         initComponents();
         jPnlAction.setVisible(false);
         this.setSize(300, 150);
-        for (Module mod : p.getLaPromotion().getLesModules()){
+        for (Module mod : s.getLstModules()) {
             jCbxModules.addItem(mod.getNom());
         }
         jCbxModules.setSelectedIndex(-1);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Sauvegarde) {
+            s = (Sauvegarde) o;
+        }
     }
 
     /**
@@ -48,7 +60,6 @@ public class FrmModifModule extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jColor = new javax.swing.JColorChooser();
         jBtnModif = new javax.swing.JButton();
@@ -56,7 +67,6 @@ public class FrmModifModule extends javax.swing.JFrame {
         jTxtNom = new javax.swing.JTextField();
         jTxtAbbr = new javax.swing.JTextField();
         jTxtNbSceance = new javax.swing.JTextField();
-        jTxtDuree = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion d'un module");
@@ -74,8 +84,6 @@ public class FrmModifModule extends javax.swing.JFrame {
         jLabel3.setText("Abbréviation");
 
         jLabel4.setText("Nombre de scéances du module");
-
-        jLabel5.setText("Durée du module");
 
         jLabel6.setText("Modifier la couleur");
 
@@ -108,29 +116,23 @@ public class FrmModifModule extends javax.swing.JFrame {
                                 .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addGroup(jPnlActionLayout.createSequentialGroup()
-                                        .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPnlActionLayout.createSequentialGroup()
-                                                .addComponent(jLabel2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTxtNom))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPnlActionLayout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jTxtNbSceance, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTxtNom, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel3))
+                                        .addComponent(jLabel3)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(jTxtAbbr, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTxtAbbr, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                                            .addComponent(jTxtDuree)))))
+                                        .addComponent(jTxtNbSceance, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPnlActionLayout.createSequentialGroup()
                                 .addGap(120, 120, 120)
                                 .addComponent(jBtnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(84, 84, 84)
                                 .addComponent(jBtnSuppr, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 55, Short.MAX_VALUE))
                     .addComponent(jColor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -142,18 +144,14 @@ public class FrmModifModule extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTxtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTxtAbbr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtNbSceance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtAbbr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTxtDuree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTxtNbSceance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(41, 41, 41)
                 .addGroup(jPnlActionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnModif, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnSuppr, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -190,44 +188,47 @@ public class FrmModifModule extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCbxModulesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbxModulesActionPerformed
-        if (jCbxModules.getSelectedIndex() == -1){
+        if (jCbxModules.getSelectedIndex() == -1) {
             jPnlAction.setVisible(false);
-            this.setSize(300,150);
+            this.setSize(300, 150);
         }
-        
-        if(jCbxModules.getSelectedIndex() > -1){
+
+        if (jCbxModules.getSelectedIndex() > -1) {
             jPnlAction.setVisible(true);
             this.setSize(700, 700);
-            for(Module mod : p.getLaPromotion().getLesModules()){
-                if (mod.getNom() == jCbxModules.getSelectedItem()){
+            for (Module mod : s.getLstModules()) {
+                if (mod.getNom() == jCbxModules.getSelectedItem()) {
                     this.m = mod;
                 }
             }
-            
+
             jTxtNom.setText(m.getNom());
             jTxtAbbr.setText(m.getAbbreviation());
-            jTxtNbSceance.setText(m.getNbSceanceTotal()+"");
-            jTxtDuree.setText(m.getDuree()+"");
+            jTxtNbSceance.setText(m.getNbSceanceTotal() + "");
             jColor.setColor(m.getCouleur());
-        } 
+        }
     }//GEN-LAST:event_jCbxModulesActionPerformed
 
     private void jBtnModifActionPerformed(java.awt.event.ActionEvent evt) {
-        p.getLaPromotion().retireModule(m);
+        s.retirerModule(m);
+        p.retireModule(m);
         m.setNom(jTxtNom.getText());
         m.setAbbreviation(jTxtAbbr.getText());
-        m.setDuree(Integer.parseInt(jTxtDuree.getText()));
         m.setNbSceanceTotal(Integer.parseInt(jTxtNbSceance.getText()));
         m.setCouleur(jColor.getColor());
-        p.getLaPromotion().ajouteModule(m);
+        p.ajouteModule(m);
+        s.ajouterModule(m);
         JOptionPane.showMessageDialog(null, "Module " + m.getNom() + " modifié!");
-    }                                         
+    }
 
     private void jBtnSupprActionPerformed(java.awt.event.ActionEvent evt) {
-        p.getLaPromotion().retireModule(m);
+        for (Promotion prom : s.getLstPromotions()) {
+            prom.retireModule(m);
+        }
+        s.retirerModule(m);
         this.dispose();
         JOptionPane.showMessageDialog(null, "Module " + m.getNom() + " supprimé!");
-    }                                         
+    }
 
     /**
      * @param args the command line arguments
@@ -260,7 +261,7 @@ public class FrmModifModule extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrmModifModule(p).setVisible(true);
+                new FrmModifModule(p, s).setVisible(true);
             }
         });
     }
@@ -274,11 +275,9 @@ public class FrmModifModule extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPnlAction;
     private javax.swing.JTextField jTxtAbbr;
-    private javax.swing.JTextField jTxtDuree;
     private javax.swing.JTextField jTxtNbSceance;
     private javax.swing.JTextField jTxtNom;
     // End of variables declaration//GEN-END:variables

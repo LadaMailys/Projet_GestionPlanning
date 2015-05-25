@@ -6,34 +6,37 @@
 package view;
 
 import java.awt.Toolkit;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFrame;
-import model.Planning;
+import model.*;
 
 /**
  *
  * @author l21011500
  */
-public class FrmVoirFormation extends javax.swing.JFrame {
-    
-    Planning p;
+public class FrmVoirFormation extends javax.swing.JFrame implements Observer {
+
+    static Promotion p;
+    static Sauvegarde s;
 
     /**
      * Creates new form FrmVoirFormation
      */
-    public FrmVoirFormation() {
+    public FrmVoirFormation(Promotion promo, Sauvegarde s) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         initComponents();
-        p = null;
+        p = promo;
+        this.s = s;
         jBtnOuvrir.setEnabled(false);
-    }
-    
-
-    public FrmVoirFormation(Planning p) {
-        this.p= p;
-        initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
-        
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Sauvegarde) {
+            s = (Sauvegarde) o;
+        }
     }
 
     /**
@@ -163,7 +166,7 @@ public class FrmVoirFormation extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmVoirFormation().setVisible(true);
+                new FrmVoirFormation(p, s).setVisible(true);
             }
         });
     }

@@ -16,6 +16,7 @@ public class FrmAjoutSceance extends javax.swing.JFrame {
      */
     public FrmAjoutSceance() {
         initComponents();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**

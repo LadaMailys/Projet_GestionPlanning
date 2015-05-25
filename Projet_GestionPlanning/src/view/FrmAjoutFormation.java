@@ -7,34 +7,32 @@ package view;
 
 import controller.FrmPlanning;
 import java.awt.Toolkit;
-import model.Planning;
+import java.util.Observable;
+import java.util.Observer;
 import model.Promotion;
+import model.Sauvegarde;
 import tools.Utilitaire;
 
 /**
  *
  * @author u21405875
  */
-public class FrmAjoutFormation extends javax.swing.JFrame {
+public class FrmAjoutFormation extends javax.swing.JFrame implements Observer{
 
-    Planning p;
+    Promotion p;
+    static Sauvegarde s;
 
     /**
      * Creates new form FrmAjoutFormation
      */
-    public FrmAjoutFormation() {
+    public FrmAjoutFormation(Sauvegarde s) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         initComponents();
+        this.s = s;
         p = null;
-        jBtnOuvrir.setEnabled(false);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-
-    public FrmAjoutFormation(Planning p) {
-        this.p = p;
-        initComponents();
-        jPnlFormExistante.setVisible(false);
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,83 +42,18 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLblBienvenue = new javax.swing.JLabel();
-        jPnlFormExistante = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jCbxFormation = new javax.swing.JComboBox();
-        jBtnDeserialiser = new javax.swing.JButton();
-        jBtnOuvrir = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTxtNom = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTxtDuree = new javax.swing.JTextField();
         jBtnValider = new javax.swing.JButton();
+        jTxtDuree = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTxtNom = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Créer une formation");
 
-        jLblBienvenue.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLblBienvenue.setText("Bienvenue dans le gestionnaire de planning");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Ouvrir une formation existante");
-
-        jBtnDeserialiser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ouvrir.PNG"))); // NOI18N
-        jBtnDeserialiser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnDeserialiserActionPerformed(evt);
-            }
-        });
-
-        jBtnOuvrir.setText("Ouvrir");
-        jBtnOuvrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnOuvrirActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPnlFormExistanteLayout = new javax.swing.GroupLayout(jPnlFormExistante);
-        jPnlFormExistante.setLayout(jPnlFormExistanteLayout);
-        jPnlFormExistanteLayout.setHorizontalGroup(
-            jPnlFormExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
-                .addGroup(jPnlFormExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jBtnDeserialiser, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jCbxFormation, 0, 206, Short.MAX_VALUE))
-                    .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jLabel4)))
-                .addGap(14, 14, 14))
-            .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(jBtnOuvrir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPnlFormExistanteLayout.setVerticalGroup(
-            jPnlFormExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPnlFormExistanteLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addGroup(jPnlFormExistanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCbxFormation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnDeserialiser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(jBtnOuvrir)
-                .addGap(24, 24, 24))
-        );
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Créer une formation");
-
-        jLabel2.setText("Nom de la promotion");
-
-        jLabel3.setText("Durée");
 
         jBtnValider.setText("Créer");
         jBtnValider.addActionListener(new java.awt.event.ActionListener() {
@@ -129,73 +62,53 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtNom)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTxtDuree, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(35, 35, 35))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(jBtnValider, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTxtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTxtDuree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jBtnValider))
-        );
+        jLabel3.setText("Durée type d'une scéance");
+
+        jLabel2.setText("Nom de la promotion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLblBienvenue)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
                         .addGap(18, 18, 18)
-                        .addComponent(jPnlFormExistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTxtNom)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTxtDuree, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(jBtnValider, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLblBienvenue)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel1)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTxtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPnlFormExistante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTxtDuree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jBtnValider)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -215,31 +128,13 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
         if (!msgErr.equals("")) {
             javax.swing.JOptionPane.showMessageDialog(null, msgErr);
         } else {
-            Promotion promo = new Promotion(jTxtNom.getText(), Integer.parseInt(jTxtDuree.getText()));
-            if (p == null) {
-                FrmPlanning frmPlng = new FrmPlanning(promo, p);
-                frmPlng.setVisible(true);
-            }
+            p = new Promotion(jTxtNom.getText(), Integer.parseInt(jTxtDuree.getText()));
+            s.ajouterPromotion(p);
+            FrmPlanning frmPlng = new FrmPlanning(p,s);
+            frmPlng.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_jBtnValiderActionPerformed
-
-    private void jBtnDeserialiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnDeserialiserActionPerformed
-        p = Planning.deserialiser();
-        jCbxFormation.removeAllItems();
-
-        if (p != null) {
-            jCbxFormation.addItem(p.getLaPromotion().getNom());
-            jBtnOuvrir.setEnabled(true);
-        }
-
-    }//GEN-LAST:event_jBtnDeserialiserActionPerformed
-
-    private void jBtnOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOuvrirActionPerformed
-        FrmPlanning frmPlng = new FrmPlanning(p.getLaPromotion(), p);
-        frmPlng.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jBtnOuvrirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,24 +166,24 @@ public class FrmAjoutFormation extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmAjoutFormation().setVisible(true);
+                new FrmAjoutFormation(s).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnDeserialiser;
-    private javax.swing.JButton jBtnOuvrir;
     private javax.swing.JButton jBtnValider;
-    private javax.swing.JComboBox jCbxFormation;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLblBienvenue;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPnlFormExistante;
     private javax.swing.JTextField jTxtDuree;
     private javax.swing.JTextField jTxtNom;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+         if (o instanceof Sauvegarde){
+             s = (Sauvegarde)o;
+         }
+    }
 }

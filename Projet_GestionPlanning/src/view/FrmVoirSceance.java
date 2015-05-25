@@ -6,31 +6,29 @@
 package view;
 
 import java.awt.Toolkit;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFrame;
-import model.Planning;
+import model.*;
 
 /**
  *
  * @author l21011500
  */
-public class FrmVoirSceance extends javax.swing.JFrame {
-    Planning p;
+public class FrmVoirSceance extends javax.swing.JFrame implements Observer{
+    static Promotion p;
+    static Sauvegarde s;
 
     /**
      * Creates new form FrmVoirSceance
      */
-    public FrmVoirSceance() {
+    public FrmVoirSceance(Promotion promo, Sauvegarde s) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         initComponents();
-        p = null;
+        p = promo;
+        this.s = s;
         jBtnOuvrir.setEnabled(false);
-    }
-
-    public FrmVoirSceance(Planning p) {
-        this.p= p;
-        initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -149,7 +147,7 @@ public class FrmVoirSceance extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmVoirSceance().setVisible(true);
+                new FrmVoirSceance(p,s).setVisible(true);
             }
         });
     }
@@ -161,4 +159,11 @@ public class FrmVoirSceance extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPnlSceanceExistante;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Sauvegarde){
+            s = (Sauvegarde)o;
+        }
+    }
 }

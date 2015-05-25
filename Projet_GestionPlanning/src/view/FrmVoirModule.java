@@ -5,41 +5,39 @@
  */
 package view;
 
-import java.awt.Color;
-import static java.awt.Color.WHITE;
-import java.awt.Component;
 import java.awt.Toolkit;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFrame;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import model.Jour;
-import model.Module;
-import model.Planning;
-
+import model.*;
+import static view.FrmVoirSceance.s;
 
 /**
  *
  * @author l21011500
  */
-public class FrmVoirModule extends javax.swing.JFrame {
-    Planning p;
+public class FrmVoirModule extends javax.swing.JFrame implements Observer {
+
+    static Promotion promotion;
     Module m;
+    static Sauvegarde s;
 
     /**
      * Creates new form FrmVoirModule
      */
-    public FrmVoirModule() {
+    public FrmVoirModule(Promotion p, Sauvegarde s) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         initComponents();
-       
-        
+        promotion = p;
+        this.s = s;
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
-    public FrmVoirModule(Planning p) {
-        this.p= p;
-        initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Sauvegarde) {
+            s = (Sauvegarde) o;
+        }
     }
 
     /**
@@ -169,7 +167,7 @@ public class FrmVoirModule extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmVoirModule().setVisible(true);
+                new FrmVoirModule(promotion, s).setVisible(true);
             }
         });
     }
@@ -183,6 +181,3 @@ public class FrmVoirModule extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
-
-
-   

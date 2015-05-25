@@ -8,20 +8,22 @@ package view;
 import exception.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.DateFormatter;
-import model.Jour;
-import model.Planning;
+import model.*;
 import tools.Utilitaire;
 
 /**
  *
  * @author Cynthia
  */
-public class FrmModifJourOuvre extends javax.swing.JFrame {
+public class FrmModifJourOuvre extends javax.swing.JFrame implements Observer {
 
-    static Planning planning;
+    static Sauvegarde sauv;
+    static Promotion promotion;
     DateFormat format;
     DateFormatter df;
 
@@ -31,21 +33,30 @@ public class FrmModifJourOuvre extends javax.swing.JFrame {
     /**
      * Creates new form FrmAjoutJourOuvre
      */
-    public FrmModifJourOuvre(Planning p) {
+    public FrmModifJourOuvre(Promotion p, Sauvegarde s) {
         initComponents();
         jLblIndicOuvre.setText("");
-        iAnnee = p.getAnnee();
+        promotion = p;
+        sauv = s;
+        iAnnee = promotion.getCalendrier().getAnnee();
         jLblAnnee.setText(iAnnee + "");
-        planning = p;
         format = new SimpleDateFormat("dd/MM/yyyy");
         df = new DateFormatter(format);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Sauvegarde) {
+            sauv = (Sauvegarde) o;
+        }
     }
 
     private void RecommenceSaisie() {
         jFTxtDate.setText("");
         iJour = 0;
         iMois = 0;
-        iAnnee = planning.getAnnee();
+        iAnnee = promotion.getCalendrier().getAnnee();
         jLblAnnee.setText(iAnnee + "");
         j = null;
         jLblIndicOuvre.setText("");
@@ -148,11 +159,11 @@ public class FrmModifJourOuvre extends javax.swing.JFrame {
                 ouv = " que non ouvré";
             }
             if (JOptionPane.showConfirmDialog(null, "Définir " + j.toString() + " en tant" + ouv + "?", "Valider", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                if ("SAMEDI".equals(j.getJour().toUpperCase()) || "DIMANCHE".equals(j.getJour().toUpperCase())){
-                    JOptionPane.showMessageDialog(null, "Le week-end ne peut être défini ouvré. Modification rejetée.","Erreur",JOptionPane.ERROR_MESSAGE);
+                if ("SAMEDI".equals(j.getJour().toUpperCase()) || "DIMANCHE".equals(j.getJour().toUpperCase())) {
+                    JOptionPane.showMessageDialog(null, "Le week-end ne peut être défini ouvré. Modification rejetée.", "Erreur", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    if (j.getSceanceMatin() != null || j.getSceanceSoir() != null){
-                        JOptionPane.showMessageDialog(null, "Ce jour contient une scéance. Modification rejetée.","Erreur",JOptionPane.ERROR_MESSAGE);
+                    if (j.getSceanceMatin() != null || j.getSceanceSoir() != null) {
+                        JOptionPane.showMessageDialog(null, "Ce jour contient une scéance. Modification rejetée.", "Erreur", JOptionPane.ERROR_MESSAGE);
                     } else {
                         j.setOuvre();
                         RecommenceSaisie();
@@ -173,19 +184,19 @@ public class FrmModifJourOuvre extends javax.swing.JFrame {
                     iJour = Integer.parseInt(sJour);
                     iMois = Integer.parseInt(sMois);
                     if (iMois <= 8) {
-                        iAnnee = planning.getAnnee() + 1;
+                        iAnnee = promotion.getCalendrier().getAnnee() + 1;
                     } else if (iMois >= 9) {
-                        iAnnee = planning.getAnnee();
+                        iAnnee = promotion.getCalendrier().getAnnee();
                     }
 
                 } else {
                     throw new NotNumberException();
                 }
-                if (iJour > 31 || iJour < 1 || iMois < 1 || iMois > 12 || planning.getJour(iJour, iMois, iAnnee) == null) {
+                if (iJour > 31 || iJour < 1 || iMois < 1 || iMois > 12 || promotion.getCalendrier().getJour(iJour, iMois, iAnnee) == null) {
                     throw new FormatDateException();
                 } else {
                     jLblAnnee.setText(iAnnee + "");
-                    j = planning.getJour(iJour, iMois, iAnnee);
+                    j = promotion.getCalendrier().getJour(iJour, iMois, iAnnee);
                     if (j.isOuvre()) {
                         jLblIndicOuvre.setText("Ce jour est ouvré");
                     } else if (!j.isOuvre()) {
@@ -228,7 +239,7 @@ public class FrmModifJourOuvre extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmModifJourOuvre(planning).setVisible(true);
+                new FrmModifJourOuvre(promotion, sauv).setVisible(true);
             }
         });
     }
