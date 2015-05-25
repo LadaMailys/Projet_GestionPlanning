@@ -139,7 +139,7 @@ public class JourTest {
         jour = new Jour();
         assertEquals(null, jour.getSceanceMatin());
 
-        Module mod = new Module("TEST 1", Color.blue, "T1", 15, 3);
+        Module mod = new Module("TEST 1", Color.blue, "T1", 15);
         Sceance sc = new Sceance(jour, mod,new Promotion());
 
         jour.setSceanceMatin(sc);
@@ -155,7 +155,7 @@ public class JourTest {
         jour = new Jour();
         assertEquals(null, jour.getSceanceSoir());
 
-        Module mod = new Module("TEST X", Color.blue, "TX", 13, 2);
+        Module mod = new Module("TEST X", Color.blue, "TX", 13);
         Sceance sc = new Sceance(jour, mod,new Promotion());
 
         jour.setSceanceSoir(sc);
@@ -170,12 +170,12 @@ public class JourTest {
         System.out.println("setSceanceMatin");
         jour = new Jour();
 
-        Module mod = new Module("TEST 1", Color.blue, "T1", 15, 3);
+        Module mod = new Module("TEST 1", Color.blue, "T1", 15);
         Sceance sc = new Sceance(jour, mod,new Promotion());
         jour.setSceanceMatin(sc);
         assertEquals(sc, jour.getSceanceMatin());
 
-        Module mod2 = new Module("TEST 2", Color.red, "T2", 13, 3);
+        Module mod2 = new Module("TEST 2", Color.red, "T2", 13);
         Sceance sc2 = new Sceance(jour, mod2,new Promotion());
         jour.setSceanceMatin(sc2);
         assertEquals(sc2, jour.getSceanceMatin());
@@ -190,7 +190,7 @@ public class JourTest {
         jour = new Jour();
         assertEquals(null, jour.getSceanceSoir());
 
-        Module mod = new Module("TEST X", Color.blue, "TX", 13, 2);
+        Module mod = new Module("TEST X", Color.blue, "TX", 13);
         Sceance sc = new Sceance(jour, mod,new Promotion());
 
         jour.setSceanceSoir(sc);
@@ -204,7 +204,7 @@ public class JourTest {
     public void testAjouteSceanceMatin() {
         System.out.println("ajouteSceanceMatin");
         jour = new Jour();
-        Module mod = new Module("TEST X", Color.yellow, "TX", 13, 2);
+        Module mod = new Module("TEST X", Color.yellow, "TX", 13);
         Promotion promo = new Promotion("TOTO", 2);
         jour.ajouteSceanceMatin(mod,promo);
         assertNotNull(jour.getSceanceMatin());
@@ -217,7 +217,7 @@ public class JourTest {
     public void testAjouteSceanceSoir() {
         System.out.println("ajouteSceanceSoir");
         jour = new Jour();
-        Module mod = new Module("TEST Y", Color.MAGENTA, "TY", 13, 2);
+        Module mod = new Module("TEST Y", Color.MAGENTA, "TY", 13);
         Promotion promo = new Promotion("TITI", 3);
         jour.ajouteSceanceSoir(mod,promo);
         assertNotNull(jour.getSceanceSoir());
