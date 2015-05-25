@@ -5,18 +5,38 @@
  */
 package view;
 
+import exception.FormatDateException;
+import exception.NotNumberException;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JOptionPane;
+import model.*;
+import tools.Utilitaire;
+
 /**
  *
  * @author l21011500
  */
-public class FrmAjoutSceance extends javax.swing.JFrame {
+public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
+
+    static Sauvegarde s;
+    static Promotion p;
+    Jour j;
+    int iJour = 0, iMois = 0, iAnnee = 0;
 
     /**
      * Creates new form FrmAjoutSceance
      */
-    public FrmAjoutSceance() {
+    public FrmAjoutSceance(Sauvegarde sauv, Promotion promo) {
         initComponents();
+        jLblIndicOuvre.setText("");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        s = sauv;
+        p = promo;
+        for (Module m : p.getLesModules()) {
+            jCbxModules.addItem(m.getNom());
+        }
+
     }
 
     /**
@@ -28,21 +48,154 @@ public class FrmAjoutSceance extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTxtDate = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jCbxModules = new javax.swing.JComboBox();
+        jBtnValider = new javax.swing.JButton();
+        jLblIndicOuvre = new javax.swing.JLabel();
+        jOptAM = new javax.swing.JRadioButton();
+        jOptPM = new javax.swing.JRadioButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Créer une séance");
+
+        jLabel2.setText("Date:");
+
+        jTxtDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxtDateKeyReleased(evt);
+            }
+        });
+
+        jLabel3.setText("Module:");
+
+        jBtnValider.setText("Valider");
+        jBtnValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnValiderActionPerformed(evt);
+            }
+        });
+
+        jLblIndicOuvre.setText("jLabel4");
+
+        jOptAM.setText("Matin");
+
+        jOptPM.setText("Après-midi");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(33, 33, 33)
+                                    .addComponent(jOptAM)
+                                    .addGap(26, 26, 26)
+                                    .addComponent(jOptPM))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jCbxModules, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jTxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLblIndicOuvre)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jBtnValider, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLblIndicOuvre))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jOptAM)
+                    .addComponent(jOptPM))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCbxModules, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jBtnValider)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
+        if (j != null) {
+            if (!j.isOuvre()) {
+                JOptionPane.showMessageDialog(null, "Impossible de créer une séance sur un jour ouvré.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if ((jOptAM.isSelected() && j.getSceanceMatin() != null) || (jOptPM.isSelected() && j.getSceanceSoir() != null)) {
+                    if (JOptionPane.showConfirmDialog(null, "Ce jour contient déjà une scéance. Remplacer?", "Confirmer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                        if (jOptAM.isSelected()) {
+                            j.ajouteSceanceMatin(Utilitaire.getModule(jCbxModules.getSelectedItem() + "", s), p);
+                        }
+                        if (jOptPM.isSelected()) {
+                            j.ajouteSceanceSoir(Utilitaire.getModule(jCbxModules.getSelectedItem() + "", s), p);
+                        }
+                        s.ajouterSceance(new Sceance(j, Utilitaire.getModule(jCbxModules.getSelectedItem() + "", s), p));
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_jBtnValiderActionPerformed
+
+    private void jTxtDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtDateKeyReleased
+        jLblIndicOuvre.setText("");
+        if (jTxtDate.getText().length() == 5) {
+            try {
+                String sJour, sMois;
+                sJour = jTxtDate.getText().substring(0, 2);
+                sMois = jTxtDate.getText().substring(3, 5);
+                if (Utilitaire.isInteger(sJour) && Utilitaire.isInteger(sMois)) {
+                    iJour = Integer.parseInt(sJour);
+                    iMois = Integer.parseInt(sMois);
+                    if (iMois <= 8) {
+                        iAnnee = p.getCalendrier().getAnnee() + 1;
+                    } else if (iMois >= 9) {
+                        iAnnee = p.getCalendrier().getAnnee();
+                    }
+                } else {
+                    throw new NotNumberException();
+                }
+                if (iJour > 31 || iJour < 1 || iMois < 1 || iMois > 12 || p.getCalendrier().getJour(iJour, iMois, iAnnee) == null) {
+                    throw new FormatDateException();
+                } else {
+                    j = p.getCalendrier().getJour(iJour, iMois, iAnnee);
+                    if (j.isOuvre()) {
+                        jLblIndicOuvre.setText("Ce jour est ouvré");
+                    } else if (!j.isOuvre()) {
+                        jLblIndicOuvre.setText("Ce jour est non ouvré");
+                    }
+                }
+            } catch (NotNumberException nne) {
+            } catch (FormatDateException fde) {
+            }
+        }
+    }//GEN-LAST:event_jTxtDateKeyReleased
 
     /**
      * @param args the command line arguments
@@ -58,27 +211,54 @@ public class FrmAjoutSceance extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmAjoutSceance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAjoutSceance.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmAjoutSceance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAjoutSceance.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmAjoutSceance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAjoutSceance.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmAjoutSceance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAjoutSceance.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmAjoutSceance().setVisible(true);
+                new FrmAjoutSceance(s, p).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnValider;
+    private javax.swing.JComboBox jCbxModules;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLblIndicOuvre;
+    private javax.swing.JRadioButton jOptAM;
+    private javax.swing.JRadioButton jOptPM;
+    private javax.swing.JTextField jTxtDate;
     // End of variables declaration//GEN-END:variables
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o instanceof Sauvegarde) {
+            s = (Sauvegarde) o;
+        }
+    }
+
+    private void RecommenceSaisie() {
+        jTxtDate.setText("");
+        jOptAM.setSelected(false);
+        jOptPM.setSelected(false);
+        jCbxModules.setSelectedIndex(-1);
+    }
 }

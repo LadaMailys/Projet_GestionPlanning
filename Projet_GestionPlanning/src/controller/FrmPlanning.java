@@ -437,7 +437,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jMenuVoirSceanceActionPerformed
 
     private void jBtnCreeSeanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreeSeanceActionPerformed
-        FrmAjoutSceance frmAjSc = new FrmAjoutSceance(s);
+        FrmAjoutSceance frmAjSc = new FrmAjoutSceance(s, promotion);
         frmAjSc.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmajSc.setVisible(true);
     }//GEN-LAST:event_jBtnCreeSeanceActionPerformed
