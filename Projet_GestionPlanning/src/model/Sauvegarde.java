@@ -121,4 +121,11 @@ public class Sauvegarde extends Observable implements Serializable {
         }
         return s;
     }
+    public boolean equals(Sauvegarde obj) {
+        Sauvegarde s = (Sauvegarde) obj;
+        return calendrier.equals(s.calendrier) && lstModules.equals(s.lstModules) && lstPromotions.equals(s.lstPromotions) && lstSceancesProgrammees.equals(s.lstSceancesProgrammees);
+      }
+
+   
 }
+

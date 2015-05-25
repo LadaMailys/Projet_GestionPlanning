@@ -167,4 +167,11 @@ public class Calendrier implements Serializable {
         }
         return leJour;
     }
+    
+   public boolean equals(Calendrier obj) {
+        Calendrier c = (Calendrier) obj;
+        return lesSemaines.equals(c.lesSemaines) && annee == c.annee;
+    }
+
 }
+

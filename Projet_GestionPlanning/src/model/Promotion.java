@@ -180,4 +180,12 @@ public class Promotion implements Serializable {
         contenu += head + body + "</html>";
         return contenu;
     }
+   
+     public boolean equals(Promotion obj) {
+        Promotion p = (Promotion) obj;
+        return nom.equals(p.nom) && dureeSceance == p.dureeSceance && calendrier == p.calendrier && lesModules == p.lesModules && lesSceancesFaites == p.lesSceancesFaites;
+    }
+
 }
+
+
