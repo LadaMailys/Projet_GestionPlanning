@@ -82,7 +82,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
         jbtnQuitter = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLblPromo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jBtnCreeSeance = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuAjoutFormation = new javax.swing.JMenuItem();
@@ -172,8 +172,13 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
 
         jLblPromo.setText("jLabel3");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Creer.PNG"))); // NOI18N
-        jButton1.setText("Créer scéance");
+        jBtnCreeSeance.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Creer.PNG"))); // NOI18N
+        jBtnCreeSeance.setText("Créer scéance");
+        jBtnCreeSeance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCreeSeanceActionPerformed(evt);
+            }
+        });
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tools/Ajouter.PNG"))); // NOI18N
         jMenu1.setText("Ajouter");
@@ -277,7 +282,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jcbxAnnee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(jBtnCreeSeance)
                                 .addGap(243, 243, 243)
                                 .addComponent(jLblPlageSem)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 423, Short.MAX_VALUE)
@@ -316,7 +321,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLblPlageSem)
-                        .addComponent(jButton1))
+                        .addComponent(jBtnCreeSeance))
                     .addComponent(jbtnExporter)
                     .addComponent(jbtnSauvegarder))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -431,6 +436,12 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
         frmVoirSce.setVisible(true);
     }//GEN-LAST:event_jMenuVoirSceanceActionPerformed
 
+    private void jBtnCreeSeanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreeSeanceActionPerformed
+        FrmAjoutSceance frmAjSc = new FrmAjoutSceance(s);
+        frmAjSc.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
+        frmajSc.setVisible(true);
+    }//GEN-LAST:event_jBtnCreeSeanceActionPerformed
+
     private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt) {
         FrmAssocieModuleFormation frmAsMF = new FrmAssocieModuleFormation(promotion, s);
         frmAsMF.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
@@ -474,7 +485,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBtnCreeSeance;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLblPlageSem;
