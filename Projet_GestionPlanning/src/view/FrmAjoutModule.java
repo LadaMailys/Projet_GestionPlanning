@@ -176,7 +176,6 @@ public class FrmAjoutModule extends javax.swing.JFrame implements Observer {
             JOptionPane.showMessageDialog(null, msgErr);
         } else {
             module = new Module(jTxtNom.getText(), jColor.getColor(), jTxtAbbr.getText(), Integer.parseInt(jTxtNbSceance.getText()));
-            p.ajouteModule(module);
             JOptionPane.showMessageDialog(null, "Module " + jTxtNom.getText() + " créé");
             s.ajouterModule(module);
             FrmAssocieModuleFormation.refresh();

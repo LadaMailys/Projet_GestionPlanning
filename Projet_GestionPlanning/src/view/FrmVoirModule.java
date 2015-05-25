@@ -9,8 +9,6 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.table.AbstractTableModel;
 import model.Module;
-import model.Planning;
-import static view.FrmAjoutModule.p;
 
 
 /**
@@ -18,7 +16,6 @@ import static view.FrmAjoutModule.p;
  * @author l21011500
  */
 public class FrmVoirModule extends javax.swing.JFrame {
-    Planning p;
     Module m;
     static ModeleTableau modele;
 
@@ -32,14 +29,9 @@ public class FrmVoirModule extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         initComponents();
         modele = new ModeleTableau();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        
         
-    }
-
-    public FrmVoirModule(Planning p) {
-        this.p= p;
-        initComponents();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**

@@ -50,6 +50,7 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
         } else {
             jCbxFormations.addItem(promotion.getNom());
         }
+        calculDureeForm();
 
         /*jTabModForm.setDefaultRenderer(Color.class, new ModuleCellRenderer());
          for (int i = 0; i < 2; i++) {
@@ -57,7 +58,21 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
          }*/
     }
 
-        @Override
+    public void calculDureeForm() {
+        jLblDureeFormation.setText("");
+        int dureeH = 0;
+        int dureeJ = 0;
+        for (Module m : promotion.getLesModules()) {
+            dureeH += (m.getNbSceanceTotal() * promotion.getDureeSceance());
+        }        
+        if (dureeH > 24){
+            dureeJ = dureeH / 24;
+            dureeH = dureeH - (dureeJ * 24);
+        }
+        jLblDureeFormation.setText(dureeJ + " jours et " + dureeH + "h");
+    }
+
+    @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Sauvegarde) {
             s = (Sauvegarde) o;
@@ -86,6 +101,8 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
         jLabel5 = new javax.swing.JLabel();
         jBtnAjouter = new javax.swing.JButton();
         jBtnRetirer = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLblDureeFormation = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Associer un module");
@@ -128,6 +145,11 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
             }
         });
 
+        jLabel6.setText("Durée :");
+        jLabel6.setToolTipText("");
+
+        jLblDureeFormation.setText("jLabel7");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,7 +166,11 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
                         .addGap(27, 27, 27)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCbxFormations, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jCbxFormations, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLblDureeFormation))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jLabel1))
@@ -174,7 +200,9 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCbxFormations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addComponent(jLblDureeFormation))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(112, 112, 112)
@@ -205,25 +233,28 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
         FrmAjoutModule frmAjMod = new FrmAjoutModule(promotion, s);
         frmAjMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmAjMod.setVisible(true);
+        calculDureeForm();
     }//GEN-LAST:event_jBtnNouveauActionPerformed
 
     private void jBtnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAjouterActionPerformed
-        if (jTabEnsMod.getSelectedColumn() > -1) {
-            String mod = (String) jTabEnsMod.getValueAt(jTabEnsMod.getSelectedRow(),0);
+        if (jTabEnsMod.getSelectedRow() > -1) {
+            String mod = (String) jTabEnsMod.getValueAt(jTabEnsMod.getSelectedRow(), 0);
             Module m = Utilitaire.getModule(mod, s);
             s.ajouterModule(m);
             promotion.ajouteModule(m);
             refresh();
         }
+        calculDureeForm();
     }//GEN-LAST:event_jBtnAjouterActionPerformed
 
     private void jBtnRetirerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRetirerActionPerformed
-        if (jTabModForm.getSelectedColumn() > -1) {
-            String mod = (String) jTabModForm.getValueAt(jTabModForm.getSelectedRow(),0);
+        if (jTabModForm.getSelectedRow() > -1) {
+            String mod = (String) jTabModForm.getValueAt(jTabModForm.getSelectedRow(), 0);
             Module m = Utilitaire.getModule(mod, s);
             promotion.retireModule(m);
             refresh();
         }
+        calculDureeForm();
     }//GEN-LAST:event_jBtnRetirerActionPerformed
 
     /**
@@ -271,6 +302,8 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLblDureeFormation;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTabEnsMod;
@@ -291,6 +324,10 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
                     return "Nom";
                 case 1:
                     return "Abbr.";
+                case 2:
+                    return "Durée";
+                case 3:
+                    return "Nb. Séance";
                 default:
                     throw new IllegalArgumentException();
             }
@@ -298,15 +335,22 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
 
         @Override
         public int getColumnCount() {
-            return 2;
+            return 4;
         }
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            if (columnIndex == 0) {
+            switch (columnIndex){
+                case 0:
                 return promotion.getLesModules().get(rowIndex).getNom();
-            } else {
+                case 1:
                 return promotion.getLesModules().get(rowIndex).getAbbreviation();
+                case 2:
+                return promotion.getDureeSceance();
+                case 3: 
+                    return promotion.getLesModules().get(rowIndex).getNbSceanceTotal();
+                default:
+                    throw new IllegalArgumentException();                    
             }
         }
     }
@@ -334,7 +378,6 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
         @Override
         public int getRowCount() {
             return s.getLstModules().size();
-            //return Module.getLstModules().size();
         }
 
         @Override
