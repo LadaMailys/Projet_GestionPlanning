@@ -9,8 +9,9 @@ import java.awt.Toolkit;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFrame;
+import javax.swing.table.AbstractTableModel;
 import model.*;
-import static view.FrmVoirSceance.s;
+
 
 /**
  *
@@ -24,6 +25,8 @@ public class FrmVoirModule extends javax.swing.JFrame implements Observer {
 
     /**
      * Creates new form FrmVoirModule
+     * 
+     * 
      */
     public FrmVoirModule(Promotion p, Sauvegarde s) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
@@ -171,6 +174,77 @@ public class FrmVoirModule extends javax.swing.JFrame implements Observer {
             }
         });
     }
+    
+    public class ModeleTableau extends AbstractTableModel {
+
+        @Override
+        public String getColumnName(int columnIndex) {
+            switch (columnIndex) {
+                case 0:
+                    return "jour";
+
+                case 1:
+                    return "Abbreviation";
+
+                case 2:
+                    return "Nombre de Sceance Total";
+
+                case 3:
+                    return "Duree";
+
+                case 4:
+                    return "Couleur";
+                default:
+                    throw new IllegalArgumentException();
+            }
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 5;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            switch (columnIndex) {
+                case 0:
+                    return rowIndex + 1;
+
+                /*
+                case 1:
+                    return p.getLaPromotion().getLesModules().get(rowIndex).getNom();
+
+                case 2:
+                    return p.getLaPromotion().getLesModules().get(rowIndex).getAbbreviation();
+*
+                case 3:
+                    return p.getLaPromotion().getLesModules().get(rowIndex).getNbSceanceTotal();
+
+                case 4:
+                    return p.getLaPromotion().getLesModules().get(rowIndex).getDuree();
+                
+                case 5:    
+                    return p.getLaPromotion().getLesModules().get(rowIndex).getCouleur();
+                    
+                */    
+                default:
+                    return "Erreur de code";
+
+            }
+        }
+
+       /* @Override
+        public int getRowCount() {
+            return p.getLaPromotion().size();
+        }*/
+
+        @Override
+        public int getRowCount() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
