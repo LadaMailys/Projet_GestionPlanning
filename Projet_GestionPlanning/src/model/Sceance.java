@@ -50,11 +50,13 @@ public class Sceance implements Serializable{
     public void setPromotion(Promotion promo){
         promotion = promo;
     }
-    public boolean equals(Sceance obj) {
+   
+ public boolean equals(Sceance obj) {
         Sceance sc = (Sceance) obj;
         return jourSceance.equals(sc.jourSceance) && module.equals(sc.module) && promotion.equals(sc.promotion);
     }
     
+
  }
     
 
