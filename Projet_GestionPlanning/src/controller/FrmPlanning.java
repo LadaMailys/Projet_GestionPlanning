@@ -420,9 +420,9 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jMenuVoirFormationActionPerformed
 
     private void jMenuVoirModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirModuleActionPerformed
-        FrmVoirModule frmVoirMod = new FrmVoirModule(promotion, s);
-        frmVoirMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
-        frmVoirMod.setVisible(true);
+        //FrmVoirModule frmVoirMod = new FrmVoirModule(promotion, s);
+        //frmVoirMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
+        //frmVoirMod.setVisible(true);
     }//GEN-LAST:event_jMenuVoirModuleActionPerformed
 
     private void jMenuVoirSceanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirSceanceActionPerformed
