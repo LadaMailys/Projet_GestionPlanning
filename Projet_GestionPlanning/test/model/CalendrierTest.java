@@ -13,17 +13,17 @@ import static org.junit.Assert.*;
  *
  * @author U21406901
  */
-public class PlanningTest {
+public class CalendrierTest {
     
-    Planning instance;
+    Calendrier instance;
     
     @Before
     public void initialise() {
-        instance = new Planning(new Promotion("TEST",3), 2015);
+        instance = new Calendrier(new Promotion("TEST",3), 2015);
     }
 
     /**
-     * Test of getNbSemainesAnnee method, of class Planning.
+     * Test of getNbSemainesAnnee method, of class Calendrier.
      */
     @Test
     public void testGetNbSemainesAnnee() {
@@ -32,7 +32,7 @@ public class PlanningTest {
     }
 
     /**
-     * Test of getLaSemaine method, of class Planning.
+     * Test of getLaSemaine method, of class Calendrier.
      */
     @Test
     public void testGetLaSemaine() {
@@ -43,28 +43,7 @@ public class PlanningTest {
     }
 
     /**
-     * Test of getLaPromotion method, of class Planning.
-     */
-    @Test
-    public void testGetLaPromotion() {
-        assertNotNull(instance.getLaPromotion());
-        assertEquals("TEST", instance.getLaPromotion().getNom());
-    }
-
-    /**
-     * Test of setLaPromotion method, of class Planning.
-     */
-    @Test
-    public void testSetLaPromotion() {
-        System.out.println("setLaPromotion");
-        Promotion promo = new Promotion("TOTO", 5);
-        assertNotSame(instance.getLaPromotion(), promo);
-        instance.setLaPromotion(promo);
-        assertSame(instance.getLaPromotion(), promo);
-    }
-
-    /**
-     * Test of getAnnee method, of class Planning.
+     * Test of getAnnee method, of class Calendrier.
      */
     @Test
     public void testGetAnnee() {
@@ -73,7 +52,7 @@ public class PlanningTest {
     }
 
     /**
-     * Test of setAnnee method, of class Planning.
+     * Test of setAnnee method, of class Calendrier.
      */
     @Test
     public void testSetAnnee() {
@@ -83,7 +62,7 @@ public class PlanningTest {
     }
 
     /**
-     * Test of rangJourToString method, of class Planning.
+     * Test of rangJourToString method, of class Calendrier.
      */
     @Test
     public void testRangJourToString() {
@@ -92,21 +71,12 @@ public class PlanningTest {
     }
 
     /**
-     * Test of getJour method, of class Planning.
+     * Test of getJour method, of class Calendrier.
      */
     @Test
     public void testGetJour() {
         System.out.println("getJour");
         assertNotNull(instance.getJour(10, 10, 2015));
-    }
-
-    /**
-     * Test of codeHTML method, of class Planning.
-     */
-    @Test
-    public void testCodeHTML() {
-        System.out.println("codeHTML");
-        assertNotNull(instance.codeHTML());
     }
     
 }
