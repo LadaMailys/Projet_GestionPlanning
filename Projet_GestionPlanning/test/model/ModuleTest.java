@@ -20,7 +20,7 @@ public class ModuleTest {
     
     @Before
     public void initialise(){
-        instance = new Module("anglais", Color.RED, "EN",5,20);
+        instance = new Module("anglais", Color.RED, "EN",5);
     }
 
     /**
@@ -98,23 +98,4 @@ public class ModuleTest {
         instance.setNbSceanceTotal(15);
         assertEquals(15, instance.getNbSceanceTotal());
     }
-
-    /**
-     * Test of getDuree method, of class Module.
-     */
-    @Test
-    public void testGetDuree() {
-        System.out.println("getDuree");
-        assertEquals(20, instance.getDuree());
-    }
-
-    /**
-     * Test of setDuree method, of class Module.
-     */
-    @Test
-    public void testSetDuree() {
-        System.out.println("setDuree");
-        instance.setDuree(18);
-        assertEquals(18, instance.getDuree());
-    }    
 }
