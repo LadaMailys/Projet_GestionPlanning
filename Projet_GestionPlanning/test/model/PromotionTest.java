@@ -6,7 +6,6 @@
 package model;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -80,10 +79,10 @@ public class PromotionTest {
         System.out.println("ajouteModule");
         assertTrue(instance.getLesModules().isEmpty());
 
-        instance.ajouteModule(new Module("TEST_1", Color.blue, "T1", 15, 2));
+        instance.ajouteModule(new Module("TEST_1", Color.blue, "T1", 15));
         assertTrue(instance.getLesModules().size() == 1);
 
-        instance.ajouteModule(new Module("TEST_2", Color.yellow, "T2", 12, 2));
+        instance.ajouteModule(new Module("TEST_2", Color.yellow, "T2", 12));
         assertTrue(instance.getLesModules().size() == 2);
     }
 
@@ -93,7 +92,7 @@ public class PromotionTest {
     @Test
     public void testRetireModule() {
         System.out.println("retireModule");
-        Module mod = new Module("TEST_3", Color.red, "T3", 9, 3);
+        Module mod = new Module("TEST_3", Color.red, "T3", 9);
         instance.ajouteModule(mod);
         assertTrue(instance.getLesModules().size() == 1);
         instance.retireModule(mod);
