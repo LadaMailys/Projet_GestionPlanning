@@ -30,6 +30,7 @@ public class FrmAjoutModule extends javax.swing.JFrame implements Observer {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         FrmAjoutModule.p = promo;
         s = sauv;
+        //this.s.addObserver(this);
     }
 
     @Override
