@@ -216,7 +216,7 @@ public class Promotion implements Serializable {
         } catch (IOException ioe) { 
             ioe.printStackTrace(); 
         } 
-        return s;     
+        return p;     
     } 
 
 
