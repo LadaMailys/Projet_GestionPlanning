@@ -5,11 +5,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Cynthia
  */
-public class Formateur {
+public class Formateur implements Serializable{
 
     private String email;
     private String telephone;

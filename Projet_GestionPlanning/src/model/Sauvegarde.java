@@ -91,11 +91,11 @@ public class Sauvegarde extends Observable implements Serializable {
         setChanged();
         notifyObservers();
     }
-    
-    public void modifieJour(Jour j){
-        for(int i = 1; i<calendrier.getNbSemainesAnnee(); i++){
-            for(Jour jour : calendrier.getLaSemaine(i)){
-                if (jour.equals(j)){
+
+    public void modifieJour(Jour j) {
+        for (int i = 1; i < calendrier.getNbSemainesAnnee(); i++) {
+            for (Jour jour : calendrier.getLaSemaine(i)) {
+                if (jour.equals(j)) {
                     int ind = calendrier.getLaSemaine(i).indexOf(jour);
                     calendrier.getLaSemaine(i).set(ind, j);
                 }
@@ -105,37 +105,36 @@ public class Sauvegarde extends Observable implements Serializable {
 
     public static void serialiser(Sauvegarde s) {
         try {
-            FileOutputStream fout = new FileOutputStream("auth.bin");
-            ObjectOutputStream oout = new ObjectOutputStream(fout);
+            FileOutputStream fout;
+            fout = new FileOutputStream("auth.bin");
+            ObjectOutputStream oout;
+            oout = new ObjectOutputStream(fout);
             oout.writeObject(s);
             System.out.println("La sauvegarde a été serialisée");
             oout.close();
             fout.close();
         } catch (IOException ioe) {
-            ioe.printStackTrace();
         }
     }
 
     public static Sauvegarde deserialiser() {
         Sauvegarde s = null;
         try {
-            FileInputStream fin = new FileInputStream("auth.bin");
-            ObjectInputStream oin = new ObjectInputStream(fin);
+            FileInputStream fin;
+            fin = new FileInputStream("auth.bin");
+            ObjectInputStream oin;
+            oin = new ObjectInputStream(fin);
             s = (Sauvegarde) oin.readObject();
             System.out.println("La sauvegarde a été deserialisée");
             oin.close();
             fin.close();
-        } catch (ClassNotFoundException nfe) {
-            nfe.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        } catch (ClassNotFoundException | IOException nfe) {
         }
         return s;
     }
+
     public boolean equals(Sauvegarde s) {
         return calendrier.equals(s.calendrier) && lstModules.equals(s.lstModules) && lstPromotions.equals(s.lstPromotions) && lstSceancesProgrammees.equals(s.lstSceancesProgrammees);
-      }
+    }
 
-   
 }
-

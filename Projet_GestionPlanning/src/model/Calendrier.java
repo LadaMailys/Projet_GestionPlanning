@@ -17,8 +17,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class Calendrier implements Serializable {
 
-    private static HashMap<Integer, ArrayList<Jour>> lesSemaines;
-    private static int annee;
+    private HashMap<Integer, ArrayList<Jour>> lesSemaines;
+    private int annee;
 
     /**
      * Constructeur
@@ -28,7 +28,7 @@ public class Calendrier implements Serializable {
     }
 
     public Calendrier(Promotion promotion, int annee) {
-        this.lesSemaines = new HashMap<>();
+        lesSemaines = new HashMap<>();
         this.annee = annee;
         remplirCalendrier();
     }
@@ -74,7 +74,7 @@ public class Calendrier implements Serializable {
      * Méthode qui remplit automatiquement le HashMap lesSemaines<int rang,
      * ArrayList<Jour>> lesJours à partir de l'année donnée du planning
      */
-    public void remplirCalendrier() {
+    public final void remplirCalendrier() {
         try {
             if (annee == 0){
                 annee = Calendar.getInstance().get(Calendar.YEAR);

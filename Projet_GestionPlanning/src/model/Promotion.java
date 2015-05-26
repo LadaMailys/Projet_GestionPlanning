@@ -23,8 +23,8 @@ public class Promotion extends Observable implements Serializable {
     private String nom;
     private int dureeSceance;
     private Calendrier calendrier;
-    private ArrayList<Module> lesModules;
-    private ArrayList<Sceance> lesSceancesFaites;
+    private final ArrayList<Module> lesModules;
+    private final ArrayList<Sceance> lesSceancesFaites;
 
     // Constructeurs
     public Promotion() {
@@ -46,7 +46,7 @@ public class Promotion extends Observable implements Serializable {
     }
 
     public void setNom(String nom) {
-        this.nom = nom;        
+        this.nom = nom;
         setChanged();
         notifyObservers();
     }
@@ -115,7 +115,7 @@ public class Promotion extends Observable implements Serializable {
      * Retourne les lignes de codes html de la promo et ses scéances
      */
     public String codeHTML() {
-        String color = "";
+        String color;
         int duree = 0;
         for (Module m : lesModules) {
             duree += m.getNbSceanceTotal() * dureeSceance;
@@ -143,7 +143,7 @@ public class Promotion extends Observable implements Serializable {
                     color = "#" + j.getSceanceMatin().getModule().getCouleur().getRed()
                             + j.getSceanceMatin().getModule().getCouleur().getGreen()
                             + j.getSceanceMatin().getModule().getCouleur().getBlue();
-                    
+
                     tableau += "<tr style='background-color: #" + color + " ;'>"
                             + "<td>" + compt + "</td>"
                             + "<td>" + j.getSceanceSoir().getModule().getAbbreviation() + " - " + j.getSceanceSoir().getModule().getNom() + "</td>"
@@ -205,36 +205,38 @@ public class Promotion extends Observable implements Serializable {
         contenu += head + body + "</html>";
         return contenu;
     }
-    
-    public static void serialiser(Promotion p) { 
-        String fichier = p.nom + p.getCalendrier().getAnnee() + ".bin";
-        try { 
-            FileOutputStream fout = new FileOutputStream(fichier); 
-            ObjectOutputStream oout = new ObjectOutputStream(fout);
-            oout.writeObject(p); 
-            System.out.println("La promotion a été serialisée"); 
-            oout.close(); 
-            fout.close(); 
-        } catch (IOException ioe) { 
-            ioe.printStackTrace(); 
-        }
-    } 
-    
-    public static Promotion deserialiser(String nomFormation, String annee) { 
-        Promotion p = null; 
-        String fichier = nomFormation + annee + ".bin";
-        try { 
-            FileInputStream fin = new FileInputStream(fichier); 
-            ObjectInputStream oin = new ObjectInputStream(fin); 
-            p = (Promotion) oin.readObject(); 
-            System.out.println("La promotion a été deserialisée");
-            oin.close(); 
-            fin.close(); 
-        } catch (ClassNotFoundException | IOException nfe) { 
-        } 
-        return p;     
-    } 
 
+    public static void serialiser(Promotion p) {
+        String fichier = p.nom + p.getCalendrier().getAnnee() + ".bin";
+        try {
+            FileOutputStream fout;
+            fout = new FileOutputStream(fichier);
+            ObjectOutputStream oout;
+            oout = new ObjectOutputStream(fout);
+            oout.writeObject(p);
+            System.out.println("La promotion a été serialisée");
+            oout.close();
+            fout.close();
+        } catch (IOException ioe) {
+        }
+    }
+
+    public static Promotion deserialiser(String nomFormation, String annee) {
+        Promotion p = null;
+        String fichier = nomFormation + annee + ".bin";
+        try {
+            FileInputStream fin;
+            fin = new FileInputStream(fichier);
+            ObjectInputStream oin;
+            oin = new ObjectInputStream(fin);
+            p = (Promotion) oin.readObject();
+            System.out.println("La promotion a été deserialisée");
+            oin.close();
+            fin.close();
+        } catch (ClassNotFoundException | IOException nfe) {
+        }
+        return p;
+    }
 
     public boolean equals(Promotion obj) {
         Promotion p = (Promotion) obj;
