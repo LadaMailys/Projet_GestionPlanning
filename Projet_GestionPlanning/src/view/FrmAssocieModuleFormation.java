@@ -39,6 +39,7 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         promotion = promo;
         s = sauv;
+        //this.s.addObserver(this);
         modeleModuleForm = new ModeleTableauModuleForm();
         modeleEnsMod = new ModeleTableauEnsembleModule();
         initComponents();
