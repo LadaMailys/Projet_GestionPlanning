@@ -5,6 +5,11 @@
  */
 package model;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -188,11 +193,11 @@ public class Promotion implements Serializable {
     }
     
     public static void serialiser(Promotion p) { 
-        String fichier = p.nom + p.getCalendrier.getAnnee() + ".bin";
+        String fichier = p.nom + p.getCalendrier().getAnnee() + ".bin";
         try { 
             FileOutputStream fout = new FileOutputStream("auth.bin"); 
             ObjectOutputStream oout = new ObjectOutputStream(fout);
-            oout.writeObject(s); 
+            oout.writeObject(p); 
             System.out.println("La promotion a été serialisée"); 
             oout.close(); 
             fout.close(); 
