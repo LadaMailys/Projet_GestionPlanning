@@ -28,6 +28,7 @@ public class FrmVoirFormation extends javax.swing.JFrame implements Observer {
         initComponents();
         p = promo;
         this.s = s;
+        //this.s.addObserver(this);
         jBtnOuvrir.setEnabled(false);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
