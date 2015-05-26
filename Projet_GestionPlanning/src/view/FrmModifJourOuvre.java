@@ -38,6 +38,7 @@ public class FrmModifJourOuvre extends javax.swing.JFrame implements Observer {
         jLblIndicOuvre.setText("");
         promotion = p;
         sauv = s;
+        //sauv.addObserver(this);
         iAnnee = promotion.getCalendrier().getAnnee();
         jLblAnnee.setText(iAnnee + "");
         format = new SimpleDateFormat("dd/MM/yyyy");
