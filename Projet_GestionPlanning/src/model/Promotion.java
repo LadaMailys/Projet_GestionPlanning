@@ -96,6 +96,7 @@ public class Promotion implements Serializable {
      * Retourne les lignes de codes html de la promo et ses scéances
      */
     public String codeHTML() {
+        String color = "";
         int duree = 0;
         for (Module m : lesModules) {
             duree += m.getNbSceanceTotal() * dureeSceance;
@@ -107,7 +108,11 @@ public class Promotion implements Serializable {
             for (Jour j : this.calendrier.getLaSemaine(i)) {
                 if (j.getSceanceMatin() != null) {
                     compt++;
-                    tableau += "<tr style='background-color: #" + j.getSceanceMatin().getModule().getCouleur().getRGB() + " ;'>"
+                    color = "#" + j.getSceanceMatin().getModule().getCouleur().getRed()
+                            + j.getSceanceMatin().getModule().getCouleur().getGreen()
+                            + j.getSceanceMatin().getModule().getCouleur().getBlue();
+
+                    tableau += "<tr style='background-color: " + color + " ;'>"
                             + "<td>" + compt + "</td>"
                             + "<td>" + j.getSceanceMatin().getModule().getAbbreviation() + " - " + j.getSceanceMatin().getModule().getNom() + "</td>"
                             + "<td>" + j.toString() + " MATIN </td>"
@@ -116,7 +121,11 @@ public class Promotion implements Serializable {
                 }
                 if (j.getSceanceSoir() != null) {
                     compt++;
-                    tableau += "<tr style='background-color: #" + j.getSceanceSoir().getModule().getCouleur().getRGB() + " ;'>"
+                    color = "#" + j.getSceanceMatin().getModule().getCouleur().getRed()
+                            + j.getSceanceMatin().getModule().getCouleur().getGreen()
+                            + j.getSceanceMatin().getModule().getCouleur().getBlue();
+                    
+                    tableau += "<tr style='background-color: #" + color + " ;'>"
                             + "<td>" + compt + "</td>"
                             + "<td>" + j.getSceanceSoir().getModule().getAbbreviation() + " - " + j.getSceanceSoir().getModule().getNom() + "</td>"
                             + "<td>" + j.toString() + " MATIN </td>"
@@ -151,14 +160,14 @@ public class Promotion implements Serializable {
                 + "      </div>"
                 + "      <div class=\"inner cover\">"
                 + "        <h1 class=\"cover-heading\">Planning " + nom + " " + this.getCalendrier().getAnnee() + "/" + (this.getCalendrier().getAnnee() + 1) + "</h1>"
-                + "        <h1 class=\"cover-heading\">Durée en heures: " + duree + "</h1>"
+                + "        <h1 class=\"cover-heading\">Durée en heures: " + duree + "h </h1>"
                 + "            <p class=\"lead\">Cette page recense les séances programmées de la promotion, de septembre à août.</p>"
                 + "      </div>"
                 + "      <table class=\"table table-striped\">"
                 + "        <tr>"
                 + "          <th>N°</th>"
-                + "          <th>Date</th>"
                 + "          <th>Module</th>"
+                + "          <th>Date</th>"
                 + "          <th>Restant</th>"
                 + "        </tr>"
                 + tableau
