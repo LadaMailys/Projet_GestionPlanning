@@ -6,6 +6,7 @@ package model;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Module implements Serializable {
     private Color couleur;
     private String abbreviation;
     private int nbSceanceTotal;
+    private ArrayList<Formateur> lesFormateurs;
 
     // Constructeurs
     public Module() {
@@ -27,6 +29,7 @@ public class Module implements Serializable {
         this.couleur = couleur;
         this.abbreviation = abb;
         this.nbSceanceTotal = nbSceanceTotal;
+        lesFormateurs = new ArrayList<>();
     }
 
     public String getNom() {
@@ -59,6 +62,26 @@ public class Module implements Serializable {
 
     public void setNbSceanceTotal(int nbSceanceTotal) {
         this.nbSceanceTotal = nbSceanceTotal;
+    }
+
+    public ArrayList<Formateur> getLesFormateurs() {
+        return lesFormateurs;
+    }
+
+    public void setLesFormateurs(ArrayList<Formateur> lstForm) {
+        lesFormateurs = lstForm;
+    }
+
+    public void ajouteFormateur(Formateur form) {
+        if (!lesFormateurs.contains(form)) {
+            lesFormateurs.add(form);
+        }
+    }
+
+    public void retireFormateur(Formateur f) {
+        if (lesFormateurs.contains(f)) {
+            lesFormateurs.remove(f);
+        }
     }
 
     public boolean equals(Module obj) {
