@@ -186,6 +186,39 @@ public class Promotion implements Serializable {
         contenu += head + body + "</html>";
         return contenu;
     }
+    
+    public static void serialiser(Promotion p) { 
+        String fichier = p.nom + p.getCalendrier.getAnnee() + ".bin";
+        try { 
+            FileOutputStream fout = new FileOutputStream("auth.bin"); 
+            ObjectOutputStream oout = new ObjectOutputStream(fout);
+            oout.writeObject(s); 
+            System.out.println("La promotion a été serialisée"); 
+            oout.close(); 
+            fout.close(); 
+        } catch (IOException ioe) { 
+            ioe.printStackTrace(); 
+        }
+    } 
+    
+    public static Promotion deserialiser() { 
+        Promotion p = null; 
+        String fichier = nom + calendrier.getAnnee() + ".bin";
+        try { 
+            FileInputStream fin = new FileInputStream(fichier); 
+            ObjectInputStream oin = new ObjectInputStream(fin); 
+            p = (Promotion) oin.readObject(); 
+            System.out.println("La promotion a été deserialisée");
+            oin.close(); 
+            fin.close(); 
+        } catch (ClassNotFoundException nfe) { 
+            nfe.printStackTrace(); 
+        } catch (IOException ioe) { 
+            ioe.printStackTrace(); 
+        } 
+        return s;     
+    } 
+
 
     public boolean equals(Promotion obj) {
         Promotion p = (Promotion) obj;
