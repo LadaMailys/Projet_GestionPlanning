@@ -27,6 +27,7 @@ public class FrmVoirSceance extends javax.swing.JFrame implements Observer{
         initComponents();
         p = promo;
         this.s = s;
+        //this.s.addObserver(this);
         jBtnOuvrir.setEnabled(false);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
