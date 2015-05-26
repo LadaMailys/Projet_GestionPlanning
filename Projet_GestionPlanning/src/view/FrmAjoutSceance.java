@@ -33,12 +33,12 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
         jLblIndicOuvre.setText("");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         s = sauv;
-        //this.s.addObserver(this);
+        s.addObserver(this);
         p = promo;
+        p.addObserver(this);
         for (Module m : p.getLesModules()) {
             jCbxModules.addItem(m.getNom());
         }
-
     }
 
     /**
@@ -57,6 +57,7 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
         jCbxModules = new javax.swing.JComboBox();
         jBtnValider = new javax.swing.JButton();
         jLblIndicOuvre = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jOptAM = new javax.swing.JRadioButton();
         jOptPM = new javax.swing.JRadioButton();
 
@@ -88,36 +89,57 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
 
         jOptPM.setText("Après-midi");
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jOptAM)
+                .addGap(18, 18, 18)
+                .addComponent(jOptPM)
+                .addGap(0, 22, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jOptPM)
+                    .addComponent(jOptAM))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(33, 33, 33)
-                                    .addComponent(jOptAM)
-                                    .addGap(26, 26, 26)
-                                    .addComponent(jOptPM))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jCbxModules, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLblIndicOuvre)))))
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLblIndicOuvre)
+                        .addContainerGap(160, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jBtnValider, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jCbxModules, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(83, 83, 83))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(jBtnValider, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,17 +151,18 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
                     .addComponent(jLabel2)
                     .addComponent(jTxtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLblIndicOuvre))
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jOptAM)
-                    .addComponent(jOptPM))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jCbxModules, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCbxModules, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jBtnValider)
-                .addContainerGap())
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,6 +192,7 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
                             if (jOptPM.isSelected()) {
                                 j.ajouteSceanceSoir(mod, p);
                             }
+                            p.ajouteSceanceFaite(new Sceance(j, mod, p));
                             s.ajouterSceance(new Sceance(j, mod, p));
                             JOptionPane.showMessageDialog(null, "Séance ajoutée");
                             RecommenceSaisie();
@@ -180,6 +204,7 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
                         if (jOptPM.isSelected()) {
                             j.ajouteSceanceSoir(mod, p);
                         }
+                        p.ajouteSceanceFaite(new Sceance(j, mod, p));
                         s.ajouterSceance(new Sceance(j, mod, p));
                         JOptionPane.showMessageDialog(null, "Séance ajoutée");
                         RecommenceSaisie();
@@ -273,12 +298,16 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel jLblIndicOuvre;
     private javax.swing.JRadioButton jOptAM;
     private javax.swing.JRadioButton jOptPM;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTxtDate;
     // End of variables declaration//GEN-END:variables
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Sauvegarde) {
             s = (Sauvegarde) o;
+        }
+        if (o instanceof Promotion) {
+            p = (Promotion) o;
         }
     }
 

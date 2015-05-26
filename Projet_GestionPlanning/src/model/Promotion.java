@@ -12,12 +12,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author Cynthia
  */
-public class Promotion implements Serializable {
+public class Promotion extends Observable implements Serializable {
 
     private String nom;
     private int dureeSceance;
@@ -27,7 +28,6 @@ public class Promotion implements Serializable {
 
     // Constructeurs
     public Promotion() {
-        //lstPromotions.add(this);
         lesModules = new ArrayList<>();
         calendrier = new Calendrier();
         this.lesSceancesFaites = new ArrayList<>();
@@ -46,7 +46,9 @@ public class Promotion implements Serializable {
     }
 
     public void setNom(String nom) {
-        this.nom = nom;
+        this.nom = nom;        
+        setChanged();
+        notifyObservers();
     }
 
     public int getDureeSceance() {
@@ -55,6 +57,8 @@ public class Promotion implements Serializable {
 
     public void setDureeSceance(int dureeSceance) {
         this.dureeSceance = dureeSceance;
+        setChanged();
+        notifyObservers();
     }
 
     public Calendrier getCalendrier() {
@@ -63,6 +67,8 @@ public class Promotion implements Serializable {
 
     public void setCalendrier(Calendrier cal) {
         calendrier = cal;
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<Module> getLesModules() {
@@ -73,6 +79,8 @@ public class Promotion implements Serializable {
         if (!lesModules.contains(mod)) {
             lesModules.add(mod);
         }
+        setChanged();
+        notifyObservers();
     }
 
     public void retireModule(Module mod) {
@@ -81,6 +89,8 @@ public class Promotion implements Serializable {
                 lesModules.remove(m);
             }
         }
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<Sceance> getLesSceancesFaites() {
@@ -89,12 +99,16 @@ public class Promotion implements Serializable {
 
     public void ajouteSceanceFaite(Sceance sc) {
         lesSceancesFaites.add(sc);
+        setChanged();
+        notifyObservers();
     }
 
     public void retireSceanceFaite(Sceance sc) {
         if (lesSceancesFaites.contains(sc)) {
             lesSceancesFaites.remove(sc);
         }
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -195,7 +209,7 @@ public class Promotion implements Serializable {
     public static void serialiser(Promotion p) { 
         String fichier = p.nom + p.getCalendrier().getAnnee() + ".bin";
         try { 
-            FileOutputStream fout = new FileOutputStream("auth.bin"); 
+            FileOutputStream fout = new FileOutputStream(fichier); 
             ObjectOutputStream oout = new ObjectOutputStream(fout);
             oout.writeObject(p); 
             System.out.println("La promotion a été serialisée"); 
@@ -216,10 +230,7 @@ public class Promotion implements Serializable {
             System.out.println("La promotion a été deserialisée");
             oin.close(); 
             fin.close(); 
-        } catch (ClassNotFoundException nfe) { 
-            nfe.printStackTrace(); 
-        } catch (IOException ioe) { 
-            ioe.printStackTrace(); 
+        } catch (ClassNotFoundException | IOException nfe) { 
         } 
         return p;     
     } 

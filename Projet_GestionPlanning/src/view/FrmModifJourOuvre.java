@@ -38,7 +38,8 @@ public class FrmModifJourOuvre extends javax.swing.JFrame implements Observer {
         jLblIndicOuvre.setText("");
         promotion = p;
         sauv = s;
-        //sauv.addObserver(this);
+        sauv.addObserver(this);
+        promotion.addObserver(this);
         iAnnee = promotion.getCalendrier().getAnnee();
         jLblAnnee.setText(iAnnee + "");
         format = new SimpleDateFormat("dd/MM/yyyy");
@@ -50,6 +51,9 @@ public class FrmModifJourOuvre extends javax.swing.JFrame implements Observer {
     public void update(Observable o, Object arg) {
         if (o instanceof Sauvegarde) {
             sauv = (Sauvegarde) o;
+        }
+        if (o instanceof Promotion){
+            promotion = (Promotion) o;
         }
     }
 
@@ -167,6 +171,7 @@ public class FrmModifJourOuvre extends javax.swing.JFrame implements Observer {
                         JOptionPane.showMessageDialog(null, "Ce jour contient une scéance. Modification rejetée.", "Erreur", JOptionPane.ERROR_MESSAGE);
                     } else {
                         j.setOuvre();
+                        sauv.modifieJour(j);
                         RecommenceSaisie();
                     }
                 }

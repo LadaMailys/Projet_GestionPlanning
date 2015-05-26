@@ -25,10 +25,11 @@ public class FrmModifModule extends javax.swing.JFrame implements Observer {
      *
      * @param planning
      */
-    public FrmModifModule(Promotion promo, Sauvegarde s) {
-        FrmModifModule.p = promo;
-        FrmModifModule.s = s;
-        //this.s.addObserver(this);
+    public FrmModifModule(Promotion promo, Sauvegarde sauv) {
+        p = promo;
+        s = sauv;
+        s.addObserver(this);
+        p.addObserver(this);
         initComponents();
         jPnlAction.setVisible(false);
         this.setSize(300, 150);
@@ -43,6 +44,9 @@ public class FrmModifModule extends javax.swing.JFrame implements Observer {
     public void update(Observable o, Object arg) {
         if (o instanceof Sauvegarde) {
             s = (Sauvegarde) o;
+        }
+        if (o instanceof Promotion){
+            p = (Promotion) o;
         }
     }
 

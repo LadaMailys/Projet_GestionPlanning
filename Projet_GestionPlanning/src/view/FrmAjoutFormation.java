@@ -17,23 +17,30 @@ import tools.Utilitaire;
  *
  * @author u21405875
  */
-public class FrmAjoutFormation extends javax.swing.JFrame implements Observer{
+public class FrmAjoutFormation extends javax.swing.JFrame implements Observer {
 
-    Promotion p;
+    static Promotion p;
     static Sauvegarde s;
+    Promotion promoCree;
 
     /**
      * Creates new form FrmAjoutFormation
      */
-    public FrmAjoutFormation(Sauvegarde s) {
+    public FrmAjoutFormation(Sauvegarde sauv, Promotion promo) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         initComponents();
-        this.s = s;
-        //this.s.addObserver(this);
-        p = null;
+        this.s = sauv;
+        s.addObserver(this);
+        if (p != null) {
+            p = promo;
+            p.addObserver(this);
+        } else {
+            p = null;
+        }
+        promoCree = null;
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,10 +136,16 @@ public class FrmAjoutFormation extends javax.swing.JFrame implements Observer{
         if (!msgErr.equals("")) {
             javax.swing.JOptionPane.showMessageDialog(null, msgErr);
         } else {
-            p = new Promotion(jTxtNom.getText(), Integer.parseInt(jTxtDuree.getText()));
-            s.ajouterPromotion(p);
-            FrmPlanning frmPlng = new FrmPlanning(p,s);
-            frmPlng.setVisible(true);
+            promoCree = new Promotion(jTxtNom.getText(), Integer.parseInt(jTxtDuree.getText()));
+            s.ajouterPromotion(promoCree);
+
+            if (p != null) {
+                FrmPlanning frmPlng = new FrmPlanning(p, s);
+                frmPlng.setVisible(true);
+            } else {
+                FrmPlanning frmPlng = new FrmPlanning(promoCree,s);
+                frmPlng.setVisible(true);
+            }
             this.dispose();
         }
     }//GEN-LAST:event_jBtnValiderActionPerformed
@@ -167,7 +180,7 @@ public class FrmAjoutFormation extends javax.swing.JFrame implements Observer{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmAjoutFormation(s).setVisible(true);
+                new FrmAjoutFormation(s,p).setVisible(true);
             }
         });
     }
@@ -183,8 +196,8 @@ public class FrmAjoutFormation extends javax.swing.JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-         if (o instanceof Sauvegarde){
-             s = (Sauvegarde)o;
-         }
+        if (o instanceof Sauvegarde) {
+            s = (Sauvegarde) o;
+        }
     }
 }

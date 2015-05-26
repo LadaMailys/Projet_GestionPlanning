@@ -29,7 +29,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
 
     int annee;
     ModeleTableau modele;
-    static Promotion promotion;
+    static Promotion p;
     static Sauvegarde s;
 
     /**
@@ -38,21 +38,21 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
      * @param promotion
      * @param planning
      */
-    public FrmPlanning(Promotion promotion, Sauvegarde s) {
-        this.s = s;
-        //this.s.addObserver(this);
+    public FrmPlanning(Promotion promo, Sauvegarde sauv) {
+        s = sauv;
+        s.addObserver(this);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        FrmPlanning.promotion = promotion;
+        p = promo;
         annee = Calendar.getInstance().get(Calendar.YEAR);
-        promotion.getCalendrier().setAnnee(annee);
+        p.getCalendrier().setAnnee(annee);
 
         modele = new ModeleTableau();
         initComponents();
         for (int i = annee; i <= annee + 10; i++) {
             jcbxAnnee.addItem(i + " / " + (i + 1));
         }
-        jLblPromo.setText(promotion.getNom());
+        jLblPromo.setText(p.getNom());
         jTabPlanning.setDefaultRenderer(boolean.class, new OuvreCellRenderer());
         for (int i = 0; i < 7; i++) {
             jTabPlanning.getColumnModel().getColumn(i).setCellRenderer(new OuvreCellRenderer());
@@ -342,10 +342,10 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
     private void jcbxAnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbxAnneeActionPerformed
         jcbxSemaines.removeAllItems();
         String an = jcbxAnnee.getSelectedItem() + "";
-        promotion.getCalendrier().setAnnee(Integer.parseInt(an.substring(0, 4)));
-        promotion.getCalendrier().remplirCalendrier();
-        for (int i = 1; i <= promotion.getCalendrier().getNbSemainesAnnee(); i++) {
-            jcbxSemaines.addItem("Du " + promotion.getCalendrier().getLaSemaine(i).get(0) + " au " + promotion.getCalendrier().getLaSemaine(i).get(6));
+        p.getCalendrier().setAnnee(Integer.parseInt(an.substring(0, 4)));
+        p.getCalendrier().remplirCalendrier();
+        for (int i = 1; i <= p.getCalendrier().getNbSemainesAnnee(); i++) {
+            jcbxSemaines.addItem("Du " + p.getCalendrier().getLaSemaine(i).get(0) + " au " + p.getCalendrier().getLaSemaine(i).get(6));
         }
     }//GEN-LAST:event_jcbxAnneeActionPerformed
 
@@ -384,23 +384,23 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
 
     private void jbtnSauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSauvegarderActionPerformed
         Sauvegarde.serialiser(s);
-        // Promotion.serialiser(promotion);
+        Promotion.serialiser(p);
     }//GEN-LAST:event_jbtnSauvegarderActionPerformed
 
     private void jMenuAjoutFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAjoutFormationActionPerformed
-        FrmAjoutFormation frmAjoutForm = new FrmAjoutFormation(s);
+        FrmAjoutFormation frmAjoutForm = new FrmAjoutFormation(s,p);
         frmAjoutForm.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmAjoutForm.setVisible(true);
     }//GEN-LAST:event_jMenuAjoutFormationActionPerformed
 
     private void jMenuModifModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuModifModuleActionPerformed
-        FrmModifModule frmModifMod = new FrmModifModule(promotion, s);
+        FrmModifModule frmModifMod = new FrmModifModule(p, s);
         frmModifMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmModifMod.setVisible(true);
     }//GEN-LAST:event_jMenuModifModuleActionPerformed
 
     private void jMenuModifJourOuvreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuModifJourOuvreActionPerformed
-        FrmModifJourOuvre frmModifJO = new FrmModifJourOuvre(promotion, s);
+        FrmModifJourOuvre frmModifJO = new FrmModifJourOuvre(p, s);
         frmModifJO.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmModifJO.setVisible(true);
     }//GEN-LAST:event_jMenuModifJourOuvreActionPerformed
@@ -411,7 +411,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
             FileWriter fstream = new FileWriter("planning.html");
             BufferedWriter out = new BufferedWriter(fstream);
             out.flush();
-            out.write(promotion.codeHTML());
+            out.write(p.codeHTML());
             // Fermeture
             out.close();
             JOptionPane.showMessageDialog(null, "Planning exporté! ");
@@ -421,32 +421,32 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jbtnExporterActionPerformed
 
     private void jMenuVoirFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirFormationActionPerformed
-        FrmVoirFormation frmVoirForm = new FrmVoirFormation(promotion, s);
+        FrmVoirFormation frmVoirForm = new FrmVoirFormation(p, s);
         frmVoirForm.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmVoirForm.setVisible(true);
 
     }//GEN-LAST:event_jMenuVoirFormationActionPerformed
 
     private void jMenuVoirModuleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirModuleActionPerformed
-        //FrmVoirModule frmVoirMod = new FrmVoirModule(promotion, s);
+        //FrmVoirModule frmVoirMod = new FrmVoirModule(p, s);
         //frmVoirMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         //frmVoirMod.setVisible(true);
     }//GEN-LAST:event_jMenuVoirModuleActionPerformed
 
     private void jMenuVoirSceanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuVoirSceanceActionPerformed
-        FrmVoirSceance frmVoirSce = new FrmVoirSceance(promotion, s);
+        FrmVoirSceance frmVoirSce = new FrmVoirSceance(p, s);
         frmVoirSce.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmVoirSce.setVisible(true);
     }//GEN-LAST:event_jMenuVoirSceanceActionPerformed
 
     private void jBtnCreeSeanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreeSeanceActionPerformed
-        FrmAjoutSceance frmAjSc = new FrmAjoutSceance(s, promotion);
+        FrmAjoutSceance frmAjSc = new FrmAjoutSceance(s, p);
         frmAjSc.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmAjSc.setVisible(true);
     }//GEN-LAST:event_jBtnCreeSeanceActionPerformed
 
     private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt) {
-        FrmAssocieModuleFormation frmAsMF = new FrmAssocieModuleFormation(promotion, s);
+        FrmAssocieModuleFormation frmAsMF = new FrmAssocieModuleFormation(p, s);
         frmAsMF.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmAsMF.setVisible(true);
     }
@@ -482,7 +482,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new FrmPlanning(promotion, s).setVisible(true);
+                new FrmPlanning(p, s).setVisible(true);
             }
         });
     }
@@ -524,6 +524,9 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
         if (o instanceof Sauvegarde) {
             s = (Sauvegarde) o;
         }
+        if (o instanceof Promotion) {
+            p = (Promotion) p;
+        }
     }
 
     private class ModeleTableau extends AbstractTableModel {
@@ -563,15 +566,16 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             String module = "";
-            Jour j = promotion.getCalendrier().getLaSemaine(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
+            Jour jRef = s.getCalendrier().getLaSemaine(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
+            Jour j = p.getCalendrier().getLaSemaine(jcbxSemaines.getSelectedIndex() + 1).get(columnIndex);
 
             if (rowIndex == 0) {
-                if (j.isOuvre()) {
+                if (jRef.isOuvre()) {
                     if (j.getSceanceMatin() != null) {
                         module = "<html>" + j.getSceanceMatin().getModule().getNom() + " ("
                                 + j.getSceanceMatin().getModule().getAbbreviation() + ") <br/>"
-                                + promotion.getDureeSceance() + "h <br/> Séance "
-                                + promotion.getLesSceancesFaites().size() + "/" + j.getSceanceMatin().getModule().getNbSceanceTotal() + "</html>";
+                                + p.getDureeSceance() + "h <br/> Séance "
+                                + p.getLesSceancesFaites().size() + "/" + j.getSceanceMatin().getModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }
@@ -580,12 +584,12 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
                 }
 
             } else if (rowIndex == 1) {
-                if (j.isOuvre()) {
+                if (jRef.isOuvre()) {
                     if (j.getSceanceSoir() != null) {
                         module = "<html>" + j.getSceanceSoir().getModule().getNom() + " ("
                                 + j.getSceanceSoir().getModule().getAbbreviation() + ") <br/>"
-                                + promotion.getDureeSceance() + "h <br/> Séance "
-                                + promotion.getLesSceancesFaites().size() + "/" + j.getSceanceSoir().getModule().getNbSceanceTotal() + "</html>";
+                                + p.getDureeSceance() + "h <br/> Séance "
+                                + p.getLesSceancesFaites().size() + "/" + j.getSceanceSoir().getModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }

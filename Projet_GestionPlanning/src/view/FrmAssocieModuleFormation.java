@@ -22,7 +22,7 @@ import tools.Utilitaire;
  */
 public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Observer {
 
-    static Promotion promotion;
+    static Promotion p;
     static ModeleTableauModuleForm modeleModuleForm;
     static ModeleTableauEnsembleModule modeleEnsMod;
     static Sauvegarde s;
@@ -37,9 +37,10 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
      */
     public FrmAssocieModuleFormation(Promotion promo, Sauvegarde sauv) {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
-        promotion = promo;
+        p = promo;
         s = sauv;
-        //this.s.addObserver(this);
+        s.addObserver(this);
+        p.addObserver(this);
         modeleModuleForm = new ModeleTableauModuleForm();
         modeleEnsMod = new ModeleTableauEnsembleModule();
         initComponents();
@@ -49,7 +50,7 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
                 jCbxFormations.addItem(p.getNom());
             }
         } else {
-            jCbxFormations.addItem(promotion.getNom());
+            jCbxFormations.addItem(p.getNom());
         }
         calculDureeForm();
 
@@ -59,12 +60,12 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
          }*/
     }
 
-    public void calculDureeForm() {
+    public final void calculDureeForm() {
         jLblDureeFormation.setText("");
         int dureeH = 0;
         int dureeJ = 0;
-        for (Module m : promotion.getLesModules()) {
-            dureeH += (m.getNbSceanceTotal() * promotion.getDureeSceance());
+        for (Module m : p.getLesModules()) {
+            dureeH += (m.getNbSceanceTotal() * p.getDureeSceance());
         }        
         if (dureeH > 24){
             dureeJ = dureeH / 24;
@@ -77,6 +78,9 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
     public void update(Observable o, Object arg) {
         if (o instanceof Sauvegarde) {
             s = (Sauvegarde) o;
+        }
+        if (o instanceof Promotion){
+            p = (Promotion) o;
         }
     }
 
@@ -231,7 +235,7 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnNouveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnNouveauActionPerformed
-        FrmAjoutModule frmAjMod = new FrmAjoutModule(promotion, s);
+        FrmAjoutModule frmAjMod = new FrmAjoutModule(p, s);
         frmAjMod.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmAjMod.setVisible(true);
         calculDureeForm();
@@ -241,8 +245,8 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
         if (jTabEnsMod.getSelectedRow() > -1) {
             String mod = (String) jTabEnsMod.getValueAt(jTabEnsMod.getSelectedRow(), 0);
             Module m = Utilitaire.getModule(mod, s);
-            s.ajouterModule(m);
-            promotion.ajouteModule(m);
+            //s.ajouterModule(m);
+            p.ajouteModule(m);
             refresh();
         }
         calculDureeForm();
@@ -252,7 +256,7 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
         if (jTabModForm.getSelectedRow() > -1) {
             String mod = (String) jTabModForm.getValueAt(jTabModForm.getSelectedRow(), 0);
             Module m = Utilitaire.getModule(mod, s);
-            promotion.retireModule(m);
+            p.retireModule(m);
             refresh();
         }
         calculDureeForm();
@@ -288,7 +292,7 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmAssocieModuleFormation(promotion, s).setVisible(true);
+                new FrmAssocieModuleFormation(p, s).setVisible(true);
             }
         });
     }
@@ -315,7 +319,7 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
 
         @Override
         public int getRowCount() {
-            return promotion.getLesModules().size();
+            return p.getLesModules().size();
         }
 
         @Override
@@ -343,13 +347,13 @@ public class FrmAssocieModuleFormation extends javax.swing.JFrame implements Obs
         public Object getValueAt(int rowIndex, int columnIndex) {
             switch (columnIndex){
                 case 0:
-                return promotion.getLesModules().get(rowIndex).getNom();
+                return p.getLesModules().get(rowIndex).getNom();
                 case 1:
-                return promotion.getLesModules().get(rowIndex).getAbbreviation();
+                return p.getLesModules().get(rowIndex).getAbbreviation();
                 case 2:
-                return promotion.getDureeSceance();
+                return p.getDureeSceance();
                 case 3: 
-                    return promotion.getLesModules().get(rowIndex).getNbSceanceTotal();
+                    return p.getLesModules().get(rowIndex).getNbSceanceTotal();
                 default:
                     throw new IllegalArgumentException();                    
             }

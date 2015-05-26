@@ -15,7 +15,6 @@ public class Sceance implements Serializable{
     private Jour jourSceance;
     private Module module;
     private Promotion promotion;
-    //private static ArrayList<Sceance> lesSceances;
 
     // Constructeurs
     public Sceance(){

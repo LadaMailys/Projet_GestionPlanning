@@ -91,6 +91,17 @@ public class Sauvegarde extends Observable implements Serializable {
         setChanged();
         notifyObservers();
     }
+    
+    public void modifieJour(Jour j){
+        for(int i = 1; i<calendrier.getNbSemainesAnnee(); i++){
+            for(Jour jour : calendrier.getLaSemaine(i)){
+                if (jour.equals(j)){
+                    int ind = calendrier.getLaSemaine(i).indexOf(jour);
+                    calendrier.getLaSemaine(i).set(ind, j);
+                }
+            }
+        }
+    }
 
     public static void serialiser(Sauvegarde s) {
         try {
@@ -121,8 +132,7 @@ public class Sauvegarde extends Observable implements Serializable {
         }
         return s;
     }
-    public boolean equals(Sauvegarde obj) {
-        Sauvegarde s = (Sauvegarde) obj;
+    public boolean equals(Sauvegarde s) {
         return calendrier.equals(s.calendrier) && lstModules.equals(s.lstModules) && lstPromotions.equals(s.lstPromotions) && lstSceancesProgrammees.equals(s.lstSceancesProgrammees);
       }
 

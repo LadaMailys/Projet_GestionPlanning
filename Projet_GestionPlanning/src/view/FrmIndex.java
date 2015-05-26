@@ -18,7 +18,7 @@ import tools.Utilitaire;
  */
 public class FrmIndex extends javax.swing.JFrame {
 
-    Promotion promo;
+    Promotion p;
     Sauvegarde s;
 
     /**
@@ -27,6 +27,7 @@ public class FrmIndex extends javax.swing.JFrame {
     public FrmIndex() {
         initComponents();
         s = new Sauvegarde();
+        p = null;
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         jPnlOuvrir.setVisible(false);
         jBtnValider.setEnabled(false);
@@ -144,7 +145,7 @@ public class FrmIndex extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreerActionPerformed
-        FrmAjoutFormation frmAjForm = new FrmAjoutFormation(s);
+        FrmAjoutFormation frmAjForm = new FrmAjoutFormation(s,p);
         frmAjForm.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmAjForm.setVisible(true);
         this.dispose();
@@ -170,9 +171,9 @@ public class FrmIndex extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnOuvrirActionPerformed
 
     private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
-        promo = Utilitaire.getPromotion(jCbxFormations.getSelectedItem().toString());
-        //promo = Promotion.deserialiser(promo.getNom(),promo.getCalendrier().getAnnee()+"");
-        FrmPlanning frmPlng = new FrmPlanning(promo, s);
+        p = Utilitaire.getPromotion(jCbxFormations.getSelectedItem().toString());
+        p = Promotion.deserialiser(p.getNom(),p.getCalendrier().getAnnee()+"");
+        FrmPlanning frmPlng = new FrmPlanning(p, s);
         frmPlng.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmPlng.setVisible(true);
         this.dispose();

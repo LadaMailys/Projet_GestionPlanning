@@ -23,7 +23,7 @@ public class Jour implements Serializable {
 
     // Constructeurs
     public Jour() {
-    
+
     }
 
     public Jour(String jour, int dateJour, int mois, int annee) {
@@ -105,11 +105,12 @@ public class Jour implements Serializable {
     public String toString() {
         return this.dateJour + "/" + this.mois + "/" + this.annee;
     }
-    
-    public boolean equals(Jour obj) {
-        Jour j = (Jour) obj;
-        return jour.equals(j.jour) && dateJour == j.dateJour && mois == j.mois && annee == j.annee && ouvre == j.ouvre && sceanceMatin == j.sceanceMatin && sceanceSoir == j.sceanceSoir;
+
+    public boolean equals(Jour j) {
+        return jour.equals(j.jour)
+                && dateJour == j.dateJour
+                && mois == j.mois
+                && annee == j.annee;
     }
 
 }
-

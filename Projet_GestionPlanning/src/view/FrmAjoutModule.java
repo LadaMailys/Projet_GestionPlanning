@@ -28,15 +28,19 @@ public class FrmAjoutModule extends javax.swing.JFrame implements Observer {
     public FrmAjoutModule(Promotion promo, Sauvegarde sauv) {
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        FrmAjoutModule.p = promo;
+        p = promo;
         s = sauv;
-        //this.s.addObserver(this);
+        s.addObserver(this);
+        p.addObserver(this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         if (o instanceof Sauvegarde) {
             s = (Sauvegarde) o;
+        }
+        if (o instanceof Promotion){
+            p = (Promotion) o;
         }
     }
 
@@ -64,11 +68,6 @@ public class FrmAjoutModule extends javax.swing.JFrame implements Observer {
         setTitle("Ajouter un module");
 
         jTxtNom.setName(""); // NOI18N
-        jTxtNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtNomActionPerformed(evt);
-            }
-        });
 
         FormulaireDuModule.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         FormulaireDuModule.setText("Créer un module");
@@ -153,10 +152,6 @@ public class FrmAjoutModule extends javax.swing.JFrame implements Observer {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTxtNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtNomActionPerformed
-        // TODO add your handling code here:     
-    }//GEN-LAST:event_jTxtNomActionPerformed
 
     private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {
         String msgErr = "";
