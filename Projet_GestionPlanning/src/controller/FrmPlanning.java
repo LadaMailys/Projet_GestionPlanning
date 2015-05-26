@@ -40,6 +40,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
      */
     public FrmPlanning(Promotion promotion, Sauvegarde s) {
         this.s = s;
+        //this.s.addObserver(this);
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         FrmPlanning.promotion = promotion;
