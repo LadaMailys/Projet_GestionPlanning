@@ -28,6 +28,7 @@ public class FrmModifModule extends javax.swing.JFrame implements Observer {
     public FrmModifModule(Promotion promo, Sauvegarde s) {
         FrmModifModule.p = promo;
         FrmModifModule.s = s;
+        //this.s.addObserver(this);
         initComponents();
         jPnlAction.setVisible(false);
         this.setSize(300, 150);
