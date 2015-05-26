@@ -33,6 +33,7 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
         jLblIndicOuvre.setText("");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         s = sauv;
+        //this.s.addObserver(this);
         p = promo;
         for (Module m : p.getLesModules()) {
             jCbxModules.addItem(m.getNom());
