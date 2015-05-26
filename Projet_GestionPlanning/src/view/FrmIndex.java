@@ -151,7 +151,6 @@ public class FrmIndex extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnCreerActionPerformed
 
     private void jBtnOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOuvrirActionPerformed
-        //promo = Promotion.deserialiser();
         s = Sauvegarde.deserialiser();
         if (s == null) {
             JOptionPane.showMessageDialog(null, "Une erreur est survenue: le fichier est introuvable!", "Erreur", JOptionPane.WARNING_MESSAGE);
@@ -172,6 +171,7 @@ public class FrmIndex extends javax.swing.JFrame {
 
     private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
         promo = Utilitaire.getPromotion(jCbxFormations.getSelectedItem().toString());
+        //promo = Promotion.deserialiser(promo.getNom(),promo.getCalendrier().getAnnee()+"");
         FrmPlanning frmPlng = new FrmPlanning(promo, s);
         frmPlng.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         frmPlng.setVisible(true);
