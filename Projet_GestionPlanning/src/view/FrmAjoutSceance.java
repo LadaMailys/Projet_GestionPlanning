@@ -170,6 +170,7 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
                             }
                             s.ajouterSceance(new Sceance(j, mod, p));
                             JOptionPane.showMessageDialog(null, "Séance ajoutée");
+                            RecommenceSaisie();
                         }
                     } else {
                         if (jOptAM.isSelected()) {
@@ -180,6 +181,7 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
                         }
                         s.ajouterSceance(new Sceance(j, mod, p));
                         JOptionPane.showMessageDialog(null, "Séance ajoutée");
+                        RecommenceSaisie();
                     }
                 }
             }
