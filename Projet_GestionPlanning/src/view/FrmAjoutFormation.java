@@ -29,6 +29,7 @@ public class FrmAjoutFormation extends javax.swing.JFrame implements Observer{
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
         initComponents();
         this.s = s;
+        //this.s.addObserver(this);
         p = null;
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
