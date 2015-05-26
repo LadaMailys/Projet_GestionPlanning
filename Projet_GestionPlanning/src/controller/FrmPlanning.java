@@ -384,6 +384,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
 
     private void jbtnSauvegarderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSauvegarderActionPerformed
         Sauvegarde.serialiser(s);
+        // Promotion.serialiser(promotion);
     }//GEN-LAST:event_jbtnSauvegarderActionPerformed
 
     private void jMenuAjoutFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAjoutFormationActionPerformed
