@@ -5,11 +5,6 @@
  */
 package model;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -76,8 +71,8 @@ public class Promotion implements Serializable {
     }
 
     public void retireModule(Module mod) {
-        for (Module m : lesModules){
-            if (m.equals(mod)){
+        for (Module m : lesModules) {
+            if (m.equals(mod)) {
                 lesModules.remove(m);
             }
         }
@@ -95,15 +90,16 @@ public class Promotion implements Serializable {
         if (lesSceancesFaites.contains(sc)) {
             lesSceancesFaites.remove(sc);
         }
-    }  
+    }
 
     /**
      * Retourne les lignes de codes html de la promo et ses scéances
      */
     public String codeHTML() {
-
-        // ATTENTION, ceci est une maquette !
-        // Les vraies valeurs seront contenues dans l'instance Calendrier !!
+        int duree = 0;
+        for (Module m : lesModules) {
+            duree += m.getNbSceanceTotal() * dureeSceance;
+        }
         String contenu = "<html> ";
         String head, body, tableau = "";
         int compt = 0;
@@ -154,7 +150,8 @@ public class Promotion implements Serializable {
                 + "        </div>"
                 + "      </div>"
                 + "      <div class=\"inner cover\">"
-                + "        <h1 class=\"cover-heading\">Planning " + this.getCalendrier().getAnnee() + "/" + (this.getCalendrier().getAnnee() + 1) + "</h1>"
+                + "        <h1 class=\"cover-heading\">Planning " + nom + " " + this.getCalendrier().getAnnee() + "/" + (this.getCalendrier().getAnnee() + 1) + "</h1>"
+                + "        <h1 class=\"cover-heading\">Durée en heures: " + duree + "</h1>"
                 + "            <p class=\"lead\">Cette page recense les séances programmées de la promotion, de septembre à août.</p>"
                 + "      </div>"
                 + "      <table class=\"table table-striped\">"
@@ -180,12 +177,10 @@ public class Promotion implements Serializable {
         contenu += head + body + "</html>";
         return contenu;
     }
-   
-     public boolean equals(Promotion obj) {
+
+    public boolean equals(Promotion obj) {
         Promotion p = (Promotion) obj;
         return nom.equals(p.nom) && dureeSceance == p.dureeSceance && calendrier == p.calendrier && lesModules == p.lesModules && lesSceancesFaites == p.lesSceancesFaites;
     }
 
 }
-
-
