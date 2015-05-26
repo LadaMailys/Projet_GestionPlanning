@@ -408,6 +408,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
             // Creation fichier
             FileWriter fstream = new FileWriter("planning.html");
             BufferedWriter out = new BufferedWriter(fstream);
+            out.flush();
             out.write(promotion.codeHTML());
             // Fermeture
             out.close();
