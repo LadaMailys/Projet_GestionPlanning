@@ -128,7 +128,7 @@ public class Promotion implements Serializable {
                     tableau += "<tr style='background-color: #" + color + " ;'>"
                             + "<td>" + compt + "</td>"
                             + "<td>" + j.getSceanceSoir().getModule().getAbbreviation() + " - " + j.getSceanceSoir().getModule().getNom() + "</td>"
-                            + "<td>" + j.toString() + " MATIN </td>"
+                            + "<td>" + j.toString() + " APRÈS-MIDI </td>"
                             + "<td>" + this.getLesSceancesFaites().size() + "/" + j.getSceanceSoir().getModule().getNbSceanceTotal() + "</td>"
                             + "</tr>";
                 }
