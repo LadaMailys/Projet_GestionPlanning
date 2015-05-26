@@ -201,9 +201,9 @@ public class Promotion implements Serializable {
         }
     } 
     
-    public static Promotion deserialiser() { 
+    public static Promotion deserialiser(String nomFormation, String annee) { 
         Promotion p = null; 
-        String fichier = nom + calendrier.getAnnee() + ".bin";
+        String fichier = nomFormation + annee + ".bin";
         try { 
             FileInputStream fin = new FileInputStream(fichier); 
             ObjectInputStream oin = new ObjectInputStream(fin); 
