@@ -439,7 +439,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
     private void jBtnCreeSeanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreeSeanceActionPerformed
         FrmAjoutSceance frmAjSc = new FrmAjoutSceance(s, promotion);
         frmAjSc.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../tools/icone.gif")));
-        frmajSc.setVisible(true);
+        frmAjSc.setVisible(true);
     }//GEN-LAST:event_jBtnCreeSeanceActionPerformed
 
     private void jMenuAjoutModuleActionPerformed(java.awt.event.ActionEvent evt) {
@@ -567,7 +567,7 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
                     if (j.getSceanceMatin() != null) {
                         module = "<html>" + j.getSceanceMatin().getModule().getNom() + " ("
                                 + j.getSceanceMatin().getModule().getAbbreviation() + ") <br/>"
-                                + promotion.getDureeSceance() + "h <br/> Scéance "
+                                + promotion.getDureeSceance() + "h <br/> Séance "
                                 + promotion.getLesSceancesFaites().size() + "/" + j.getSceanceMatin().getModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
@@ -581,7 +581,8 @@ public class FrmPlanning extends javax.swing.JFrame implements Observer {
                     if (j.getSceanceSoir() != null) {
                         module = "<html>" + j.getSceanceSoir().getModule().getNom() + " ("
                                 + j.getSceanceSoir().getModule().getAbbreviation() + ") <br/>"
-                                + "</html>";
+                                + promotion.getDureeSceance() + "h <br/> Séance "
+                                + promotion.getLesSceancesFaites().size() + "/" + j.getSceanceSoir().getModule().getNbSceanceTotal() + "</html>";
                     } else {
                         module = "Créer une scéance";
                     }

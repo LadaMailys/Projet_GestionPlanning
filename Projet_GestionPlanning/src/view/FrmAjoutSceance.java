@@ -7,6 +7,7 @@ package view;
 
 import exception.FormatDateException;
 import exception.NotNumberException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JOptionPane;
@@ -63,7 +64,7 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Créer une séance");
 
-        jLabel2.setText("Date:");
+        jLabel2.setText("Date (dd/mm)");
 
         jTxtDate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -115,7 +116,7 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(jBtnValider, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,22 +145,45 @@ public class FrmAjoutSceance extends javax.swing.JFrame implements Observer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnValiderActionPerformed
+        Module mod = Utilitaire.getModule(jCbxModules.getSelectedItem() + "", s);
+        ArrayList<Sceance> sceFaitesMod = new ArrayList<>();
+        for (Sceance sc : p.getLesSceancesFaites()) {
+            if (sc.getModule().equals(mod)) {
+                sceFaitesMod.add(sc);
+            }
+        }
+
         if (j != null) {
             if (!j.isOuvre()) {
-                JOptionPane.showMessageDialog(null, "Impossible de créer une séance sur un jour ouvré.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Impossible de créer une séance sur un jour non ouvré.", "Erreur", JOptionPane.ERROR_MESSAGE);
             } else {
-                if ((jOptAM.isSelected() && j.getSceanceMatin() != null) || (jOptPM.isSelected() && j.getSceanceSoir() != null)) {
-                    if (JOptionPane.showConfirmDialog(null, "Ce jour contient déjà une scéance. Remplacer?", "Confirmer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (sceFaitesMod.size() >= mod.getNbSceanceTotal()) {
+                    JOptionPane.showMessageDialog(null, "Vous avez atteint le quota de séance pour ce module.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if ((jOptAM.isSelected() && j.getSceanceMatin() != null) || (jOptPM.isSelected() && j.getSceanceSoir() != null)) {
+                        if (JOptionPane.showConfirmDialog(null, "Ce jour contient déjà une séance. Remplacer?", "Confirmer", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                            if (jOptAM.isSelected()) {
+                                j.ajouteSceanceMatin(mod, p);
+                            }
+                            if (jOptPM.isSelected()) {
+                                j.ajouteSceanceSoir(mod, p);
+                            }
+                            s.ajouterSceance(new Sceance(j, mod, p));
+                            JOptionPane.showMessageDialog(null, "Séance ajoutée");
+                        }
+                    } else {
                         if (jOptAM.isSelected()) {
-                            j.ajouteSceanceMatin(Utilitaire.getModule(jCbxModules.getSelectedItem() + "", s), p);
+                            j.ajouteSceanceMatin(mod, p);
                         }
                         if (jOptPM.isSelected()) {
-                            j.ajouteSceanceSoir(Utilitaire.getModule(jCbxModules.getSelectedItem() + "", s), p);
+                            j.ajouteSceanceSoir(mod, p);
                         }
-                        s.ajouterSceance(new Sceance(j, Utilitaire.getModule(jCbxModules.getSelectedItem() + "", s), p));
+                        s.ajouterSceance(new Sceance(j, mod, p));
+                        JOptionPane.showMessageDialog(null, "Séance ajoutée");
                     }
                 }
             }
+
         }
     }//GEN-LAST:event_jBtnValiderActionPerformed
 
