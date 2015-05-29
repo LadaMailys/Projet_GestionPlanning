@@ -140,9 +140,9 @@ public class Promotion extends Observable implements Serializable {
                 }
                 if (j.getSceanceSoir() != null) {
                     compt++;
-                    color = "#" + j.getSceanceMatin().getModule().getCouleur().getRed()
-                            + j.getSceanceMatin().getModule().getCouleur().getGreen()
-                            + j.getSceanceMatin().getModule().getCouleur().getBlue();
+                    color = "#" + j.getSceanceSoir().getModule().getCouleur().getRed()
+                            + j.getSceanceSoir().getModule().getCouleur().getGreen()
+                            + j.getSceanceSoir().getModule().getCouleur().getBlue();
 
                     tableau += "<tr style='background-color: #" + color + " ;'>"
                             + "<td>" + compt + "</td>"
